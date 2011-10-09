@@ -6,3 +6,7 @@ bootcamp‚©‚ç
 
 iwateMBP‚©‚ç
 iwateMBP‚©‚ç2
+
+
+
+asdfghjkl;
