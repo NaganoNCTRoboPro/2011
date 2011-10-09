@@ -5,3 +5,4 @@ mac‚©‚ç
 bootcamp‚©‚ç
 
 iwateMBP‚©‚ç
+
