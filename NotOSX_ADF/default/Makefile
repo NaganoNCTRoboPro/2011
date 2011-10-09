@@ -37,7 +37,7 @@ HEX_EEPROM_FLAGS += --change-section-lma .eeprom=0 --no-change-warnings
 
 
 ## Include Directories
-INCLUDES = -I"D:\Programs\Robocon\NotOSX(SnowLeopard)\." -I"D:\Programs\Robocon\NotOSX(SnowLeopard)\APPLICATION" -I"D:\Programs\Robocon\NotOSX(SnowLeopard)\PERIPHERAL" -I"D:\Programs\Robocon\NotOSX(SnowLeopard)\PERIPHERAL\LED" -I"D:\Programs\Robocon\NotOSX(SnowLeopard)\PERIPHERAL\MU2" -I"D:\Programs\Robocon\NotOSX(SnowLeopard)\PERIPHERAL\REMOTE_CONTROL" -I"D:\Programs\Robocon\NotOSX(SnowLeopard)\ROBOS\COMMON" -I"D:\Programs\Robocon\NotOSX(SnowLeopard)\ROBOS\I2C" -I"D:\Programs\Robocon\NotOSX(SnowLeopard)\ROBOS\KERNEL" -I"D:\Programs\Robocon\NotOSX(SnowLeopard)\ROBOS\SERIAL" -I"D:\Programs\Robocon\NotOSX(SnowLeopard)\PERIPHERAL\ACTUATER" -I"D:\Programs\Robocon\NotOSX(SnowLeopard)\PERIPHERAL\SWITCH" -I"D:\Programs\Robocon\NotOSX(SnowLeopard)\PERIPHERAL\BEEP" -I"D:\Programs\Robocon\NotOSX(SnowLeopard)\PERIPHERAL\EMERGENCY" 
+INCLUDES = -I"C:\Users\iwate\Desktop\DefAMain_2011\." -I"C:\Users\iwate\Desktop\DefAMain_2011\APPLICATION" -I"C:\Users\iwate\Desktop\DefAMain_2011\PERIPHERAL" -I"C:\Users\iwate\Desktop\DefAMain_2011\PERIPHERAL\LED" -I"C:\Users\iwate\Desktop\DefAMain_2011\PERIPHERAL\MU2" -I"C:\Users\iwate\Desktop\DefAMain_2011\PERIPHERAL\REMOTE_CONTROL" -I"C:\Users\iwate\Desktop\DefAMain_2011\ROBOS\COMMON" -I"C:\Users\iwate\Desktop\DefAMain_2011\ROBOS\I2C" -I"C:\Users\iwate\Desktop\DefAMain_2011\ROBOS\KERNEL" -I"C:\Users\iwate\Desktop\DefAMain_2011\ROBOS\SERIAL" -I"C:\Users\iwate\Desktop\DefAMain_2011\PERIPHERAL\ACTUATER" -I"C:\Users\iwate\Desktop\DefAMain_2011\PERIPHERAL\SWITCH" -I"C:\Users\iwate\Desktop\DefAMain_2011\PERIPHERAL\BEEP" -I"C:\Users\iwate\Desktop\DefAMain_2011\PERIPHERAL\EMERGENCY" 
 
 ## Objects that must be built in order to link
 OBJECTS = main.o remote_control_rx.o mu2.o uart.o ringbuffer.o i2c.o led.o wait.o actuater.o switch.o beep.o emergency.o 
@@ -109,5 +109,5 @@ clean:
 
 
 ## Other dependencies
--include $(shell mkdir dep 2>/dev/null) $(wildcard dep/*)
+-include $(shell mkdir dep 2>NUL) $(wildcard dep/*)
 

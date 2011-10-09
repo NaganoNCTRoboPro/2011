@@ -52,12 +52,12 @@ int main(void)
 	uart_setbuffer(0,buf,36);
 	wait_ms(100);
 	uart_init(0,UART_RE|UART_TE,BR_19200);
-	mu2_command("EI","02");
-	mu2_command("DI","20");
-	mu2_command("GI","02");
-	mu2_command("CH","08");
-	mu2_command("BR","96");
-	uart_init(0,UART_RE|UART_RXCIE,BR_9600);
+	mu2_command("EI","08");
+	mu2_command("DI","80");
+	mu2_command("GI","04");
+	mu2_command("CH","2E");
+	mu2_command("BR","48");
+	uart_init(0,UART_RE|UART_RXCIE,BR_4800);
 	LED(0,false);LED(1,false);LED(2,false);
 	sei();
 	wait_ms(500);
@@ -70,22 +70,22 @@ int main(void)
 			controller->detail.AnalogL.Y >12 &&	controller->detail.AnalogR.Y >12){
 				LED(0,false);LED(1,false);LED(2,false);
 				uart_init(0,UART_RE|UART_TE,BR_4800);			
-				LED(2,mu2_command_eeprom("EI","02"));		
-				LED(2,mu2_command_eeprom("DI","20"));		
-				LED(2,mu2_command_eeprom("GI","02"));
-				LED(2,mu2_command_eeprom("CH","08"));
+				LED(2,mu2_command_eeprom("EI","08"));		
+				LED(2,mu2_command_eeprom("DI","80"));		
+				LED(2,mu2_command_eeprom("GI","04"));
+				LED(2,mu2_command_eeprom("CH","2E"));
 				LED(2,mu2_command_eeprom("BR","48"));
 				wait_ms(100);
 				uart_init(0,UART_RE|UART_RXCIE,BR_4800);
 			}
 /*-------------------------------------------------------------------------*/
-		if(controller->detail.Button.X&&count<80){
+		if(controller->detail.Button.X&&count<36){
 			uDuty = dDuty = 100;
-			action=CW;
 			count++;
+			for(i=0;i<2;i++) mDrive(&Motor,CCW,uDuty,i);	//BLUE
+			for(;i<4;i++) mDrive(&Motor,CW,dDuty,i);	//ORANGE
 		}else{
-			action = BRAKE;
-		}
+			
 
 		/*ここにプログラムを記述するとよろしいのではないのかと思われます*/
 
@@ -120,7 +120,7 @@ int main(void)
 		else if(controller->detail.Button.RIGHT) {
 			action=CCW;
 		}
-		for(i=0;i<2;i++) mDrive(&Motor,action,uDuty,i);	//BLUE
+		for(i=0;i<2;i++) mDrive(&Motor,uDuty?action:BRAKE,uDuty,i);	//BLUE
 
 
 		if(controller->detail.Button.R||controller->detail.AnalogR.X>0x09||controller->detail.AnalogL.X>0x09) {
@@ -135,8 +135,8 @@ int main(void)
 		else if(controller->detail.Button.RIGHT) {
 			action=CCW;
 		}
-		for(;i<4;i++) mDrive(&Motor,action,dDuty,i);	//ORANGE
-		
+		for(;i<4;i++) mDrive(&Motor,dDuty?action:BRAKE,dDuty,i);	//ORANGE
+}		
 		action = FREE;
 		if(controller->detail.Button.Y) {
 			action = CW;
@@ -166,7 +166,7 @@ int main(void)
 		i2cStatus &= i2cWrite(&Emer);
 
 		i2cCheck(i2cStatus);
-		wait_ms(25);
+		wait_ms(15);
 	}
 	return 0;
 }
