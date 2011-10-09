@@ -4,3 +4,4 @@ iwate
 mac‚©‚ç
 bootcamp‚©‚ç
 qertyuiop
+kjnhbdvshrgjb
