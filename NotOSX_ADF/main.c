@@ -25,7 +25,7 @@ int main(void)
 {
 	union controller_data *controller;
 	int8_t slaveBuf[12]={0};
-	unsigned char action, uDuty, dDuty, i,e_flag, AirPort,count=0;
+	unsigned char action, uDuty, dDuty, i,e_flag, AirPort;
 
 	Slave Motor = {MOTOR,{(int8_t*)&slaveBuf[0],4},{(int8_t*)&slaveBuf[4],4}};
 	Slave Air	= {AIR,{(int8_t*)&slaveBuf[8],1},{(int8_t*)&slaveBuf[9],1}};
@@ -79,13 +79,6 @@ int main(void)
 				uart_init(0,UART_RE|UART_RXCIE,BR_4800);
 			}
 /*-------------------------------------------------------------------------*/
-		if(controller->detail.Button.X&&count<80){
-			uDuty = dDuty = 100;
-			action=CW;
-			count++;
-		}else{
-			action = BRAKE;
-		}
 
 		/*ここにプログラムを記述するとよろしいのではないのかと思われます*/
 
