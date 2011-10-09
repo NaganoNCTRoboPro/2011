@@ -1,0 +1,57 @@
+使い方(2011/8/25)
+・I2C
+　bufをデータの分だけ作っておく
+　Slave *** = {アドレス,{(int8_t*)&buf[*],サイズ}{(int8_t*)&buf[*],サイズ}};
+  のように初期化
+　(bufがかぶらないようにする)
+　i2cWrite(&***)でi2c送信->成功でTRUE,失敗でFALSEが返ってくる
+
+・LED(初期状態)
+  led0 MU2との通信確立で点灯
+  led1 未使用(I2Cの通信確立で使用予定)
+　led2 使用していない
+
+・mDrive()の使い方
+  mDrive(Slave *motor,unsigned char in, signed char duty,unsigned char no);
+　 in   -> CW,CCW,FREE,BRAKEのいずれか
+　 duty -> モーターのduty比を指定(-100から100,FREE,BRAKEでは無効)　　　
+   no   -> どのモータを動かすか(0から3)
+
+・投球系
+　aDrive(Slave *cyrinder,unsigned  char port,bool act);
+　port -> 0b0000から0b0011まで0b0000から0b1111まで(TeamB)
+　　　　　1のビットの出力が1になる(0b0011なら1と2がON)
+　act  -> FALSEだとportの値が無効(0x00)
+
+・コントローラーの変更
+  remote_control_rx.hの
+　#define CONTROLLER ******
+  にコントローラーを記述
+
+・beep
+  beep(true)でbeepが鳴る
+　beepを無効にするにはbeep.hの
+  #define BEEP (0)
+  とする
+
+/****DATA****/
+8/22
+beep関数実装
+
+8/23
+(mainは無関係)
+i2c.c slaveの
+initI2CSlave()内の
+TWAR = own->addrを
+TWAR = (own->addr)>>=1;に修正(Slave側では要変更)
+
+dutyがunsigned charだったのでsigned charに修正
+
+8/24
+WiiコントローラーのHomeボタンを追加
+(rc_classic.hの変更)
+
+8/25
+エアシリンダー基盤の動作確認終了
+モーター基盤の動作確認終了
+
