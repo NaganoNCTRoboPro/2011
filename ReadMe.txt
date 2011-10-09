@@ -1,12 +1,2 @@
-test
-ひょーーーーーーーーーーーーーー
-iwate
-macから
-bootcampから
-
-iwateMBPから
-iwateMBPから2
-
-
-
-asdfghjkl;
+全国大会用のプログラム群です
+ADF，AOF，WiiConが修正されています．
