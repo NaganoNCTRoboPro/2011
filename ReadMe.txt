@@ -3,3 +3,4 @@ test
 iwate
 mac‚©‚ç
 bootcamp‚©‚ç
+qertyuiop
