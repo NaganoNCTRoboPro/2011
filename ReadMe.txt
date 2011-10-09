@@ -3,3 +3,5 @@ test
 iwate
 mac‚©‚ç
 bootcamp‚©‚ç
+
+iwateMBP‚©‚ç
