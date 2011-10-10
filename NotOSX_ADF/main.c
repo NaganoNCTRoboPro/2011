@@ -36,7 +36,9 @@ int main(void)
 	/*この辺にi2c関連の初期化をすればいいと思う*/
 
 	bool i2cStatus;
-	wait_ms(21);
+
+	TCCR2A = 0;
+	TCCR2B = 1;
 /*---------------------------------------------------------------*/
 // 						書きかえちゃダメよ！
 /*---------------------------------------------------------------*/
@@ -45,6 +47,7 @@ int main(void)
 	BeepInit();
 	DDRC |= 0x04;
 	PORTC = 0x04;
+	
 		
 	initI2CMaster(100);
 
@@ -144,9 +147,9 @@ int main(void)
 					uAction = dAction = BRAKE;
 				}
 
-			mDrive(&Motor,uDuty?uAction:BRAKE,uDuty,0);	//BLUE
+			mDrive(&Motor,uAction,uDuty,0);	//BLUE
 			Motor.write.buf[1] = Motor.write.buf[0];
-			mDrive(&Motor,dDuty?dAction:BRAKE,dDuty,2);	//ORANGE
+			mDrive(&Motor,dAction,dDuty,2);	//ORANGE
 			Motor.write.buf[3] = Motor.write.buf[2];
 		}
 /*-------------------------------------------------------------------------------------------------------------------------*/
@@ -182,7 +185,7 @@ int main(void)
 		i2cStatus &= i2cWrite(&Emer);
 
 		i2cCheck(i2cStatus);
-		wait_ms(21);
+		wait_ms(25);
 	}
 	return 0;
 }
