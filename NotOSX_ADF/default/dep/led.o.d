@@ -9,7 +9,7 @@ led.o: ../PERIPHERAL/LED/led.c \
   c:/winavr-20100110/lib/gcc/../../avr/include/avr/version.h \
   c:/winavr-20100110/lib/gcc/../../avr/include/avr/fuse.h \
   c:/winavr-20100110/lib/gcc/../../avr/include/avr/lock.h \
-  C:\Users\iwate\Desktop\DefAMain_2011\ROBOS\COMMON/common.h \
+  C:\Users\iwate\Desktop\github\2011\NotOSX_ADF\ROBOS\COMMON/common.h \
   c:\winavr-20100110\bin\../lib/gcc/avr/4.3.3/include/stdbool.h \
   ../PERIPHERAL/LED/led.h
 
@@ -33,7 +33,7 @@ c:/winavr-20100110/lib/gcc/../../avr/include/avr/fuse.h:
 
 c:/winavr-20100110/lib/gcc/../../avr/include/avr/lock.h:
 
-C:\Users\iwate\Desktop\DefAMain_2011\ROBOS\COMMON/common.h:
+C:\Users\iwate\Desktop\github\2011\NotOSX_ADF\ROBOS\COMMON/common.h:
 
 c:\winavr-20100110\bin\../lib/gcc/avr/4.3.3/include/stdbool.h:
 

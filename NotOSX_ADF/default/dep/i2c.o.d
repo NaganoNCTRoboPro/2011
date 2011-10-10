@@ -11,9 +11,9 @@ i2c.o: ../ROBOS/I2C/i2c.c \
   c:/winavr-20100110/lib/gcc/../../avr/include/avr/lock.h \
   c:/winavr-20100110/lib/gcc/../../avr/include/avr/interrupt.h \
   c:\winavr-20100110\bin\../lib/gcc/avr/4.3.3/include/stdbool.h \
-  C:\Users\iwate\Desktop\DefAMain_2011\PERIPHERAL\LED/led.h \
-  C:\Users\iwate\Desktop\DefAMain_2011\PERIPHERAL\BEEP/beep.h \
-  C:\Users\iwate\Desktop\DefAMain_2011\ROBOS\COMMON/wait.h \
+  C:\Users\iwate\Desktop\github\2011\NotOSX_ADF\PERIPHERAL\LED/led.h \
+  C:\Users\iwate\Desktop\github\2011\NotOSX_ADF\PERIPHERAL\BEEP/beep.h \
+  C:\Users\iwate\Desktop\github\2011\NotOSX_ADF\ROBOS\COMMON/wait.h \
   ../ROBOS/I2C/i2c.h
 
 c:/winavr-20100110/lib/gcc/../../avr/include/avr/io.h:
@@ -40,10 +40,10 @@ c:/winavr-20100110/lib/gcc/../../avr/include/avr/interrupt.h:
 
 c:\winavr-20100110\bin\../lib/gcc/avr/4.3.3/include/stdbool.h:
 
-C:\Users\iwate\Desktop\DefAMain_2011\PERIPHERAL\LED/led.h:
+C:\Users\iwate\Desktop\github\2011\NotOSX_ADF\PERIPHERAL\LED/led.h:
 
-C:\Users\iwate\Desktop\DefAMain_2011\PERIPHERAL\BEEP/beep.h:
+C:\Users\iwate\Desktop\github\2011\NotOSX_ADF\PERIPHERAL\BEEP/beep.h:
 
-C:\Users\iwate\Desktop\DefAMain_2011\ROBOS\COMMON/wait.h:
+C:\Users\iwate\Desktop\github\2011\NotOSX_ADF\ROBOS\COMMON/wait.h:
 
 ../ROBOS/I2C/i2c.h:

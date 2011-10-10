@@ -14,14 +14,14 @@ remote_control_rx.o: ../PERIPHERAL/REMOTE_CONTROL/remote_control_rx.c \
   c:\winavr-20100110\bin\../lib/gcc/avr/4.3.3/include/stdbool.h \
   c:/winavr-20100110/lib/gcc/../../avr/include/avr/interrupt.h \
   c:/winavr-20100110/lib/gcc/../../avr/include/avr/wdt.h \
-  C:\Users\iwate\Desktop\DefAMain_2011\ROBOS\COMMON/common.h \
-  C:\Users\iwate\Desktop\DefAMain_2011\ROBOS\SERIAL/uart.h \
-  C:\Users\iwate\Desktop\DefAMain_2011\ROBOS\SERIAL/ringbuffer.h \
-  C:\Users\iwate\Desktop\DefAMain_2011\PERIPHERAL\MU2/mu2.h \
-  C:\Users\iwate\Desktop\DefAMain_2011\PERIPHERAL\LED/led.h \
-  C:\Users\iwate\Desktop\DefAMain_2011\PERIPHERAL\BEEP/beep.h \
-  C:\Users\iwate\Desktop\DefAMain_2011\PERIPHERAL\EMERGENCY/emergency.h \
-  C:\Users\iwate\Desktop\DefAMain_2011\ROBOS\I2C/i2c.h
+  C:\Users\iwate\Desktop\github\2011\NotOSX_ADF\ROBOS\COMMON/common.h \
+  C:\Users\iwate\Desktop\github\2011\NotOSX_ADF\ROBOS\SERIAL/uart.h \
+  C:\Users\iwate\Desktop\github\2011\NotOSX_ADF\ROBOS\SERIAL/ringbuffer.h \
+  C:\Users\iwate\Desktop\github\2011\NotOSX_ADF\PERIPHERAL\MU2/mu2.h \
+  C:\Users\iwate\Desktop\github\2011\NotOSX_ADF\PERIPHERAL\LED/led.h \
+  C:\Users\iwate\Desktop\github\2011\NotOSX_ADF\PERIPHERAL\BEEP/beep.h \
+  C:\Users\iwate\Desktop\github\2011\NotOSX_ADF\PERIPHERAL\EMERGENCY/emergency.h \
+  C:\Users\iwate\Desktop\github\2011\NotOSX_ADF\ROBOS\I2C/i2c.h
 
 ../PERIPHERAL/REMOTE_CONTROL/remote_control_rx.h:
 
@@ -53,18 +53,18 @@ c:/winavr-20100110/lib/gcc/../../avr/include/avr/interrupt.h:
 
 c:/winavr-20100110/lib/gcc/../../avr/include/avr/wdt.h:
 
-C:\Users\iwate\Desktop\DefAMain_2011\ROBOS\COMMON/common.h:
+C:\Users\iwate\Desktop\github\2011\NotOSX_ADF\ROBOS\COMMON/common.h:
 
-C:\Users\iwate\Desktop\DefAMain_2011\ROBOS\SERIAL/uart.h:
+C:\Users\iwate\Desktop\github\2011\NotOSX_ADF\ROBOS\SERIAL/uart.h:
 
-C:\Users\iwate\Desktop\DefAMain_2011\ROBOS\SERIAL/ringbuffer.h:
+C:\Users\iwate\Desktop\github\2011\NotOSX_ADF\ROBOS\SERIAL/ringbuffer.h:
 
-C:\Users\iwate\Desktop\DefAMain_2011\PERIPHERAL\MU2/mu2.h:
+C:\Users\iwate\Desktop\github\2011\NotOSX_ADF\PERIPHERAL\MU2/mu2.h:
 
-C:\Users\iwate\Desktop\DefAMain_2011\PERIPHERAL\LED/led.h:
+C:\Users\iwate\Desktop\github\2011\NotOSX_ADF\PERIPHERAL\LED/led.h:
 
-C:\Users\iwate\Desktop\DefAMain_2011\PERIPHERAL\BEEP/beep.h:
+C:\Users\iwate\Desktop\github\2011\NotOSX_ADF\PERIPHERAL\BEEP/beep.h:
 
-C:\Users\iwate\Desktop\DefAMain_2011\PERIPHERAL\EMERGENCY/emergency.h:
+C:\Users\iwate\Desktop\github\2011\NotOSX_ADF\PERIPHERAL\EMERGENCY/emergency.h:
 
-C:\Users\iwate\Desktop\DefAMain_2011\ROBOS\I2C/i2c.h:
+C:\Users\iwate\Desktop\github\2011\NotOSX_ADF\ROBOS\I2C/i2c.h:

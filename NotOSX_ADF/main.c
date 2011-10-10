@@ -25,7 +25,9 @@ int main(void)
 {
 	union controller_data *controller;
 	int8_t slaveBuf[12]={0};
-	unsigned char action, uDuty, dDuty, i,e_flag, AirPort,count=0;
+	unsigned char action,uAction,dAction,e_flag, AirPort;
+	int8_t uDuty;
+	int16_t dDuty,count;
 
 	Slave Motor = {MOTOR,{(int8_t*)&slaveBuf[0],4},{(int8_t*)&slaveBuf[4],4}};
 	Slave Air	= {AIR,{(int8_t*)&slaveBuf[8],1},{(int8_t*)&slaveBuf[9],1}};
@@ -34,6 +36,7 @@ int main(void)
 	/*この辺にi2c関連の初期化をすればいいと思う*/
 
 	bool i2cStatus;
+	wait_ms(21);
 /*---------------------------------------------------------------*/
 // 						書きかえちゃダメよ！
 /*---------------------------------------------------------------*/
@@ -79,79 +82,92 @@ int main(void)
 				uart_init(0,UART_RE|UART_RXCIE,BR_4800);
 			}
 /*-------------------------------------------------------------------------*/
-		if(controller->detail.Button.X&&count<36){
+		if(controller->detail.Button.X&&count<70){
 			uDuty = dDuty = 100;
 			count++;
-			for(i=0;i<2;i++) mDrive(&Motor,CCW,uDuty,i);	//BLUE
-			for(;i<4;i++) mDrive(&Motor,CW,dDuty,i);	//ORANGE
+			dDuty -= count*6;
+			mDrive(&Motor,CCW,uDuty,0);	//BLUE
+			Motor.write.buf[1] = Motor.write.buf[0];
+			mDrive(&Motor,CW,(int8_t)dDuty,2);	//ORANGE
+			Motor.write.buf[3] = Motor.write.buf[2];
 		}else{
 			
 
 		/*ここにプログラムを記述するとよろしいのではないのかと思われます*/
 
-		action = BRAKE;
+		
+			if(	controller->detail.AnalogR.Y<0x05	||
+				controller->detail.AnalogL.Y<0x05	)
+				{
+					uDuty = 0;
+					dDuty = 100;
+				}
+			else if(	controller->detail.AnalogR.Y>0x09	||
+						controller->detail.AnalogL.Y>0x09	)
+				{
+					uDuty = 100;
+					dDuty = 0;
+				}
+			else if(controller->detail.Button.B)
+				{
+					uDuty = dDuty = 50;
+				}
+			else
+				{
+					uDuty = dDuty = 100;
+				}
+		
+			if(	controller->detail.Button.L			||
+				controller->detail.AnalogR.X<0x05	||
+				controller->detail.AnalogL.X<0x05	)
+				{
+					uAction=CW;
+					dAction=CCW;
+				}
+			else if( 	controller->detail.Button.R			||
+						controller->detail.AnalogR.X>0x09	||
+						controller->detail.AnalogL.X>0x09	)
+				{
+					uAction=CCW;
+					dAction=CW;
+				}
+			else if(controller->detail.Button.LEFT)
+				{
+					uAction = dAction = CW;
+				}
+			else if(controller->detail.Button.RIGHT)
+				{
+					uAction = dAction = CCW;
+				}
+			else
+				{
+					uAction = dAction = BRAKE;
+				}
 
-		if(controller->detail.AnalogR.Y<0x05||controller->detail.AnalogL.Y<0x05) {
-			uDuty = 0;
-			dDuty = 100;
+			mDrive(&Motor,uDuty?uAction:BRAKE,uDuty,0);	//BLUE
+			Motor.write.buf[1] = Motor.write.buf[0];
+			mDrive(&Motor,dDuty?dAction:BRAKE,dDuty,2);	//ORANGE
+			Motor.write.buf[3] = Motor.write.buf[2];
 		}
-		else if(controller->detail.AnalogR.Y>0x09||controller->detail.AnalogL.Y>0x09) {
-			uDuty = 100;
-			dDuty = 0;
-		}
-		else {
-			uDuty = dDuty = 100;
-		}
-
-
-		if(controller->detail.Button.B) {
-			uDuty = dDuty = 50;
-		}
-
-		if(controller->detail.Button.L||controller->detail.AnalogR.X<0x05||controller->detail.AnalogL.X<0x05) {
-			action=CW;
-		}
-		else if(controller->detail.Button.R||controller->detail.AnalogR.X>0x09||controller->detail.AnalogL.X>0x09) {
-			action=CCW;
-		}
-		else if(controller->detail.Button.LEFT) {
-			action=CW;
-		}
-		else if(controller->detail.Button.RIGHT) {
-			action=CCW;
-		}
-		for(i=0;i<2;i++) mDrive(&Motor,uDuty?action:BRAKE,uDuty,i);	//BLUE
-
-
-		if(controller->detail.Button.R||controller->detail.AnalogR.X>0x09||controller->detail.AnalogL.X>0x09) {
-			action=CW;
-		}
-		else if(controller->detail.Button.L||controller->detail.AnalogR.X<0x05||controller->detail.AnalogL.X<0x05) {
-			action=CCW;
-		}
-		else if(controller->detail.Button.LEFT) {
-			action=CW;
-		}
-		else if(controller->detail.Button.RIGHT) {
-			action=CCW;
-		}
-		for(;i<4;i++) mDrive(&Motor,dDuty?action:BRAKE,dDuty,i);	//ORANGE
-}		
+/*-------------------------------------------------------------------------------------------------------------------------*/
 		action = FREE;
-		if(controller->detail.Button.Y) {
-			action = CW;
-			AirPort = 0x03;
-		}
-		else if(controller->detail.Button.ZL) {
-			action = CW;
-			AirPort = 0x01;
-		}
-		else if(controller->detail.Button.ZR) {
-			action = CW;
-			AirPort = 0x02;
-		}
+		if(controller->detail.Button.Y)
+			{
+				action = CW;
+				AirPort = 0x03;
+			}
+		else if(controller->detail.Button.ZL)
+			{
+				action = CW;
+				AirPort = 0x01;
+			}
+		else if(controller->detail.Button.ZR)
+			{
+				action = CW;
+				AirPort = 0x02;
+			}
 		aDrive(&Air,AirPort,action);
-
+/*-------------------------------------------------------------------------------------------------------------------------*/
 		/*バルスモード*/
 		/*バルス!!!!!*/
 		if(controller->detail.Button.A||(controller->detail.Button.SELECT&&controller->detail.Button.START)) e_flag=E_ON;
@@ -161,12 +177,12 @@ int main(void)
 
 		i2cStatus = true;
 		i2cStatus &= Emergency(&Emer,e_flag);
-		i2cStatus &= i2cWrite(&Motor); wait_us(4);
-		i2cStatus &= i2cWrite(&Air); wait_us(4);
+		i2cStatus &= i2cWrite(&Motor); wait_us(8);
+		i2cStatus &= i2cWrite(&Air); wait_us(8);
 		i2cStatus &= i2cWrite(&Emer);
 
 		i2cCheck(i2cStatus);
-		wait_ms(15);
+		wait_ms(21);
 	}
 	return 0;
 }
