@@ -2,4 +2,4 @@ master
 first commit
 study
 
-not conflict yet
+not conflict yet in mac
