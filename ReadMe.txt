@@ -1,7 +1,4 @@
 全国大会用のプログラム群です
 ADF，AOF，WiiConが修正されています．
-
-not conflict yet
-
-it will conflict
+iss1:RCの接続確率が低い問題を解決します．
 
