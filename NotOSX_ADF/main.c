@@ -27,7 +27,7 @@ int main(void)
 	int8_t slaveBuf[12]={0};
 	unsigned char action,uAction,dAction,e_flag, AirPort;
 	int8_t uDuty;
-	int16_t dDuty,count;
+	int16_t dDuty,count=0;
 
 	Slave Motor = {MOTOR,{(int8_t*)&slaveBuf[0],4},{(int8_t*)&slaveBuf[4],4}};
 	Slave Air	= {AIR,{(int8_t*)&slaveBuf[8],1},{(int8_t*)&slaveBuf[9],1}};
@@ -36,7 +36,10 @@ int main(void)
 	/*この辺にi2c関連の初期化をすればいいと思う*/
 
 	bool i2cStatus;
-	wait_ms(21);
+	initCtrlData();
+
+	TCCR2A = 0;
+	TCCR2B = 1;
 /*---------------------------------------------------------------*/
 // 						書きかえちゃダメよ！
 /*---------------------------------------------------------------*/
@@ -45,6 +48,7 @@ int main(void)
 	BeepInit();
 	DDRC |= 0x04;
 	PORTC = 0x04;
+	
 		
 	initI2CMaster(100);
 
@@ -63,9 +67,13 @@ int main(void)
 	uart_init(0,UART_RE|UART_RXCIE,BR_4800);
 	LED(0,false);LED(1,false);LED(2,false);
 	sei();
-	wait_ms(500);
+	wait_ms(1500);
 	PORTC &= 0xFB;
-	wait_ms(25);
+//	wait_ms(25);
+	TCCR1A = 0;
+	TCCR1B = 5;
+	TIMSK1 = 1;
+	TCNT1 = 0;
 
 	while(1){	
 		controller = Toggle_RC_Rx_Buffer();
@@ -82,16 +90,29 @@ int main(void)
 				uart_init(0,UART_RE|UART_RXCIE,BR_4800);
 			}
 /*-------------------------------------------------------------------------*/
-		if(controller->detail.Button.X&&count<70){
-			uDuty = dDuty = 100;
+		if(controller->detail.Button.X&&count<110){
+			uDuty = 100;
+			dDuty = 100;
 			count++;
-			dDuty -= count*6;
+			if(count>35) dDuty =  -60-count;
+			if(dDuty<-100) dDuty = -100;
 			mDrive(&Motor,CCW,uDuty,0);	//BLUE
 			Motor.write.buf[1] = Motor.write.buf[0];
 			mDrive(&Motor,CW,(int8_t)dDuty,2);	//ORANGE
-			Motor.write.buf[3] = Motor.write.buf[2];
+			mDrive(&Motor,CW,(int8_t)dDuty,3);	//ORANGE
 		}else{
-			
+/*		if(controller->detail.Button.X&&count<85){
+			uDuty = 100;
+			dDuty = 100;
+			count++;
+			if(count>43) dDuty =  -65-count;
+			if(dDuty<-100) dDuty = -100;
+			mDrive(&Motor,CCW,uDuty,0);	//BLUE
+			Motor.write.buf[1] = Motor.write.buf[0];
+			mDrive(&Motor,CW,(int8_t)dDuty,2);	//ORANGE
+			mDrive(&Motor,CW,(int8_t)dDuty,3);	//ORANGE
+		}else{
+*/				
 
 		/*ここにプログラムを記述するとよろしいのではないのかと思われます*/
 
@@ -144,10 +165,10 @@ int main(void)
 					uAction = dAction = BRAKE;
 				}
 
-			mDrive(&Motor,uDuty?uAction:BRAKE,uDuty,0);	//BLUE
+			mDrive(&Motor,uAction,uDuty,0);	//BLUE
 			Motor.write.buf[1] = Motor.write.buf[0];
-			mDrive(&Motor,dDuty?dAction:BRAKE,dDuty,2);	//ORANGE
-			Motor.write.buf[3] = Motor.write.buf[2];
+			mDrive(&Motor,dAction,(int8_t)dDuty,2);	//ORANGE
+			mDrive(&Motor,dAction,(int8_t)dDuty,3);	//ORANGE
 		}
 /*-------------------------------------------------------------------------------------------------------------------------*/
 		action = FREE;
@@ -172,17 +193,20 @@ int main(void)
 		/*バルス!!!!!*/
 		if(controller->detail.Button.A||(controller->detail.Button.SELECT&&controller->detail.Button.START)) e_flag=E_ON;
 		/*復活!!!!!!!*/
-		else if(controller->detail.Button.HOME) e_flag=E_OFF;
+		else if(controller->detail.Button.HOME){
+			e_flag=E_OFF;
+			count = 0;
+		}
 		else e_flag=E_KEEP;	
 
 		i2cStatus = true;
 		i2cStatus &= Emergency(&Emer,e_flag);
-		i2cStatus &= i2cWrite(&Motor); wait_us(8);
-		i2cStatus &= i2cWrite(&Air); wait_us(8);
+		i2cStatus &= i2cWrite(&Motor); wait_us(10);
+		i2cStatus &= i2cWrite(&Air); wait_us(10);
 		i2cStatus &= i2cWrite(&Emer);
 
 		i2cCheck(i2cStatus);
-		wait_ms(21);
+		wait_ms(25);
 	}
 	return 0;
 }
