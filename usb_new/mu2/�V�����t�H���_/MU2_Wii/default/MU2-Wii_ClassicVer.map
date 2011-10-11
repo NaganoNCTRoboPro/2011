@@ -1,0 +1,514 @@
+Archive member included because of file (symbol)
+
+c:/winavr-20090313/bin/../lib/gcc/avr/4.3.2/avr4\libgcc.a(_udivmodhi4.o)
+                              uart.o (__udivmodhi4)
+c:/winavr-20090313/bin/../lib/gcc/avr/4.3.2/avr4\libgcc.a(_udivmodsi4.o)
+                              uart.o (__udivmodsi4)
+c:/winavr-20090313/bin/../lib/gcc/avr/4.3.2/avr4\libgcc.a(_exit.o)
+                              c:/winavr-20090313/bin/../lib/gcc/avr/4.3.2/../../../../avr/lib/avr4/crtm88.o (exit)
+c:/winavr-20090313/bin/../lib/gcc/avr/4.3.2/avr4\libgcc.a(_copy_data.o)
+                              mu2_control.o (__do_copy_data)
+c:/winavr-20090313/bin/../lib/gcc/avr/4.3.2/avr4\libgcc.a(_clear_bss.o)
+                              uart.o (__do_clear_bss)
+
+Allocating common symbols
+Common symbol       size              file
+
+__mu2_rts           0x2               mu2_common.o
+__mu2_rx_buf        0x40              mu2_common.o
+__mu2_tx_char       0x2               mu2_common.o
+__mu2_mode          0x2               mu2_common.o
+__mu2_cts           0x2               mu2_common.o
+__mu2_prefix        0x3               mu2_common.o
+__mu2_rx_char       0x2               mu2_common.o
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+text             0x00000000         0x00002000         xr
+data             0x00800060         0x0000ffa0         rw !x
+eeprom           0x00810000         0x00010000         rw !x
+fuse             0x00820000         0x00000400         rw !x
+lock             0x00830000         0x00000400         rw !x
+signature        0x00840000         0x00000400         rw !x
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+Address of section .data set to 0x800100
+LOAD c:/winavr-20090313/bin/../lib/gcc/avr/4.3.2/../../../../avr/lib/avr4/crtm88.o
+LOAD uart.o
+LOAD classic.o
+LOAD mu2_common.o
+LOAD mu2_control.o
+LOAD mu2_data.o
+LOAD classic-main.o
+LOAD c:/winavr-20090313/bin/../lib/gcc/avr/4.3.2/avr4\libgcc.a
+LOAD c:/winavr-20090313/bin/../lib/gcc/avr/4.3.2/../../../../avr/lib/avr4\libc.a
+LOAD c:/winavr-20090313/bin/../lib/gcc/avr/4.3.2/avr4\libgcc.a
+
+.hash
+ *(.hash)
+
+.dynsym
+ *(.dynsym)
+
+.dynstr
+ *(.dynstr)
+
+.gnu.version
+ *(.gnu.version)
+
+.gnu.version_d
+ *(.gnu.version_d)
+
+.gnu.version_r
+ *(.gnu.version_r)
+
+.rel.init
+ *(.rel.init)
+
+.rela.init
+ *(.rela.init)
+
+.rel.text
+ *(.rel.text)
+ *(.rel.text.*)
+ *(.rel.gnu.linkonce.t*)
+
+.rela.text
+ *(.rela.text)
+ *(.rela.text.*)
+ *(.rela.gnu.linkonce.t*)
+
+.rel.fini
+ *(.rel.fini)
+
+.rela.fini
+ *(.rela.fini)
+
+.rel.rodata
+ *(.rel.rodata)
+ *(.rel.rodata.*)
+ *(.rel.gnu.linkonce.r*)
+
+.rela.rodata
+ *(.rela.rodata)
+ *(.rela.rodata.*)
+ *(.rela.gnu.linkonce.r*)
+
+.rel.data
+ *(.rel.data)
+ *(.rel.data.*)
+ *(.rel.gnu.linkonce.d*)
+
+.rela.data
+ *(.rela.data)
+ *(.rela.data.*)
+ *(.rela.gnu.linkonce.d*)
+
+.rel.ctors
+ *(.rel.ctors)
+
+.rela.ctors
+ *(.rela.ctors)
+
+.rel.dtors
+ *(.rel.dtors)
+
+.rela.dtors
+ *(.rela.dtors)
+
+.rel.got
+ *(.rel.got)
+
+.rela.got
+ *(.rela.got)
+
+.rel.bss
+ *(.rel.bss)
+
+.rela.bss
+ *(.rela.bss)
+
+.rel.plt
+ *(.rel.plt)
+
+.rela.plt
+ *(.rela.plt)
+
+.text           0x00000000     0x1510
+ *(.vectors)
+ .vectors       0x00000000       0x34 c:/winavr-20090313/bin/../lib/gcc/avr/4.3.2/../../../../avr/lib/avr4/crtm88.o
+                0x00000000                __vectors
+                0x00000000                __vector_default
+ *(.vectors)
+ *(.progmem.gcc*)
+ *(.progmem*)
+                0x00000034                . = ALIGN (0x2)
+                0x00000034                __trampolines_start = .
+ *(.trampolines)
+ .trampolines   0x00000034        0x0 linker stubs
+ *(.trampolines*)
+                0x00000034                __trampolines_end = .
+ *(.jumptables)
+ *(.jumptables*)
+ *(.lowtext)
+ *(.lowtext*)
+                0x00000034                __ctors_start = .
+ *(.ctors)
+                0x00000034                __ctors_end = .
+                0x00000034                __dtors_start = .
+ *(.dtors)
+                0x00000034                __dtors_end = .
+ SORT(*)(.ctors)
+ SORT(*)(.dtors)
+ *(.init0)
+ .init0         0x00000034        0x0 c:/winavr-20090313/bin/../lib/gcc/avr/4.3.2/../../../../avr/lib/avr4/crtm88.o
+                0x00000034                __init
+ *(.init0)
+ *(.init1)
+ *(.init1)
+ *(.init2)
+ .init2         0x00000034        0xc c:/winavr-20090313/bin/../lib/gcc/avr/4.3.2/../../../../avr/lib/avr4/crtm88.o
+ *(.init2)
+ *(.init3)
+ *(.init3)
+ *(.init4)
+ .init4         0x00000040       0x16 c:/winavr-20090313/bin/../lib/gcc/avr/4.3.2/avr4\libgcc.a(_copy_data.o)
+                0x00000040                __do_copy_data
+ .init4         0x00000056       0x10 c:/winavr-20090313/bin/../lib/gcc/avr/4.3.2/avr4\libgcc.a(_clear_bss.o)
+                0x00000056                __do_clear_bss
+ *(.init4)
+ *(.init5)
+ *(.init5)
+ *(.init6)
+ *(.init6)
+ *(.init7)
+ *(.init7)
+ *(.init8)
+ *(.init8)
+ *(.init9)
+ .init9         0x00000066        0x4 c:/winavr-20090313/bin/../lib/gcc/avr/4.3.2/../../../../avr/lib/avr4/crtm88.o
+ *(.init9)
+ *(.text)
+ .text          0x0000006a        0x2 c:/winavr-20090313/bin/../lib/gcc/avr/4.3.2/../../../../avr/lib/avr4/crtm88.o
+                0x0000006a                __vector_22
+                0x0000006a                __vector_1
+                0x0000006a                __vector_24
+                0x0000006a                __vector_12
+                0x0000006a                __bad_interrupt
+                0x0000006a                __vector_6
+                0x0000006a                __vector_3
+                0x0000006a                __vector_23
+                0x0000006a                __vector_25
+                0x0000006a                __vector_11
+                0x0000006a                __vector_13
+                0x0000006a                __vector_17
+                0x0000006a                __vector_7
+                0x0000006a                __vector_5
+                0x0000006a                __vector_4
+                0x0000006a                __vector_9
+                0x0000006a                __vector_2
+                0x0000006a                __vector_21
+                0x0000006a                __vector_15
+                0x0000006a                __vector_8
+                0x0000006a                __vector_14
+                0x0000006a                __vector_10
+                0x0000006a                __vector_16
+                0x0000006a                __vector_18
+                0x0000006a                __vector_20
+ .text          0x0000006c      0x252 uart.o
+                0x0000020c                uart_buf_putchar
+                0x00000084                RingPut
+                0x0000006c                RingInit
+                0x000000d0                RingGet
+                0x000001ce                uart_getchar
+                0x0000023e                __vector_19
+                0x0000012a                uart_init
+                0x00000122                isRingEmpty
+                0x000001a6                uart_setbuffer
+                0x000001ee                uart_putchar
+ .text          0x000002be      0x9b8 classic.o
+                0x0000057a                get_value
+                0x000002be                MakeRCData
+                0x0000044c                wait
+                0x000006d4                get_analog
+                0x000004fa                set_controller
+                0x00000484                error
+                0x000004e2                setup
+ .text          0x00000c76      0x340 mu2_common.o
+                0x00000efc                MU2_Response
+                0x00000cf8                MU2_Str2Byte
+                0x00000c82                MU2_RxChar
+                0x00000d8a                MU2_Str2Word
+                0x00000c8e                MU2_SetTxHandler
+                0x00000c76                MU2_TxChar
+                0x00000cb6                MU2_SetCtsHandler
+                0x00000cc0                MU2_Byte2Str
+                0x00000d1e                MU2_Word2Str
+                0x00000e20                MU2_CheckCommand
+                0x00000ca2                MU2_SetModeHandler
+                0x00000c98                MU2_SetRxHandler
+                0x00000e44                MU2_Command
+                0x00000cac                MU2_SetRtsHandler
+ .text          0x00000fb6      0x356 mu2_control.o
+                0x00000fb6                MU2_SetChannel
+                0x000010b0                MU2_SetEquipmentID
+                0x0000112c                MU2_SetGroupID
+                0x00001268                MU2_SetUserID
+                0x00001038                MU2_SetDestID
+                0x000011a4                MU2_SetRoute
+ .text          0x0000130c      0x116 mu2_data.o
+                0x0000130c                MU2_ReceiveData
+                0x00001396                MU2_SendData
+ .text          0x00001422       0x7e classic-main.o
+                0x00001422                main
+ .text          0x000014a0        0x0 c:/winavr-20090313/bin/../lib/gcc/avr/4.3.2/avr4\libgcc.a(_udivmodhi4.o)
+ .text          0x000014a0        0x0 c:/winavr-20090313/bin/../lib/gcc/avr/4.3.2/avr4\libgcc.a(_udivmodsi4.o)
+ .text          0x000014a0        0x0 c:/winavr-20090313/bin/../lib/gcc/avr/4.3.2/avr4\libgcc.a(_exit.o)
+ .text          0x000014a0        0x0 c:/winavr-20090313/bin/../lib/gcc/avr/4.3.2/avr4\libgcc.a(_copy_data.o)
+ .text          0x000014a0        0x0 c:/winavr-20090313/bin/../lib/gcc/avr/4.3.2/avr4\libgcc.a(_clear_bss.o)
+                0x000014a0                . = ALIGN (0x2)
+ *(.text.*)
+ .text.libgcc   0x000014a0       0x28 c:/winavr-20090313/bin/../lib/gcc/avr/4.3.2/avr4\libgcc.a(_udivmodhi4.o)
+                0x000014a0                __udivmodhi4
+ .text.libgcc   0x000014c8       0x44 c:/winavr-20090313/bin/../lib/gcc/avr/4.3.2/avr4\libgcc.a(_udivmodsi4.o)
+                0x000014c8                __udivmodsi4
+ .text.libgcc   0x0000150c        0x0 c:/winavr-20090313/bin/../lib/gcc/avr/4.3.2/avr4\libgcc.a(_exit.o)
+ .text.libgcc   0x0000150c        0x0 c:/winavr-20090313/bin/../lib/gcc/avr/4.3.2/avr4\libgcc.a(_copy_data.o)
+ .text.libgcc   0x0000150c        0x0 c:/winavr-20090313/bin/../lib/gcc/avr/4.3.2/avr4\libgcc.a(_clear_bss.o)
+                0x0000150c                . = ALIGN (0x2)
+ *(.fini9)
+ .fini9         0x0000150c        0x0 c:/winavr-20090313/bin/../lib/gcc/avr/4.3.2/avr4\libgcc.a(_exit.o)
+                0x0000150c                exit
+                0x0000150c                _exit
+ *(.fini9)
+ *(.fini8)
+ *(.fini8)
+ *(.fini7)
+ *(.fini7)
+ *(.fini6)
+ *(.fini6)
+ *(.fini5)
+ *(.fini5)
+ *(.fini4)
+ *(.fini4)
+ *(.fini3)
+ *(.fini3)
+ *(.fini2)
+ *(.fini2)
+ *(.fini1)
+ *(.fini1)
+ *(.fini0)
+ .fini0         0x0000150c        0x4 c:/winavr-20090313/bin/../lib/gcc/avr/4.3.2/avr4\libgcc.a(_exit.o)
+ *(.fini0)
+                0x00001510                _etext = .
+
+.data           0x00800100       0x22 load address 0x00001510
+                0x00800100                PROVIDE (__data_start, .)
+ *(.data)
+ .data          0x00800100        0x0 c:/winavr-20090313/bin/../lib/gcc/avr/4.3.2/../../../../avr/lib/avr4/crtm88.o
+ .data          0x00800100        0x0 uart.o
+ .data          0x00800100        0x0 classic.o
+ .data          0x00800100        0x0 mu2_common.o
+ .data          0x00800100       0x18 mu2_control.o
+ .data          0x00800118        0x9 mu2_data.o
+ .data          0x00800121        0x0 classic-main.o
+ .data          0x00800121        0x0 c:/winavr-20090313/bin/../lib/gcc/avr/4.3.2/avr4\libgcc.a(_udivmodhi4.o)
+ .data          0x00800121        0x0 c:/winavr-20090313/bin/../lib/gcc/avr/4.3.2/avr4\libgcc.a(_udivmodsi4.o)
+ .data          0x00800121        0x0 c:/winavr-20090313/bin/../lib/gcc/avr/4.3.2/avr4\libgcc.a(_exit.o)
+ .data          0x00800121        0x0 c:/winavr-20090313/bin/../lib/gcc/avr/4.3.2/avr4\libgcc.a(_copy_data.o)
+ .data          0x00800121        0x0 c:/winavr-20090313/bin/../lib/gcc/avr/4.3.2/avr4\libgcc.a(_clear_bss.o)
+ *(.data*)
+ *(.rodata)
+ *(.rodata*)
+ *(.gnu.linkonce.d*)
+                0x00800122                . = ALIGN (0x2)
+ *fill*         0x00800121        0x1 00
+                0x00800122                _edata = .
+                0x00800122                PROVIDE (__data_end, .)
+
+.bss            0x00800122       0x57
+                0x00800122                PROVIDE (__bss_start, .)
+ *(.bss)
+ .bss           0x00800122        0x0 c:/winavr-20090313/bin/../lib/gcc/avr/4.3.2/../../../../avr/lib/avr4/crtm88.o
+ .bss           0x00800122        0xa uart.o
+ .bss           0x0080012c        0x0 classic.o
+ .bss           0x0080012c        0x0 mu2_common.o
+ .bss           0x0080012c        0x0 mu2_control.o
+ .bss           0x0080012c        0x0 mu2_data.o
+ .bss           0x0080012c        0x0 classic-main.o
+ .bss           0x0080012c        0x0 c:/winavr-20090313/bin/../lib/gcc/avr/4.3.2/avr4\libgcc.a(_udivmodhi4.o)
+ .bss           0x0080012c        0x0 c:/winavr-20090313/bin/../lib/gcc/avr/4.3.2/avr4\libgcc.a(_udivmodsi4.o)
+ .bss           0x0080012c        0x0 c:/winavr-20090313/bin/../lib/gcc/avr/4.3.2/avr4\libgcc.a(_exit.o)
+ .bss           0x0080012c        0x0 c:/winavr-20090313/bin/../lib/gcc/avr/4.3.2/avr4\libgcc.a(_copy_data.o)
+ .bss           0x0080012c        0x0 c:/winavr-20090313/bin/../lib/gcc/avr/4.3.2/avr4\libgcc.a(_clear_bss.o)
+ *(.bss*)
+ *(COMMON)
+ COMMON         0x0080012c       0x4d mu2_common.o
+                0x0080012c                __mu2_rts
+                0x0080012e                __mu2_rx_buf
+                0x0080016e                __mu2_tx_char
+                0x00800170                __mu2_mode
+                0x00800172                __mu2_cts
+                0x00800174                __mu2_prefix
+                0x00800177                __mu2_rx_char
+                0x00800179                PROVIDE (__bss_end, .)
+                0x00001510                __data_load_start = LOADADDR (.data)
+                0x00001532                __data_load_end = (__data_load_start + SIZEOF (.data))
+
+.noinit         0x00800179        0x0
+                0x00800179                PROVIDE (__noinit_start, .)
+ *(.noinit*)
+                0x00800179                PROVIDE (__noinit_end, .)
+                0x00800179                _end = .
+                0x00800179                PROVIDE (__heap_start, .)
+
+.eeprom         0x00810000        0x0
+ *(.eeprom*)
+                0x00810000                __eeprom_end = .
+
+.fuse
+ *(.fuse)
+ *(.lfuse)
+ *(.hfuse)
+ *(.efuse)
+
+.lock
+ *(.lock*)
+
+.signature
+ *(.signature*)
+
+.stab
+ *(.stab)
+
+.stabstr
+ *(.stabstr)
+
+.stab.excl
+ *(.stab.excl)
+
+.stab.exclstr
+ *(.stab.exclstr)
+
+.stab.index
+ *(.stab.index)
+
+.stab.indexstr
+ *(.stab.indexstr)
+
+.comment
+ *(.comment)
+
+.debug
+ *(.debug)
+
+.line
+ *(.line)
+
+.debug_srcinfo
+ *(.debug_srcinfo)
+
+.debug_sfnames
+ *(.debug_sfnames)
+
+.debug_aranges  0x00000000       0xc0
+ *(.debug_aranges)
+ .debug_aranges
+                0x00000000       0x20 uart.o
+ .debug_aranges
+                0x00000020       0x20 classic.o
+ .debug_aranges
+                0x00000040       0x20 mu2_common.o
+ .debug_aranges
+                0x00000060       0x20 mu2_control.o
+ .debug_aranges
+                0x00000080       0x20 mu2_data.o
+ .debug_aranges
+                0x000000a0       0x20 classic-main.o
+
+.debug_pubnames
+                0x00000000      0x37b
+ *(.debug_pubnames)
+ .debug_pubnames
+                0x00000000       0xaf uart.o
+ .debug_pubnames
+                0x000000af       0x6e classic.o
+ .debug_pubnames
+                0x0000011d      0x188 mu2_common.o
+ .debug_pubnames
+                0x000002a5       0x84 mu2_control.o
+ .debug_pubnames
+                0x00000329       0x37 mu2_data.o
+ .debug_pubnames
+                0x00000360       0x1b classic-main.o
+
+.debug_info     0x00000000     0x1ad6
+ *(.debug_info)
+ .debug_info    0x00000000      0x35b uart.o
+ .debug_info    0x0000035b      0xa28 classic.o
+ .debug_info    0x00000d83      0x557 mu2_common.o
+ .debug_info    0x000012da      0x223 mu2_control.o
+ .debug_info    0x000014fd      0x142 mu2_data.o
+ .debug_info    0x0000163f      0x497 classic-main.o
+ *(.gnu.linkonce.wi.*)
+
+.debug_abbrev   0x00000000      0x740
+ *(.debug_abbrev)
+ .debug_abbrev  0x00000000      0x160 uart.o
+ .debug_abbrev  0x00000160      0x20f classic.o
+ .debug_abbrev  0x0000036f      0x154 mu2_common.o
+ .debug_abbrev  0x000004c3       0xb4 mu2_control.o
+ .debug_abbrev  0x00000577       0xd9 mu2_data.o
+ .debug_abbrev  0x00000650       0xf0 classic-main.o
+
+.debug_line     0x00000000     0x12ff
+ *(.debug_line)
+ .debug_line    0x00000000      0x26d uart.o
+ .debug_line    0x0000026d      0x92e classic.o
+ .debug_line    0x00000b9b      0x313 mu2_common.o
+ .debug_line    0x00000eae      0x223 mu2_control.o
+ .debug_line    0x000010d1      0x138 mu2_data.o
+ .debug_line    0x00001209       0xf6 classic-main.o
+
+.debug_frame    0x00000000      0x2e0
+ *(.debug_frame)
+ .debug_frame   0x00000000       0xb0 uart.o
+ .debug_frame   0x000000b0       0x80 classic.o
+ .debug_frame   0x00000130       0xf0 mu2_common.o
+ .debug_frame   0x00000220       0x70 mu2_control.o
+ .debug_frame   0x00000290       0x30 mu2_data.o
+ .debug_frame   0x000002c0       0x20 classic-main.o
+
+.debug_str      0x00000000      0x52e
+ *(.debug_str)
+ .debug_str     0x00000000      0x139 uart.o
+                                0x178 (size before relaxing)
+ .debug_str     0x00000139      0x195 classic.o
+                                0x252 (size before relaxing)
+ .debug_str     0x000002ce      0x17c mu2_common.o
+                                0x1e8 (size before relaxing)
+ .debug_str     0x0000044a       0x8e mu2_control.o
+                                0x10d (size before relaxing)
+ .debug_str     0x000004d8       0x2f mu2_data.o
+                                 0x9f (size before relaxing)
+ .debug_str     0x00000507       0x27 classic-main.o
+                                0x1b4 (size before relaxing)
+
+.debug_loc      0x00000000      0xc65
+ *(.debug_loc)
+ .debug_loc     0x00000000      0x1fc uart.o
+ .debug_loc     0x000001fc      0x4c8 classic.o
+ .debug_loc     0x000006c4      0x36d mu2_common.o
+ .debug_loc     0x00000a31      0x145 mu2_control.o
+ .debug_loc     0x00000b76       0xef mu2_data.o
+
+.debug_macinfo
+ *(.debug_macinfo)
+OUTPUT(MU2-Wii_ClassicVer.elf elf32-avr)
+LOAD linker stubs
+
+.debug_ranges   0x00000000       0x30
+ .debug_ranges  0x00000000       0x30 classic.o
