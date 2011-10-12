@@ -16,7 +16,7 @@
 #define KD (6)
 
 volatile int8_t buf[10]={0};
-volatile Slave data = {ADDR,{(int8_t*)&buf[0],3},{(int8_t*)&buf[5],5}};
+Slave data = {ADDR,{(int8_t*)&buf[0],3},{(int8_t*)&buf[5],5}};
 
 int main(void)
 {
@@ -26,6 +26,10 @@ int main(void)
 	setup();
 	initI2CSlave(&data);
 	sei();
+	int a = 0;
+	if(a){
+		ERROR();
+	}
 	while(1){
 		for(i=0;i<3;i++) duty[i] = buf[i];
 		for(i=0;i<2;i++){
