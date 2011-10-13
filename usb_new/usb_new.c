@@ -2,7 +2,6 @@
 #include<avr/interrupt.h>
 #include<util/delay.h>
 #include<avr/pgmspace.h>
-#include<uart.h>
 
 #include"printf.h"
 #include"uart.h"
@@ -50,16 +49,16 @@ int Set_Address(USBDevice *d, int addr);
 void SL811SetAddress(SL811USBDevInfo *d, int addr);
 int Set_Configuration(USBDevice *d, int config);
 int Get_Configuration(USBDevice *d, byte *config);
-/*
-void print_desc(void *desc, int type);
+
+/*void print_desc(void *desc, int type);
 static void print_devdesc(DevDesc *desc);
 static void print_cfgdesc(CfgDesc *desc);
 static void print_strdesc(StrDesc *desc);
 static void print_intfdesc(IntfDesc *desc);
 static void print_epdesc(EPDesc *desc);
 static void print_hubdesc(HubDesc *desc);
-static void print_hiddesc(HIDDesc *desc);
-*/
+static void print_hiddesc(HIDDesc *desc);*/
+
 int Sony_SIXAXIS_Init(USBDevice *d);
 static int Sony_SIXAXIS_Special_Request(USBDevice *d);
 int Get_Report(USBDevice *d, word type, byte *data, size_t length, byte report_id, word intf);
@@ -73,7 +72,7 @@ unsigned char *Toggle_SIXAXIS_Buffer(void);
 
 union controller_data *Toggle_RC_Tx_Buffer(void);
 
-volatile unsigned char DBGCHAR = 0;
+///**/volatile unsigned char DBGCHAR = 0;
 volatile unsigned char *__sl811_addr, *__sl811_data;
 static volatile unsigned int ms_tmr_cnt;
 static int __usb_dev_mode;
@@ -103,41 +102,23 @@ unsigned char Channel[4][4]  ={{0x07,0x08,0x09,0x0A},	//Channel List
 	
 int main(void)
 {
-	int i, k = 0;
-	int RESETCounter = 0;
+	int i;
 	volatile int tmp, speed;
 
 	initialize();
 	mem_init();
 //	uart_init(0,UART_TE|UART_RE,9600);
-	uart_init(0,UART_TE,19200);
-//	uart_init(1,UART_TE,19200);
-
+	uart_init(0,UART_TE|UART_RE,19200);
 	set_printf_output(uart0_putchar);
-/*
-	_delay_ms(100);
-	_delay_ms(100);
-	_delay_ms(100);
-	uart0_putchar('@');
-	uart0_putchar('B');
-	uart0_putchar('R');
-	uart0_putchar('4');
-	uart0_putchar('8');
-	uart0_putchar(0x0d);
-	uart0_putchar(0x0a);
-	_delay_ms(100);
-	_delay_ms(100);
-	_delay_ms(100);
-*/
-RESET:
 
+RESET:
 	LED_OFF_ALL;
 	
 	cli();	
 
 	LED0_ON;
 
-//**/	DBG("USB_SET_Stert\n");
+///**/	DBG("USB_SET_Stert\n");
 
 	VBUS_ON;
 	for(i = 0;i <= 20; i++ ) _delay_ms(250);
@@ -145,86 +126,48 @@ RESET:
 	tmp = USBInit();
 	if( tmp == 0 )
 	{
+		LED0_OFF;
 		speed = SL811USBReset();
-//**/		DBG("USBReset() - %s\n", ((speed == USB_NONE) ? "NONE" : ((speed == USB_LOW) ? "LOW" : ((speed == USB_FULL) ? "FULL" : "???"))));
+///**/		DBG("USBReset() - %s\n", ((speed == USB_NONE) ? "NONE" : ((speed == USB_LOW) ? "LOW" : ((speed == USB_FULL) ? "FULL" : "???"))));
 		if( speed == USB_LOW || speed == USB_FULL )
 		{
-//**/			DBG("Device initialize...\n");
-			LED_OFF_ALL;
-			LED1_ON;
-			for( i=0; i<5; i++ )
+///**/			DBG("Device initialize...\n");
+			for( i=0; i<3; i++ )
 			{
+				LED1_ON;
 				tmp = USBDeviceInit_in3(&dev, NULL, speed);
-//**/				DBG("return_tmp[USBDeviceInit_in3]-->%d\n",tmp);
+///**/				DBG("return_tmp[USBDeviceInit_in3]-->%d\n",tmp);
 				if( tmp == 0 )	break;
 				_delay_ms(100);
 			}
 			if( tmp == 0 )
 			{
-//**/				DBG("Device initialize succeed!\n");
-//**/				DBG("Sony SIXAXIS\n");
-				LED_OFF_ALL;
-				LED0_ON;
-				LED1_ON;
-				_delay_ms(100);
+				LED1_OFF;
+///**/				DBG("Device initialize succeed!\n");
+///**/				DBG("Sony SIXAXIS\n");
+				_delay_ms(250);
 				while(1)
 				{
 					tmp = Sony_SIXAXIS_Init(&dev);
 					_delay_ms(250);	// 確実にSIXAXISからデータを受信
-//**/					DBG("return_tmp[Sony_SIXAXIS_Init]-->%d\n",tmp);
-					if(tmp==0)break;
-					if(k>5)goto ERROR;
-					k++;
+///**/					DBG("return_tmp[Sony_SIXAXIS_Init]-->%d\n",tmp);
+					if(tmp==0) break;
 				}
-				LED_OFF_ALL;
 				LED2_ON;
 				controler_main_process_loop();
 			}
 			else
 			{
-//**/				DBG("Device initialize error!\n");
-				if(k>10)goto ERROR;
-				k++;
-				goto RESET;			
+///**/				DBG("Device initialize error!\n");
+				goto RESET;				
 				//while(1);
 			}
 		}
 	}
 	else
 	{
-//**/		DBG("Initialize Error...\n");
-		goto RESET;
-		//while(1);
-	}
-	
-	if(RESETCounter<1)
-	{
-		RESETCounter++;
-		goto RESET;
-	}
-ERROR:
-	k = 0;
-	while(1)
-	{
-		LED0_ON;
-		LED2_ON;
-		for(i = 0;i<10; i++)
-		{
-			_delay_ms(250);
-		}
-		LED_OFF_ALL;
-		for(i = 0;i<10; i++)
-		{
-			_delay_ms(250);
-		}
-		if(k>1)
-		{	
-			i = 0;
-			k = 0;
-			RESETCounter = 0;
-			goto RESET;
-		}
-		k++;
+///**/		DBG("Initialize Error...\n");
+		while(1);
 	}
 
 	while(1);
@@ -383,7 +326,7 @@ int SL811WriteData(SL811USBDevInfo *d, unsigned char *data, int size, int flag)
 			// USBデバイスがSTALLの場合はエラー終了
 			if( pktstatus & SL811H_STATUSMASK_STALL )
 			{
-//**/				DBG("!!! READ STALL !!!\n");
+///**/				DBG("!!! READ STALL !!!\n");
 
 				return SL811_HANDSHAKE_STALL;
 			}
@@ -397,7 +340,7 @@ int SL811WriteData(SL811USBDevInfo *d, unsigned char *data, int size, int flag)
 		// USBデータ送信の結果がリトライをしてもACKでない場合は、エラー終了
 		if( !(pktstatus & SL811H_STATUSMASK_ACK) )
 		{
-//**/			DBG("!!! WRITE TIMEOVER !!!\n");
+///**/			DBG("!!! WRITE TIMEOVER !!!\n");
 
 			return SL811_HANDSHAKE_NAK;
 		}
@@ -482,7 +425,7 @@ int SL811ReadData(SL811USBDevInfo *d, unsigned char *data, int size)
 			// USBデバイスがSTALLの場合はエラー終了
 			if( pktstatus & SL811H_STATUSMASK_STALL )
 			{
-//**/				DBG("!!! READ STALL !!!\n");
+///**/				DBG("!!! READ STALL !!!\n");
 
 				return SL811_HANDSHAKE_STALL;
 			}
@@ -493,7 +436,7 @@ int SL811ReadData(SL811USBDevInfo *d, unsigned char *data, int size)
 		// USBデータ受信の結果がリトライをしてもACKでない場合は、エラー終了
 		if( timeovr >= maxretry )
 		{
-//**/			DBG("!!! READ TIMEOVER !!!\n");
+///**/			DBG("!!! READ TIMEOVER !!!\n");
 
 			return SL811_HANDSHAKE_NAK;
 		}
@@ -531,7 +474,7 @@ int SL811USBReset(void)
 	int ret;
 	unsigned char status;
 
-//**/	DBG("Enter USBReset\n");
+///**/	DBG("Enter USBReset\n");
 	_delay_ms(100);
 
 	// Config host mode
@@ -550,7 +493,7 @@ int SL811USBReset(void)
 	if( status & SL811H_INTMASK_NODEVICE )
 	{
 		// USB device none
-//**/        DBG("USBReset: Device Removed\n");
+///**/        DBG("USBReset: Device Removed\n");
 
 		sl811_write(SL811H_INTENBLREG,
 			SL811H_INTMASK_SOFINTR 		// Interrupt on SOF Timer
@@ -563,7 +506,7 @@ int SL811USBReset(void)
 		// Full speed device
 		ret = SL811_USB_FULL;
 
-//**/		DBG("USBReset: Full speed device attached\n");
+///**/		DBG("USBReset: Full speed device attached\n");
 
 		sl811_write(SL811H_SOFCNTLOW, 0xE0);	// 下位 E0
 		sl811_write(SL811H_SOFCNTHIGH, SL811H_CTLREG2MASK_HOSTMODE | 0x2E);		// SOF High 2E + HOSTMode
@@ -577,7 +520,7 @@ int SL811USBReset(void)
 		// Low speed device
 		ret = SL811_USB_LOW;
 
-//**/		DBG("USBReset: Low speed device attached\n");
+///**/		DBG("USBReset: Low speed device attached\n");
 
 		sl811_write(SL811H_SOFCNTLOW, 0xE0);	// 下位 E0
 		sl811_write(SL811H_SOFCNTHIGH, SL811H_CTLREG2MASK_HOSTMODE | SL811H_CTLREG2MASK_DSWAP | 0x2E);	// SOF High 2E + HOSTMode + Data Priority Swap
@@ -593,7 +536,7 @@ int SL811USBReset(void)
 		SL811H_INTMASK_SOFINTR		// Interrupt on SOF Timer
 	);
 	
-//**/	DBG("INTENBLREG-->0x%02X\n",sl811_read(SL811H_INTENBLREG));			// Device Insert/Remove Detection
+///**/	DBG("INTENBLREG-->0x%02X\n",sl811_read(SL811H_INTENBLREG));			// Device Insert/Remove Detection
 	
 	return ret;
 }
@@ -628,12 +571,12 @@ int sl811_regtest(void)
 	for( i=SL811H_MEMBUF_BGN; i<SL811H_MEMBUF_END; i++ )
 	{
 		sl811_write(i, 256-i);
-//**/		DBG("%x\n",i);
+///**/		DBG("%x\n",i);
 		data = sl811_read(i);
-//**/		DBG("%x\n",data);
+///**/		DBG("%x\n",data);
 		if( data != (256-i) )
 		{
-//**/			DBG("ERRER-regtest-");
+///**/			DBG("ERRER-regtest-");
 			return -1;
 		}
 	}
@@ -700,7 +643,7 @@ int USBDeviceInit_in3(USBDevice *d, USBDevice *parent, int speed)
 {
 	int devaddr;
 	
-//**/	int	i, epnum;
+///**/	int	i, epnum;
 	byte tmp;
 	
 	// EndPoint No. - 0, EndPointSize - 8, Retry - 12, PRE - Preamble, Address - 0
@@ -708,27 +651,27 @@ int USBDeviceInit_in3(USBDevice *d, USBDevice *parent, int speed)
 	d->speed = speed;
 	
 	// デバイスディスクプリタの仮取得
-//**/	DBG("GET Device Descriptor\n");
+///**/	DBG("GET Device Descriptor\n");
 	if( Get_Descriptor(d, DEVICE_TYPE, &(d->devdesc), 8, 0, 0) < 0 )	return -1;
 
 	// エンドポイントサイズの設定
 	SL811DeviceInit(&(d->devinfo), 0, d->devdesc.bMaxPacketSize0, 20, 0, 0);
 	
 	// デバイスアドレスをセット
-//**/	DBG("SET Device Address\n");
+///**/	DBG("SET Device Address\n");
 	devaddr = 1;
 	if( Set_Address(d, devaddr) == -1 )	return -1;
 	
 	// デバイスディスクプリタの取得
-//**/	DBG("GET Device Descriptor\n");
+///**/	DBG("GET Device Descriptor\n");
 	if( Get_Descriptor(d, DEVICE_TYPE, &(d->devdesc), sizeof(DevDesc), 0, 0) < 0 )	return -1;
 
 	// コンフィグレーションディスクプリタの仮取得
-//**/	DBG("GET Configuration Descriptor\n");
+///**/	DBG("GET Configuration Descriptor\n");
 	if( Get_Descriptor(d, CONFIG_TYPE, &config, sizeof(CfgDesc), 0, 0) < 0 )	return -1;
 
 	// コンフィグレーションディスクプリタの取得
-//**/	DBG("GET Configuration Descriptor\n");
+///**/	DBG("GET Configuration Descriptor\n");
 	d->cfgdesc = &config;
 	if( Get_Descriptor(d, CONFIG_TYPE, d->cfgdesc, config.wTotalLength, 0, 0) < 0 )	return -1;
 	
@@ -742,7 +685,7 @@ int USBDeviceInit_in3(USBDevice *d, USBDevice *parent, int speed)
 		d->epdesc = (EPDesc*)((byte*)d->hiddesc + d->hiddesc->bLength);
 
 		// レポートディスクリプタの取得
-//**/		DBG("GET Report Descriptor\n");
+///**/		DBG("GET Report Descriptor\n");
 		if( d->hiddesc->Report[0].bDescriptorType == REPORT_TYPE )
 		{
 //			d->repdesc = &reprt;//&_repdesc;//(RptDesc*)malloc( (d->hiddesc->Report[0].wDescriptorLength) );
@@ -756,14 +699,14 @@ int USBDeviceInit_in3(USBDevice *d, USBDevice *parent, int speed)
 	}
 	
 	// コンフィギュレーションの設定
-//**/	DBG("SET Configuration\n");
+///**/	DBG("SET Configuration\n");
 	Set_Configuration(d, d->cfgdesc->bConfigurationValue);
 	
 	// 情報の表示
 	
 	Get_Configuration(d, &tmp);
-//**/	if( tmp != 0x00 ) 	DBG("Configuration Finished!\n");
-/*
+/*	if( tmp != 0x00 ) 	DBG("Configuration Finished!\n");
+
 	DBG("          ---===>Device Information<===---\n");
 
 	DBG("\nConnectionStatus:\n");
@@ -987,8 +930,8 @@ int Get_Configuration(USBDevice *d, byte *config)
 
 	return CtrlTransfer(d, &command, config);
 }
-/*
-void print_desc(void *desc, int type)
+
+/*void print_desc(void *desc, int type)
 {
 	switch(type){
 		case DEVICE_TYPE:		print_devdesc((DevDesc*)desc);		break;
@@ -1147,7 +1090,7 @@ int Sony_SIXAXIS_Init(USBDevice *d)
 	
 	_sixaxis_buf_index = 0;
 	
-	for( i=0; i<3; i++ ){
+	for( i=0; i<10; i++ ){
 		if( Sony_SIXAXIS_Special_Request(d) >= 0 ){
 			i = 0;
 			break;
@@ -1327,11 +1270,11 @@ void controler_main_process_loop(void)
 {
 	unsigned char status;
 	unsigned char getinfosixaxis;
-	int tmp, i;
-//**/	int x;
+	int tmp;
+///**/	int x;
 	unsigned char L_STICK_X, L_STICK_Y, R_STICK_X, R_STICK_Y;
 	
-while(1)
+	while(1)
 	{
 		// clear all interrupt bits
 		for(status=0; status<20; status++)
@@ -1345,78 +1288,33 @@ while(1)
 		IntInTransfer(&dev, 1, &(_sixaxis_buf[0][_sixaxis_buf_index]), SIXAXIS_DATA_LENGTH);
 
 		sixaxis = (SIXAXIS*)((Toggle_SIXAXIS_Buffer()) + 2);
-		
-//**/		printf("%d\n", sixaxis->Button.PS);
+///**/		printf("%d\n", sixaxis->Button.PS);
 		if( sixaxis->Button.PS != 0 )	break;
 		_delay_ms(50);
 	}
-
 	
-//	uart_init(0,UART_RE|UART_TE,19200);						//受信許可|送信許可|送信データ空割り込み許可，ボーレート
+	uart_init(0,UART_RE|UART_TE,19200);						//受信許可|送信許可|送信データ空割り込み許可，ボーレート
 	//	uart_setbuffer(TxDataBuf,RC_DATA_LENGTH*7);				//送信用バッファの設定
 	MU2_SetRxHandler(uart0_getchar);						//uartの1byte受信関数をセット
 	MU2_SetTxHandler(uart0_putchar);						//uartの1byte送信予約関数をセット引数にuart_putcharを 
-	
-	for(i = 0;i<5; i++)
-	{													//入れると割り込みではなくwait形式になる			  	
-		if((PINF&0x01)==1)
-		{
-//**/			printf("%x\n",SWITCH>>6);
-			MU2_SetGroupID(Group[SWITCH>>6]);						//グループ設定
+														//入れると割り込みではなくwait形式になる			  	
+	if((PINF&0x01)==1)
+	{
+///**/		printf("%x\n",SWITCH>>6);
+		MU2_SetGroupID(Group[SWITCH>>6]);						//グループ設定
 
-//**/			printf("%x %x\n",SWITCH>>6,(SWITCH>>4) & 0x03);
-			MU2_SetChannel(Channel[SWITCH>>6][(SWITCH>>4) & 0x03]);	//チャンネル設定
-
-		}
-
-		DELAY;
+///**/		printf("%x %x\n",SWITCH>>6,(SWITCH>>4) & 0x03);
+		MU2_SetChannel(Channel[SWITCH>>6][(SWITCH>>4) & 0x03]);	//チャンネル設定
 	}
-	
-	i = 0;
-	LED_ON_ALL;
 
+	LED_ON_ALL;
+	
 	// 初期バッファへのポインタ取得
 	txdata = Toggle_RC_Tx_Buffer();
-	_delay_ms(100);
-
-/*	uart0_putchar('@');
-	uart0_putchar('B');
-	uart0_putchar('R');
-	uart0_putchar('4');
-	uart0_putchar('8');
-	uart0_putchar(0x0d);
-	uart0_putchar(0x0a);
-	_delay_ms(100);
-	_delay_ms(100);
-	_delay_ms(100);
-
-	uart_init(0,UART_TE,4800);
-	_delay_ms(100);
-	_delay_ms(100);
-	_delay_ms(100);
-	_delay_ms(100);
-	_delay_ms(100);
-	_delay_ms(100);
-*/	
+	
 	while(1)
 	{
-		if(i==0&&(PINF&0x01)==0) i = 1;
-		if(i==1&&(PINF&0x01)==1)
-		{
-			_delay_ms(250);
-			for(i = 0;i<5; i++)
-			{
-					MU2_SetGroupID(Group[SWITCH>>6]);						//グループ設定
-					//_delay_ms(100);
-					MU2_SetChannel(Channel[SWITCH>>6][(SWITCH>>4) & 0x03]);	//チャンネル設定
-					//_delay_ms(100);
-
-				DELAY;
-			}
-			i = 0;
-
-		}
-
+		
 		// clear all interrupt bits
 		for(status=0; status<20; status++)
 		sl811_write(SL811H_INTSTATUSREG, 0xFF);
@@ -1479,26 +1377,24 @@ while(1)
 		txdata->detail.AnalogR.Y = R_STICK_Y;
 		// Analog Stick
 		
-//**/		for( x=0; x<7; x++ ){
-//**/			printf("%02x ", txdata->buf[x]);
-//**/		}
+///**/		for( x=0; x<7; x++ ){
+///**/			printf("%02x ", txdata->buf[x]);
+///**/		}
 //		printf("%02x ",sixaxis->AnalogR.X);
 //		printf("%02x ",sixaxis->AnalogR.Y);
 
-//**/		printf("\n");
+///**/		printf("\n");
 		
-		txdata = Toggle_RC_Tx_Buffer();
+		//txdata = Toggle_RC_Tx_Buffer();
 		if((PINF&0x01)==1)
 		{
 			MU2_SendData(txdata->buf,RC_DATA_LENGTH);
-		
 		}
 		else
 		{
 			MU2_SendDataBus(txdata->buf,RC_DATA_LENGTH);
-		
 		}
-	_delay_ms(50);
+		_delay_ms(40);
 	}
 
 }

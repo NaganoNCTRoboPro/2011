@@ -15,6 +15,8 @@ typedef uint8_t byte;
 
 #define F_CPU 8000000UL
 #define DELAY _delay_us(150)
+#define DELAY_LED _delay_ms(500)
+#define DELAY_USB _delay_ms(250)
 
 #define LED0_ON PORTD |= _BV(PORTD2)
 #define LED1_ON PORTD |= _BV(PORTD4)

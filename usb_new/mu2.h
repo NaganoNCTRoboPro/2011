@@ -26,7 +26,6 @@ int MU2_SendData(unsigned char *data, unsigned char len);
 int MU2_Response(char rx_data,char *prefix, char *value);
 int MU2_SetChannel(unsigned char ch);
 int MU2_SetGroupID(unsigned char id);
-int MU2_SetBoudRate(char b);
 int MU2_SendDataBus(unsigned char *data, unsigned char len);
 
 #endif // MU2_H_INCLUDED

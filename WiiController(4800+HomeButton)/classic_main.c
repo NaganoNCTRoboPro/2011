@@ -18,9 +18,9 @@ int classic(int mode,unsigned char *analog_data)
 	union classic_data rcdata;									//send data for MU2
 	uint8_t i;
 
-
+	set_controller();										//init controller
  	while(1){
-		set_controller();										//init controller				
+		
 		get_value(data.buf);									//get data for controller
 		get_classic_analog(&data,analog_data);					//get data for analog stick
 		MakeClassicRCData(&rcdata,&data,analog_data);
@@ -32,7 +32,7 @@ int classic(int mode,unsigned char *analog_data)
 			}
 		if(mode==1)	MU2_SendDataBus(rcdata.buf,CLASSIC_DATA_LENGTH);//Send Data for Serial
 
-		wait(150);											//wait(45ms)
+//		wait(150);											//wait(45ms)
 
 		if(rcdata.detail.Button.START&&rcdata.detail.Button.SELECT) battery_check();//battery check
 	}

@@ -37,10 +37,10 @@ HEX_EEPROM_FLAGS += --change-section-lma .eeprom=0 --no-change-warnings
 
 
 ## Include Directories
-INCLUDES = -I"D:\AVR_c\USB\usb_new\." -I"D:\AVR_c\USB\usb_new\mu2" 
+INCLUDES = -I"D:\AVR_c\usb_new\." -I"D:\AVR_c\usb_new\mu2" 
 
 ## Objects that must be built in order to link
-OBJECTS = usb_new.o printf.o uart.o mu2.o ringbuffer.o 
+OBJECTS = usb_new.o printf.o uart.o mu2.o 
 
 ## Objects explicitly added by the user
 LINKONLYOBJECTS = 
@@ -59,9 +59,6 @@ uart.o: ../uart.c
 	$(CC) $(INCLUDES) $(CFLAGS) -c  $<
 
 mu2.o: ../mu2.c
-	$(CC) $(INCLUDES) $(CFLAGS) -c  $<
-
-ringbuffer.o: ../ringbuffer.c
 	$(CC) $(INCLUDES) $(CFLAGS) -c  $<
 
 ##Link
