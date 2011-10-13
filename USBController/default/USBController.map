@@ -1,0 +1,548 @@
+Archive member included because of file (symbol)
+
+c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a(_udivmodqi4.o)
+                              main.o (__udivmodqi4)
+c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a(_exit.o)
+                              c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr51/crtm128.o (exit)
+c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a(_clear_bss.o)
+                              main.o (__do_clear_bss)
+
+Allocating common symbols
+Common symbol       size              file
+
+usb_int_tx_enable   0x2               usb.o
+_sixaxis_report_buf
+                    0x11              main.o
+_sixaxis_buf        0x60              main.o
+usbqueue            0x2               usb.o
+__device_addr       0x80              usb.o
+__sl811_addr        0x2               sl811.o
+_newitem            0xc               usb.o
+__sl811_data        0x2               sl811.o
+__uartbuf           0x12              uart.o
+_sixaxis_buf_index  0x1               main.o
+__usb_dev_mode      0x2               usb.o
+config              0x9               usb.o
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+text             0x00000000         0x00020000         xr
+data             0x00800060         0x0000ffa0         rw !x
+eeprom           0x00810000         0x00010000         rw !x
+fuse             0x00820000         0x00000400         rw !x
+lock             0x00830000         0x00000400         rw !x
+signature        0x00840000         0x00000400         rw !x
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+Address of section .data set to 0x800100
+LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr51/crtm128.o
+LOAD main.o
+LOAD wait.o
+LOAD usb.o
+LOAD sl811.o
+LOAD mu2.o
+LOAD uart.o
+LOAD ringbuffer.o
+LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a
+LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr51\libc.a
+LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a
+
+.hash
+ *(.hash)
+
+.dynsym
+ *(.dynsym)
+
+.dynstr
+ *(.dynstr)
+
+.gnu.version
+ *(.gnu.version)
+
+.gnu.version_d
+ *(.gnu.version_d)
+
+.gnu.version_r
+ *(.gnu.version_r)
+
+.rel.init
+ *(.rel.init)
+
+.rela.init
+ *(.rela.init)
+
+.rel.text
+ *(.rel.text)
+ *(.rel.text.*)
+ *(.rel.gnu.linkonce.t*)
+
+.rela.text
+ *(.rela.text)
+ *(.rela.text.*)
+ *(.rela.gnu.linkonce.t*)
+
+.rel.fini
+ *(.rel.fini)
+
+.rela.fini
+ *(.rela.fini)
+
+.rel.rodata
+ *(.rel.rodata)
+ *(.rel.rodata.*)
+ *(.rel.gnu.linkonce.r*)
+
+.rela.rodata
+ *(.rela.rodata)
+ *(.rela.rodata.*)
+ *(.rela.gnu.linkonce.r*)
+
+.rel.data
+ *(.rel.data)
+ *(.rel.data.*)
+ *(.rel.gnu.linkonce.d*)
+
+.rela.data
+ *(.rela.data)
+ *(.rela.data.*)
+ *(.rela.gnu.linkonce.d*)
+
+.rel.ctors
+ *(.rel.ctors)
+
+.rela.ctors
+ *(.rela.ctors)
+
+.rel.dtors
+ *(.rel.dtors)
+
+.rela.dtors
+ *(.rela.dtors)
+
+.rel.got
+ *(.rel.got)
+
+.rela.got
+ *(.rela.got)
+
+.rel.bss
+ *(.rel.bss)
+
+.rela.bss
+ *(.rela.bss)
+
+.rel.plt
+ *(.rel.plt)
+
+.rela.plt
+ *(.rela.plt)
+
+.text           0x00000000     0x1402
+ *(.vectors)
+ .vectors       0x00000000       0x8c c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr51/crtm128.o
+                0x00000000                __vectors
+                0x00000000                __vector_default
+ *(.vectors)
+ *(.progmem.gcc*)
+ *(.progmem*)
+                0x0000008c                . = ALIGN (0x2)
+                0x0000008c                __trampolines_start = .
+ *(.trampolines)
+ .trampolines   0x0000008c        0x0 linker stubs
+ *(.trampolines*)
+                0x0000008c                __trampolines_end = .
+ *(.jumptables)
+ *(.jumptables*)
+ *(.lowtext)
+ *(.lowtext*)
+                0x0000008c                __ctors_start = .
+ *(.ctors)
+                0x0000008c                __ctors_end = .
+                0x0000008c                __dtors_start = .
+ *(.dtors)
+                0x0000008c                __dtors_end = .
+ SORT(*)(.ctors)
+ SORT(*)(.dtors)
+ *(.init0)
+ .init0         0x0000008c        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr51/crtm128.o
+                0x0000008c                __init
+ *(.init0)
+ *(.init1)
+ *(.init1)
+ *(.init2)
+ .init2         0x0000008c        0xc c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr51/crtm128.o
+ *(.init2)
+ *(.init3)
+ *(.init3)
+ *(.init4)
+ .init4         0x00000098       0x1a c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr51/crtm128.o
+                0x00000098                __do_copy_data
+ .init4         0x000000b2       0x10 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a(_clear_bss.o)
+                0x000000b2                __do_clear_bss
+ *(.init4)
+ *(.init5)
+ *(.init5)
+ *(.init6)
+ *(.init6)
+ *(.init7)
+ *(.init7)
+ *(.init8)
+ *(.init8)
+ *(.init9)
+ .init9         0x000000c2        0x8 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr51/crtm128.o
+ *(.init9)
+ *(.text)
+ .text          0x000000ca        0x4 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr51/crtm128.o
+                0x000000ca                __vector_22
+                0x000000ca                __vector_28
+                0x000000ca                __vector_1
+                0x000000ca                __vector_32
+                0x000000ca                __vector_34
+                0x000000ca                __vector_24
+                0x000000ca                __vector_12
+                0x000000ca                __bad_interrupt
+                0x000000ca                __vector_6
+                0x000000ca                __vector_31
+                0x000000ca                __vector_3
+                0x000000ca                __vector_23
+                0x000000ca                __vector_30
+                0x000000ca                __vector_25
+                0x000000ca                __vector_11
+                0x000000ca                __vector_13
+                0x000000ca                __vector_17
+                0x000000ca                __vector_19
+                0x000000ca                __vector_7
+                0x000000ca                __vector_27
+                0x000000ca                __vector_5
+                0x000000ca                __vector_33
+                0x000000ca                __vector_4
+                0x000000ca                __vector_9
+                0x000000ca                __vector_2
+                0x000000ca                __vector_21
+                0x000000ca                __vector_15
+                0x000000ca                __vector_29
+                0x000000ca                __vector_8
+                0x000000ca                __vector_26
+                0x000000ca                __vector_14
+                0x000000ca                __vector_10
+                0x000000ca                __vector_16
+                0x000000ca                __vector_18
+                0x000000ca                __vector_20
+ .text          0x000000ce      0x3fc main.o
+                0x00000138                Sony_SIXAXIS_Special_Request
+                0x000000ce                Toggle_SIXAXIS_Buffer
+                0x00000102                mem_init
+                0x0000011e                Sony_SIXAXIS_IntTask
+                0x000001ee                main
+                0x00000164                Sony_SIXAXIS_Init
+                0x000000ea                initialize
+ .text          0x000004ca       0x74 wait.o
+                0x0000050e                wait_us
+                0x000004ca                wait_ms
+ .text          0x0000053e      0x5ae usb.o
+                0x0000053e                USBIntTxManagerInit
+                0x00000752                CtrlTransfer
+                0x00000664                IntInTransfer
+                0x00000578                USBAddIntTxTask
+                0x00000804                Set_Configuration
+                0x00000ade                USBInit
+                0x000008ce                Get_Descriptor
+                0x0000084a                Set_Address
+                0x0000075c                Get_Report
+                0x00000554                SL811DeviceInit
+                0x000007ba                Get_Configuration
+                0x0000093c                USBDeviceInit_in3
+                0x00000656                SL811IntInTransfer
+                0x00000678                SL811CtrlTransfer
+ .text          0x00000aec      0x488 sl811.o
+                0x00000e48                SL811WriteData
+                0x00000d06                SL811ReadData
+                0x00000c2a                SL811USBInit
+                0x00000bbe                sl811_read
+                0x00000b0c                sl811_buf_write
+                0x00000b92                sl811_write
+                0x00000b4e                sl811_buf_read
+                0x00000b06                SL811SetAddress
+                0x00000c48                SL811USBReset
+                0x00000aec                sl811_init
+                0x00000bea                sl811_regtest
+ .text          0x00000f74      0x1fa mu2.o
+                0x00000f74                Byte2Str
+                0x00001002                mu2_command_eeprom
+                0x000010be                mu2_command
+                0x00000f98                MU2_SendData
+ .text          0x0000116e      0x168 uart.o
+                0x0000116e                uart_init
+                0x000011c8                uart0_getchar
+                0x0000126c                uart0_buf_putchar
+                0x000011e0                uart1_putchar
+                0x0000121a                uart1_buf_putchar
+                0x000011d2                uart0_putchar
+                0x000012b6                uart_setbuffer
+ .text          0x000012d6      0x110 ringbuffer.o
+                0x000012ee                RingPut
+                0x000012d6                RingInit
+                0x0000135e                RingGet
+                0x000013de                isRingEmpty
+ .text          0x000013e6        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a(_udivmodqi4.o)
+ .text          0x000013e6        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a(_exit.o)
+ .text          0x000013e6        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a(_clear_bss.o)
+                0x000013e6                . = ALIGN (0x2)
+ *(.text.*)
+ .text.libgcc   0x000013e6       0x18 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a(_udivmodqi4.o)
+                0x000013e6                __udivmodqi4
+ .text.libgcc   0x000013fe        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a(_exit.o)
+ .text.libgcc   0x000013fe        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a(_clear_bss.o)
+                0x000013fe                . = ALIGN (0x2)
+ *(.fini9)
+ .fini9         0x000013fe        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a(_exit.o)
+                0x000013fe                exit
+                0x000013fe                _exit
+ *(.fini9)
+ *(.fini8)
+ *(.fini8)
+ *(.fini7)
+ *(.fini7)
+ *(.fini6)
+ *(.fini6)
+ *(.fini5)
+ *(.fini5)
+ *(.fini4)
+ *(.fini4)
+ *(.fini3)
+ *(.fini3)
+ *(.fini2)
+ *(.fini2)
+ *(.fini1)
+ *(.fini1)
+ *(.fini0)
+ .fini0         0x000013fe        0x4 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a(_exit.o)
+ *(.fini0)
+                0x00001402                _etext = .
+
+.data           0x00800100       0x10 load address 0x00001402
+                0x00800100                PROVIDE (__data_start, .)
+ *(.data)
+ .data          0x00800100        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr51/crtm128.o
+ .data          0x00800100        0x0 main.o
+ .data          0x00800100        0x0 wait.o
+ .data          0x00800100        0x0 usb.o
+ .data          0x00800100        0x0 sl811.o
+ .data          0x00800100       0x10 mu2.o
+ .data          0x00800110        0x0 uart.o
+ .data          0x00800110        0x0 ringbuffer.o
+ .data          0x00800110        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a(_udivmodqi4.o)
+ .data          0x00800110        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a(_exit.o)
+ .data          0x00800110        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a(_clear_bss.o)
+ *(.data*)
+ *(.rodata)
+ *(.rodata*)
+ *(.gnu.linkonce.d*)
+                0x00800110                . = ALIGN (0x2)
+                0x00800110                _edata = .
+                0x00800110                PROVIDE (__data_end, .)
+
+.bss            0x00800110      0x130
+                0x00800110                PROVIDE (__bss_start, .)
+ *(.bss)
+ .bss           0x00800110        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr51/crtm128.o
+ .bss           0x00800110        0x0 main.o
+ .bss           0x00800110        0x0 wait.o
+ .bss           0x00800110        0x0 usb.o
+ .bss           0x00800110        0x1 sl811.o
+ .bss           0x00800111        0xb mu2.o
+ .bss           0x0080011c        0x1 uart.o
+ .bss           0x0080011d        0x0 ringbuffer.o
+ .bss           0x0080011d        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a(_udivmodqi4.o)
+ .bss           0x0080011d        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a(_exit.o)
+ .bss           0x0080011d        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a(_clear_bss.o)
+ *(.bss*)
+ *(COMMON)
+ COMMON         0x0080011d       0x72 main.o
+                0x0080011d                _sixaxis_report_buf
+                0x0080012e                _sixaxis_buf
+                0x0080018e                _sixaxis_buf_index
+ COMMON         0x0080018f       0x9b usb.o
+                0x0080018f                usb_int_tx_enable
+                0x00800191                usbqueue
+                0x00800193                __device_addr
+                0x00800213                _newitem
+                0x0080021f                __usb_dev_mode
+                0x00800221                config
+ COMMON         0x0080022a        0x4 sl811.o
+                0x0080022a                __sl811_addr
+                0x0080022c                __sl811_data
+ COMMON         0x0080022e       0x12 uart.o
+                0x0080022e                __uartbuf
+                0x00800240                PROVIDE (__bss_end, .)
+                0x00001402                __data_load_start = LOADADDR (.data)
+                0x00001412                __data_load_end = (__data_load_start + SIZEOF (.data))
+
+.noinit         0x00800240        0x0
+                0x00800240                PROVIDE (__noinit_start, .)
+ *(.noinit*)
+                0x00800240                PROVIDE (__noinit_end, .)
+                0x00800240                _end = .
+                0x00800240                PROVIDE (__heap_start, .)
+
+.eeprom         0x00810000        0x0
+ *(.eeprom*)
+                0x00810000                __eeprom_end = .
+
+.fuse
+ *(.fuse)
+ *(.lfuse)
+ *(.hfuse)
+ *(.efuse)
+
+.lock
+ *(.lock*)
+
+.signature
+ *(.signature*)
+
+.stab
+ *(.stab)
+
+.stabstr
+ *(.stabstr)
+
+.stab.excl
+ *(.stab.excl)
+
+.stab.exclstr
+ *(.stab.exclstr)
+
+.stab.index
+ *(.stab.index)
+
+.stab.indexstr
+ *(.stab.indexstr)
+
+.comment
+ *(.comment)
+
+.debug
+ *(.debug)
+
+.line
+ *(.line)
+
+.debug_srcinfo
+ *(.debug_srcinfo)
+
+.debug_sfnames
+ *(.debug_sfnames)
+
+.debug_aranges  0x00000000       0xe0
+ *(.debug_aranges)
+ .debug_aranges
+                0x00000000       0x20 main.o
+ .debug_aranges
+                0x00000020       0x20 wait.o
+ .debug_aranges
+                0x00000040       0x20 usb.o
+ .debug_aranges
+                0x00000060       0x20 sl811.o
+ .debug_aranges
+                0x00000080       0x20 mu2.o
+ .debug_aranges
+                0x000000a0       0x20 uart.o
+ .debug_aranges
+                0x000000c0       0x20 ringbuffer.o
+
+.debug_pubnames
+                0x00000000      0x4c5
+ *(.debug_pubnames)
+ .debug_pubnames
+                0x00000000       0xe1 main.o
+ .debug_pubnames
+                0x000000e1       0x2a wait.o
+ .debug_pubnames
+                0x0000010b      0x182 usb.o
+ .debug_pubnames
+                0x0000028d       0xf7 sl811.o
+ .debug_pubnames
+                0x00000384       0x57 mu2.o
+ .debug_pubnames
+                0x000003db       0xa3 uart.o
+ .debug_pubnames
+                0x0000047e       0x47 ringbuffer.o
+
+.debug_info     0x00000000     0x255c
+ *(.debug_info)
+ .debug_info    0x00000000      0xcc7 main.o
+ .debug_info    0x00000cc7       0xbd wait.o
+ .debug_info    0x00000d84      0xd1a usb.o
+ .debug_info    0x00001a9e      0x49b sl811.o
+ .debug_info    0x00001f39      0x215 mu2.o
+ .debug_info    0x0000214e      0x287 uart.o
+ .debug_info    0x000023d5      0x187 ringbuffer.o
+ *(.gnu.linkonce.wi.*)
+
+.debug_abbrev   0x00000000      0xa8d
+ *(.debug_abbrev)
+ .debug_abbrev  0x00000000      0x255 main.o
+ .debug_abbrev  0x00000255       0x81 wait.o
+ .debug_abbrev  0x000002d6      0x2c4 usb.o
+ .debug_abbrev  0x0000059a      0x1b6 sl811.o
+ .debug_abbrev  0x00000750      0x11b mu2.o
+ .debug_abbrev  0x0000086b      0x143 uart.o
+ .debug_abbrev  0x000009ae       0xdf ringbuffer.o
+
+.debug_line     0x00000000     0x151a
+ *(.debug_line)
+ .debug_line    0x00000000      0x4dd main.o
+ .debug_line    0x000004dd       0xcb wait.o
+ .debug_line    0x000005a8      0x59e usb.o
+ .debug_line    0x00000b46      0x45c sl811.o
+ .debug_line    0x00000fa2      0x225 mu2.o
+ .debug_line    0x000011c7      0x22d uart.o
+ .debug_line    0x000013f4      0x126 ringbuffer.o
+
+.debug_frame    0x00000000      0x380
+ *(.debug_frame)
+ .debug_frame   0x00000000       0x80 main.o
+ .debug_frame   0x00000080       0x30 wait.o
+ .debug_frame   0x000000b0       0xf0 usb.o
+ .debug_frame   0x000001a0       0xc0 sl811.o
+ .debug_frame   0x00000260       0x50 mu2.o
+ .debug_frame   0x000002b0       0x80 uart.o
+ .debug_frame   0x00000330       0x50 ringbuffer.o
+
+.debug_str      0x00000000      0x95f
+ *(.debug_str)
+ .debug_str     0x00000000      0x528 main.o
+                                0x589 (size before relaxing)
+ .debug_str     0x00000528       0x30 wait.o
+                                 0xdc (size before relaxing)
+ .debug_str     0x00000558      0x1ac usb.o
+                                0x60a (size before relaxing)
+ .debug_str     0x00000704      0x106 sl811.o
+                                0x213 (size before relaxing)
+ .debug_str     0x0000080a       0x48 mu2.o
+                                0x10b (size before relaxing)
+ .debug_str     0x00000852       0xc8 uart.o
+                                0x1a2 (size before relaxing)
+ .debug_str     0x0000091a       0x45 ringbuffer.o
+                                 0xbb (size before relaxing)
+
+.debug_loc      0x00000000     0x108e
+ *(.debug_loc)
+ .debug_loc     0x00000000      0x24d main.o
+ .debug_loc     0x0000024d      0x6a7 usb.o
+ .debug_loc     0x000008f4      0x411 sl811.o
+ .debug_loc     0x00000d05      0x144 mu2.o
+ .debug_loc     0x00000e49      0x17d uart.o
+ .debug_loc     0x00000fc6       0xc8 ringbuffer.o
+
+.debug_macinfo
+ *(.debug_macinfo)
+OUTPUT(USBController.elf elf32-avr)
+LOAD linker stubs
+
+.debug_ranges   0x00000000       0x80
+ .debug_ranges  0x00000000       0x80 main.o

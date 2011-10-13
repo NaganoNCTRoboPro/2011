@@ -1,0 +1,3891 @@
+
+USBController.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .data         00000010  00800100  00001402  00001496  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  1 .text         00001402  00000000  00000000  00000094  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  2 .bss          00000130  00800110  00800110  000014a6  2**0
+                  ALLOC
+  3 .debug_aranges 000000e0  00000000  00000000  000014a6  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  4 .debug_pubnames 000004c5  00000000  00000000  00001586  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   0000255c  00000000  00000000  00001a4b  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 00000a8d  00000000  00000000  00003fa7  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   0000151a  00000000  00000000  00004a34  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  00000380  00000000  00000000  00005f50  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    0000095f  00000000  00000000  000062d0  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    0000108e  00000000  00000000  00006c2f  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 00000080  00000000  00000000  00007cbd  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+       0:	0c 94 46 00 	jmp	0x8c	; 0x8c <__ctors_end>
+       4:	0c 94 65 00 	jmp	0xca	; 0xca <__bad_interrupt>
+       8:	0c 94 65 00 	jmp	0xca	; 0xca <__bad_interrupt>
+       c:	0c 94 65 00 	jmp	0xca	; 0xca <__bad_interrupt>
+      10:	0c 94 65 00 	jmp	0xca	; 0xca <__bad_interrupt>
+      14:	0c 94 65 00 	jmp	0xca	; 0xca <__bad_interrupt>
+      18:	0c 94 65 00 	jmp	0xca	; 0xca <__bad_interrupt>
+      1c:	0c 94 65 00 	jmp	0xca	; 0xca <__bad_interrupt>
+      20:	0c 94 65 00 	jmp	0xca	; 0xca <__bad_interrupt>
+      24:	0c 94 65 00 	jmp	0xca	; 0xca <__bad_interrupt>
+      28:	0c 94 65 00 	jmp	0xca	; 0xca <__bad_interrupt>
+      2c:	0c 94 65 00 	jmp	0xca	; 0xca <__bad_interrupt>
+      30:	0c 94 65 00 	jmp	0xca	; 0xca <__bad_interrupt>
+      34:	0c 94 65 00 	jmp	0xca	; 0xca <__bad_interrupt>
+      38:	0c 94 65 00 	jmp	0xca	; 0xca <__bad_interrupt>
+      3c:	0c 94 65 00 	jmp	0xca	; 0xca <__bad_interrupt>
+      40:	0c 94 65 00 	jmp	0xca	; 0xca <__bad_interrupt>
+      44:	0c 94 65 00 	jmp	0xca	; 0xca <__bad_interrupt>
+      48:	0c 94 65 00 	jmp	0xca	; 0xca <__bad_interrupt>
+      4c:	0c 94 65 00 	jmp	0xca	; 0xca <__bad_interrupt>
+      50:	0c 94 65 00 	jmp	0xca	; 0xca <__bad_interrupt>
+      54:	0c 94 65 00 	jmp	0xca	; 0xca <__bad_interrupt>
+      58:	0c 94 65 00 	jmp	0xca	; 0xca <__bad_interrupt>
+      5c:	0c 94 65 00 	jmp	0xca	; 0xca <__bad_interrupt>
+      60:	0c 94 65 00 	jmp	0xca	; 0xca <__bad_interrupt>
+      64:	0c 94 65 00 	jmp	0xca	; 0xca <__bad_interrupt>
+      68:	0c 94 65 00 	jmp	0xca	; 0xca <__bad_interrupt>
+      6c:	0c 94 65 00 	jmp	0xca	; 0xca <__bad_interrupt>
+      70:	0c 94 65 00 	jmp	0xca	; 0xca <__bad_interrupt>
+      74:	0c 94 65 00 	jmp	0xca	; 0xca <__bad_interrupt>
+      78:	0c 94 65 00 	jmp	0xca	; 0xca <__bad_interrupt>
+      7c:	0c 94 65 00 	jmp	0xca	; 0xca <__bad_interrupt>
+      80:	0c 94 65 00 	jmp	0xca	; 0xca <__bad_interrupt>
+      84:	0c 94 65 00 	jmp	0xca	; 0xca <__bad_interrupt>
+      88:	0c 94 65 00 	jmp	0xca	; 0xca <__bad_interrupt>
+
+0000008c <__ctors_end>:
+      8c:	11 24       	eor	r1, r1
+      8e:	1f be       	out	0x3f, r1	; 63
+      90:	cf ef       	ldi	r28, 0xFF	; 255
+      92:	d0 e1       	ldi	r29, 0x10	; 16
+      94:	de bf       	out	0x3e, r29	; 62
+      96:	cd bf       	out	0x3d, r28	; 61
+
+00000098 <__do_copy_data>:
+      98:	11 e0       	ldi	r17, 0x01	; 1
+      9a:	a0 e0       	ldi	r26, 0x00	; 0
+      9c:	b1 e0       	ldi	r27, 0x01	; 1
+      9e:	e2 e0       	ldi	r30, 0x02	; 2
+      a0:	f4 e1       	ldi	r31, 0x14	; 20
+      a2:	00 e0       	ldi	r16, 0x00	; 0
+      a4:	0b bf       	out	0x3b, r16	; 59
+      a6:	02 c0       	rjmp	.+4      	; 0xac <__do_copy_data+0x14>
+      a8:	07 90       	elpm	r0, Z+
+      aa:	0d 92       	st	X+, r0
+      ac:	a0 31       	cpi	r26, 0x10	; 16
+      ae:	b1 07       	cpc	r27, r17
+      b0:	d9 f7       	brne	.-10     	; 0xa8 <__do_copy_data+0x10>
+
+000000b2 <__do_clear_bss>:
+      b2:	12 e0       	ldi	r17, 0x02	; 2
+      b4:	a0 e1       	ldi	r26, 0x10	; 16
+      b6:	b1 e0       	ldi	r27, 0x01	; 1
+      b8:	01 c0       	rjmp	.+2      	; 0xbc <.do_clear_bss_start>
+
+000000ba <.do_clear_bss_loop>:
+      ba:	1d 92       	st	X+, r1
+
+000000bc <.do_clear_bss_start>:
+      bc:	a0 34       	cpi	r26, 0x40	; 64
+      be:	b1 07       	cpc	r27, r17
+      c0:	e1 f7       	brne	.-8      	; 0xba <.do_clear_bss_loop>
+      c2:	0e 94 f7 00 	call	0x1ee	; 0x1ee <main>
+      c6:	0c 94 ff 09 	jmp	0x13fe	; 0x13fe <_exit>
+
+000000ca <__bad_interrupt>:
+      ca:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+000000ce <Toggle_SIXAXIS_Buffer>:
+}
+unsigned char *Toggle_SIXAXIS_Buffer(void)
+{
+	unsigned char *ret;
+	
+	ret = &(_sixaxis_buf[0][_sixaxis_buf_index]);
+      ce:	20 91 8e 01 	lds	r18, 0x018E
+	_sixaxis_buf_index = (_sixaxis_buf_index == 1) ? 0 : 1;
+      d2:	10 92 8e 01 	sts	0x018E, r1
+      d6:	21 30       	cpi	r18, 0x01	; 1
+      d8:	19 f0       	breq	.+6      	; 0xe0 <Toggle_SIXAXIS_Buffer+0x12>
+      da:	81 e0       	ldi	r24, 0x01	; 1
+      dc:	80 93 8e 01 	sts	0x018E, r24
+      e0:	30 e0       	ldi	r19, 0x00	; 0
+      e2:	22 5d       	subi	r18, 0xD2	; 210
+      e4:	3e 4f       	sbci	r19, 0xFE	; 254
+	
+	return ret;
+}
+      e6:	c9 01       	movw	r24, r18
+      e8:	08 95       	ret
+
+000000ea <initialize>:
+void initialize(void)//IO_SETING
+{
+	DDRD = 0xFE;//PD1~7-->OUT
+      ea:	8e ef       	ldi	r24, 0xFE	; 254
+      ec:	81 bb       	out	0x11, r24	; 17
+	PORTD = 0x82;//PD 1000 001*
+      ee:	82 e8       	ldi	r24, 0x82	; 130
+      f0:	82 bb       	out	0x12, r24	; 18
+	DDRE = 0x02;
+      f2:	82 e0       	ldi	r24, 0x02	; 2
+      f4:	82 b9       	out	0x02, r24	; 2
+	DDRF = 0x00;
+      f6:	10 92 61 00 	sts	0x0061, r1
+	PORTF = 0xFF;
+      fa:	8f ef       	ldi	r24, 0xFF	; 255
+      fc:	80 93 62 00 	sts	0x0062, r24
+}
+     100:	08 95       	ret
+
+00000102 <mem_init>:
+
+void mem_init(void)//XMEM_SETING
+{
+	MCUCR |= _BV(SRE) | _BV(SRW10);//XMEM_PARMISSION
+     102:	85 b7       	in	r24, 0x35	; 53
+     104:	80 6c       	ori	r24, 0xC0	; 192
+     106:	85 bf       	out	0x35, r24	; 53
+	XMCRA |= _BV(SRW11) | _BV(SRW00) | _BV(SRW01);//(High&Low)WAIT2+LOCK1
+     108:	ed e6       	ldi	r30, 0x6D	; 109
+     10a:	f0 e0       	ldi	r31, 0x00	; 0
+     10c:	80 81       	ld	r24, Z
+     10e:	8e 60       	ori	r24, 0x0E	; 14
+     110:	80 83       	st	Z, r24
+	XMCRB |= _BV(XMBK);//BUS_KEEPE
+     112:	ec e6       	ldi	r30, 0x6C	; 108
+     114:	f0 e0       	ldi	r31, 0x00	; 0
+     116:	80 81       	ld	r24, Z
+     118:	80 68       	ori	r24, 0x80	; 128
+     11a:	80 83       	st	Z, r24
+}
+     11c:	08 95       	ret
+
+0000011e <Sony_SIXAXIS_IntTask>:
+ *
+ * @param {d} 対象デバイス
+ */
+void Sony_SIXAXIS_IntTask(USBDevice *d)
+{
+	IntInTransfer(d, 1, &(_sixaxis_buf[0][_sixaxis_buf_index]), SIXAXIS_DATA_LENGTH);
+     11e:	20 91 8e 01 	lds	r18, 0x018E
+     122:	4e e2       	ldi	r20, 0x2E	; 46
+     124:	51 e0       	ldi	r21, 0x01	; 1
+     126:	42 0f       	add	r20, r18
+     128:	51 1d       	adc	r21, r1
+     12a:	61 e0       	ldi	r22, 0x01	; 1
+     12c:	70 e0       	ldi	r23, 0x00	; 0
+     12e:	20 e3       	ldi	r18, 0x30	; 48
+     130:	30 e0       	ldi	r19, 0x00	; 0
+     132:	0e 94 32 03 	call	0x664	; 0x664 <IntInTransfer>
+}
+     136:	08 95       	ret
+
+00000138 <Sony_SIXAXIS_Special_Request>:
+ * @param {d} 対象デバイス
+ * @return 正常終了時 : 受信したデータのサイズ
+ *         不正終了時 : HANDSHAKE_NAK [-1] もしくは HANDSHAKE_STALL [-2]
+ */
+SWord Sony_SIXAXIS_Special_Request(USBDevice *d)
+{
+     138:	ef 92       	push	r14
+     13a:	ff 92       	push	r15
+     13c:	0f 93       	push	r16
+     13e:	fc 01       	movw	r30, r24
+	SWord ret;
+
+	ret = Get_Report(
+     140:	a7 8d       	ldd	r26, Z+31	; 0x1f
+     142:	b0 a1       	ldd	r27, Z+32	; 0x20
+     144:	12 96       	adiw	r26, 0x02	; 2
+     146:	ec 90       	ld	r14, X
+     148:	63 e0       	ldi	r22, 0x03	; 3
+     14a:	70 e0       	ldi	r23, 0x00	; 0
+     14c:	4d e1       	ldi	r20, 0x1D	; 29
+     14e:	51 e0       	ldi	r21, 0x01	; 1
+     150:	21 e1       	ldi	r18, 0x11	; 17
+     152:	30 e0       	ldi	r19, 0x00	; 0
+     154:	02 ef       	ldi	r16, 0xF2	; 242
+     156:	ff 24       	eor	r15, r15
+     158:	0e 94 ae 03 	call	0x75c	; 0x75c <Get_Report>
+		SIXAXIS_REPORT_LENGTH, 
+		SIXAXIS_REPORT_ID, 
+		d->intfdesc->bInterfaceNumber
+	);
+	return ret;
+}
+     15c:	0f 91       	pop	r16
+     15e:	ff 90       	pop	r15
+     160:	ef 90       	pop	r14
+     162:	08 95       	ret
+
+00000164 <Sony_SIXAXIS_Init>:
+
+	return 0;
+}
+
+int Sony_SIXAXIS_Init(USBDevice *d)
+{
+     164:	ef 92       	push	r14
+     166:	ff 92       	push	r15
+     168:	0f 93       	push	r16
+     16a:	cf 93       	push	r28
+     16c:	df 93       	push	r29
+     16e:	ec 01       	movw	r28, r24
+ */
+SWord Sony_SIXAXIS_Special_Request(USBDevice *d)
+{
+	SWord ret;
+
+	ret = Get_Report(
+     170:	ef 8d       	ldd	r30, Y+31	; 0x1f
+     172:	f8 a1       	ldd	r31, Y+32	; 0x20
+     174:	e2 80       	ldd	r14, Z+2	; 0x02
+     176:	63 e0       	ldi	r22, 0x03	; 3
+     178:	70 e0       	ldi	r23, 0x00	; 0
+     17a:	4d e1       	ldi	r20, 0x1D	; 29
+     17c:	51 e0       	ldi	r21, 0x01	; 1
+     17e:	21 e1       	ldi	r18, 0x11	; 17
+     180:	30 e0       	ldi	r19, 0x00	; 0
+     182:	02 ef       	ldi	r16, 0xF2	; 242
+     184:	ff 24       	eor	r15, r15
+     186:	0e 94 ae 03 	call	0x75c	; 0x75c <Get_Report>
+int Sony_SIXAXIS_Init(USBDevice *d)
+{
+	uint8_t i;
+	
+	for( i=0; i<3; i++ ){
+		if( Sony_SIXAXIS_Special_Request(d) >= 0 ){
+     18a:	97 ff       	sbrs	r25, 7
+     18c:	1f c0       	rjmp	.+62     	; 0x1cc <Sony_SIXAXIS_Init+0x68>
+ */
+SWord Sony_SIXAXIS_Special_Request(USBDevice *d)
+{
+	SWord ret;
+
+	ret = Get_Report(
+     18e:	ef 8d       	ldd	r30, Y+31	; 0x1f
+     190:	f8 a1       	ldd	r31, Y+32	; 0x20
+     192:	e2 80       	ldd	r14, Z+2	; 0x02
+     194:	ce 01       	movw	r24, r28
+     196:	63 e0       	ldi	r22, 0x03	; 3
+     198:	70 e0       	ldi	r23, 0x00	; 0
+     19a:	4d e1       	ldi	r20, 0x1D	; 29
+     19c:	51 e0       	ldi	r21, 0x01	; 1
+     19e:	21 e1       	ldi	r18, 0x11	; 17
+     1a0:	30 e0       	ldi	r19, 0x00	; 0
+     1a2:	0e 94 ae 03 	call	0x75c	; 0x75c <Get_Report>
+int Sony_SIXAXIS_Init(USBDevice *d)
+{
+	uint8_t i;
+	
+	for( i=0; i<3; i++ ){
+		if( Sony_SIXAXIS_Special_Request(d) >= 0 ){
+     1a6:	97 ff       	sbrs	r25, 7
+     1a8:	11 c0       	rjmp	.+34     	; 0x1cc <Sony_SIXAXIS_Init+0x68>
+ */
+SWord Sony_SIXAXIS_Special_Request(USBDevice *d)
+{
+	SWord ret;
+
+	ret = Get_Report(
+     1aa:	ef 8d       	ldd	r30, Y+31	; 0x1f
+     1ac:	f8 a1       	ldd	r31, Y+32	; 0x20
+     1ae:	e2 80       	ldd	r14, Z+2	; 0x02
+     1b0:	ce 01       	movw	r24, r28
+     1b2:	63 e0       	ldi	r22, 0x03	; 3
+     1b4:	70 e0       	ldi	r23, 0x00	; 0
+     1b6:	4d e1       	ldi	r20, 0x1D	; 29
+     1b8:	51 e0       	ldi	r21, 0x01	; 1
+     1ba:	21 e1       	ldi	r18, 0x11	; 17
+     1bc:	30 e0       	ldi	r19, 0x00	; 0
+     1be:	0e 94 ae 03 	call	0x75c	; 0x75c <Get_Report>
+int Sony_SIXAXIS_Init(USBDevice *d)
+{
+	uint8_t i;
+	
+	for( i=0; i<3; i++ ){
+		if( Sony_SIXAXIS_Special_Request(d) >= 0 ){
+     1c2:	97 ff       	sbrs	r25, 7
+     1c4:	03 c0       	rjmp	.+6      	; 0x1cc <Sony_SIXAXIS_Init+0x68>
+     1c6:	2f ef       	ldi	r18, 0xFF	; 255
+     1c8:	3f ef       	ldi	r19, 0xFF	; 255
+     1ca:	0a c0       	rjmp	.+20     	; 0x1e0 <Sony_SIXAXIS_Init+0x7c>
+			break;
+		}
+	}
+	if( i != 0 )	return -1;
+	
+	return USBAddIntTxTask(d, 1, 15, Sony_SIXAXIS_IntTask);
+     1cc:	ce 01       	movw	r24, r28
+     1ce:	61 e0       	ldi	r22, 0x01	; 1
+     1d0:	70 e0       	ldi	r23, 0x00	; 0
+     1d2:	4f e0       	ldi	r20, 0x0F	; 15
+     1d4:	50 e0       	ldi	r21, 0x00	; 0
+     1d6:	2f e8       	ldi	r18, 0x8F	; 143
+     1d8:	30 e0       	ldi	r19, 0x00	; 0
+     1da:	0e 94 bc 02 	call	0x578	; 0x578 <USBAddIntTxTask>
+     1de:	9c 01       	movw	r18, r24
+}
+     1e0:	c9 01       	movw	r24, r18
+     1e2:	df 91       	pop	r29
+     1e4:	cf 91       	pop	r28
+     1e6:	0f 91       	pop	r16
+     1e8:	ff 90       	pop	r15
+     1ea:	ef 90       	pop	r14
+     1ec:	08 95       	ret
+
+000001ee <main>:
+unsigned char _sixaxis_buf[SIXAXIS_DATA_LENGTH][2];
+unsigned char _sixaxis_buf_index;
+unsigned char _sixaxis_report_buf[SIXAXIS_REPORT_LENGTH];
+
+int main(void)
+{
+     1ee:	cf 92       	push	r12
+     1f0:	df 92       	push	r13
+     1f2:	ef 92       	push	r14
+     1f4:	ff 92       	push	r15
+     1f6:	0f 93       	push	r16
+     1f8:	1f 93       	push	r17
+     1fa:	df 93       	push	r29
+     1fc:	cf 93       	push	r28
+     1fe:	cd b7       	in	r28, 0x3d	; 61
+     200:	de b7       	in	r29, 0x3e	; 62
+     202:	e3 97       	sbiw	r28, 0x33	; 51
+     204:	0f b6       	in	r0, 0x3f	; 63
+     206:	f8 94       	cli
+     208:	de bf       	out	0x3e, r29	; 62
+     20a:	0f be       	out	0x3f, r0	; 63
+     20c:	cd bf       	out	0x3d, r28	; 61
+	
+	return ret;
+}
+void initialize(void)//IO_SETING
+{
+	DDRD = 0xFE;//PD1~7-->OUT
+     20e:	8e ef       	ldi	r24, 0xFE	; 254
+     210:	81 bb       	out	0x11, r24	; 17
+	PORTD = 0x82;//PD 1000 001*
+     212:	82 e8       	ldi	r24, 0x82	; 130
+     214:	82 bb       	out	0x12, r24	; 18
+	DDRE = 0x02;
+     216:	82 e0       	ldi	r24, 0x02	; 2
+     218:	82 b9       	out	0x02, r24	; 2
+	DDRF = 0x00;
+     21a:	10 92 61 00 	sts	0x0061, r1
+	PORTF = 0xFF;
+     21e:	8f ef       	ldi	r24, 0xFF	; 255
+     220:	80 93 62 00 	sts	0x0062, r24
+	USBDevice dev;
+
+	unsigned char L_STICK_X, L_STICK_Y, R_STICK_X, R_STICK_Y;
+	 
+	initialize();
+	mem_init();
+     224:	0e 94 81 00 	call	0x102	; 0x102 <mem_init>
+	uart_init(0,UART_TE|UART_RE,BR_19200);
+     228:	80 e0       	ldi	r24, 0x00	; 0
+     22a:	90 e0       	ldi	r25, 0x00	; 0
+     22c:	68 e1       	ldi	r22, 0x18	; 24
+     22e:	49 e1       	ldi	r20, 0x19	; 25
+     230:	50 e0       	ldi	r21, 0x00	; 0
+     232:	0e 94 b7 08 	call	0x116e	; 0x116e <uart_init>
+	if ( speed == USB_LOW || speed == USB_FULL )
+		{
+				LED_OFF_ALL;
+				LED1_ON;
+				
+				while ( USBDeviceInit_in3(&dev, NULL, speed) )
+     236:	25 e0       	ldi	r18, 0x05	; 5
+     238:	c2 2e       	mov	r12, r18
+     23a:	d1 2c       	mov	r13, r1
+     23c:	cc 0e       	add	r12, r28
+     23e:	dd 1e       	adc	r13, r29
+	mem_init();
+	uart_init(0,UART_TE|UART_RE,BR_19200);
+
+RESET:
+	do {
+		LED_OFF_ALL;
+     240:	82 b3       	in	r24, 0x12	; 18
+     242:	8b 7a       	andi	r24, 0xAB	; 171
+     244:	82 bb       	out	0x12, r24	; 18
+		cli();	
+     246:	f8 94       	cli
+		LED0_ON;
+     248:	92 9a       	sbi	0x12, 2	; 18
+
+		VBUS_ON;
+     24a:	97 98       	cbi	0x12, 7	; 18
+		wait_ms(1000);
+     24c:	88 ee       	ldi	r24, 0xE8	; 232
+     24e:	93 e0       	ldi	r25, 0x03	; 3
+     250:	0e 94 65 02 	call	0x4ca	; 0x4ca <wait_ms>
+		wait_ms(100);
+     254:	84 e6       	ldi	r24, 0x64	; 100
+     256:	90 e0       	ldi	r25, 0x00	; 0
+     258:	0e 94 65 02 	call	0x4ca	; 0x4ca <wait_ms>
+
+		error = USBInit();
+     25c:	0e 94 6f 05 	call	0xade	; 0xade <USBInit>
+	} while( error );
+     260:	89 2b       	or	r24, r25
+     262:	71 f7       	brne	.-36     	; 0x240 <main+0x52>
+
+	speed = SL811USBReset();
+     264:	0e 94 24 06 	call	0xc48	; 0xc48 <SL811USBReset>
+     268:	7c 01       	movw	r14, r24
+	if ( speed == USB_LOW || speed == USB_FULL )
+     26a:	01 97       	sbiw	r24, 0x01	; 1
+     26c:	02 97       	sbiw	r24, 0x02	; 2
+     26e:	50 f5       	brcc	.+84     	; 0x2c4 <main+0xd6>
+		{
+				LED_OFF_ALL;
+     270:	82 b3       	in	r24, 0x12	; 18
+     272:	8b 7a       	andi	r24, 0xAB	; 171
+     274:	82 bb       	out	0x12, r24	; 18
+				LED1_ON;
+     276:	94 9a       	sbi	0x12, 4	; 18
+     278:	04 c0       	rjmp	.+8      	; 0x282 <main+0x94>
+				
+				while ( USBDeviceInit_in3(&dev, NULL, speed) )
+					{
+						wait_ms(100);
+     27a:	84 e6       	ldi	r24, 0x64	; 100
+     27c:	90 e0       	ldi	r25, 0x00	; 0
+     27e:	0e 94 65 02 	call	0x4ca	; 0x4ca <wait_ms>
+	if ( speed == USB_LOW || speed == USB_FULL )
+		{
+				LED_OFF_ALL;
+				LED1_ON;
+				
+				while ( USBDeviceInit_in3(&dev, NULL, speed) )
+     282:	c6 01       	movw	r24, r12
+     284:	60 e0       	ldi	r22, 0x00	; 0
+     286:	70 e0       	ldi	r23, 0x00	; 0
+     288:	a7 01       	movw	r20, r14
+     28a:	0e 94 9e 04 	call	0x93c	; 0x93c <USBDeviceInit_in3>
+     28e:	89 2b       	or	r24, r25
+     290:	a1 f7       	brne	.-24     	; 0x27a <main+0x8c>
+					{
+						wait_ms(100);
+					}
+				LED_OFF_ALL;
+     292:	82 b3       	in	r24, 0x12	; 18
+     294:	8b 7a       	andi	r24, 0xAB	; 171
+     296:	82 bb       	out	0x12, r24	; 18
+				LED0_ON;
+     298:	92 9a       	sbi	0x12, 2	; 18
+				LED1_ON;
+     29a:	94 9a       	sbi	0x12, 4	; 18
+				wait_ms(100);
+     29c:	84 e6       	ldi	r24, 0x64	; 100
+     29e:	90 e0       	ldi	r25, 0x00	; 0
+     2a0:	0e 94 65 02 	call	0x4ca	; 0x4ca <wait_ms>
+     2a4:	10 e0       	ldi	r17, 0x00	; 0
+				errorCount = 0;
+				do {
+					_sixaxis_buf_index = 0;
+     2a6:	10 92 8e 01 	sts	0x018E, r1
+					error =  Sony_SIXAXIS_Init(&dev);
+     2aa:	c6 01       	movw	r24, r12
+     2ac:	0e 94 b2 00 	call	0x164	; 0x164 <Sony_SIXAXIS_Init>
+     2b0:	7c 01       	movw	r14, r24
+					if( ++errorCount > 5 ) goto RESET;
+     2b2:	1f 5f       	subi	r17, 0xFF	; 255
+     2b4:	16 30       	cpi	r17, 0x06	; 6
+     2b6:	21 f2       	breq	.-120    	; 0x240 <main+0x52>
+					wait_ms(250);
+     2b8:	8a ef       	ldi	r24, 0xFA	; 250
+     2ba:	90 e0       	ldi	r25, 0x00	; 0
+     2bc:	0e 94 65 02 	call	0x4ca	; 0x4ca <wait_ms>
+				} while( error );
+     2c0:	ef 28       	or	r14, r15
+     2c2:	89 f7       	brne	.-30     	; 0x2a6 <main+0xb8>
+				sl811_write(SL811H_INTSTATUSREG, 0xFF);
+			
+			for ( ; error; )
+				error = sl811_read(SL811H_INTSTATUSREG);
+
+			IntInTransfer(	&dev, 
+     2c4:	95 e0       	ldi	r25, 0x05	; 5
+     2c6:	e9 2e       	mov	r14, r25
+     2c8:	f1 2c       	mov	r15, r1
+     2ca:	ec 0e       	add	r14, r28
+     2cc:	fd 1e       	adc	r15, r29
+unsigned char *Toggle_SIXAXIS_Buffer(void)
+{
+	unsigned char *ret;
+	
+	ret = &(_sixaxis_buf[0][_sixaxis_buf_index]);
+	_sixaxis_buf_index = (_sixaxis_buf_index == 1) ? 0 : 1;
+     2ce:	01 e0       	ldi	r16, 0x01	; 1
+				do {
+					_sixaxis_buf_index = 0;
+					error =  Sony_SIXAXIS_Init(&dev);
+					if( ++errorCount > 5 ) goto RESET;
+					wait_ms(250);
+				} while( error );
+     2d0:	10 e0       	ldi	r17, 0x00	; 0
+		}
+	while(1) 
+		{
+			for ( i=0; i<20; i++ )
+				sl811_write(SL811H_INTSTATUSREG, 0xFF);
+     2d2:	8d e0       	ldi	r24, 0x0D	; 13
+     2d4:	6f ef       	ldi	r22, 0xFF	; 255
+     2d6:	0e 94 c9 05 	call	0xb92	; 0xb92 <sl811_write>
+					wait_ms(250);
+				} while( error );
+		}
+	while(1) 
+		{
+			for ( i=0; i<20; i++ )
+     2da:	1f 5f       	subi	r17, 0xFF	; 255
+     2dc:	14 31       	cpi	r17, 0x14	; 20
+     2de:	c9 f7       	brne	.-14     	; 0x2d2 <main+0xe4>
+				sl811_write(SL811H_INTSTATUSREG, 0xFF);
+			
+			for ( ; error; )
+				error = sl811_read(SL811H_INTSTATUSREG);
+
+			IntInTransfer(	&dev, 
+     2e0:	40 91 8e 01 	lds	r20, 0x018E
+     2e4:	50 e0       	ldi	r21, 0x00	; 0
+     2e6:	42 5d       	subi	r20, 0xD2	; 210
+     2e8:	5e 4f       	sbci	r21, 0xFE	; 254
+     2ea:	c7 01       	movw	r24, r14
+     2ec:	61 e0       	ldi	r22, 0x01	; 1
+     2ee:	70 e0       	ldi	r23, 0x00	; 0
+     2f0:	20 e3       	ldi	r18, 0x30	; 48
+     2f2:	30 e0       	ldi	r19, 0x00	; 0
+     2f4:	0e 94 32 03 	call	0x664	; 0x664 <IntInTransfer>
+}
+unsigned char *Toggle_SIXAXIS_Buffer(void)
+{
+	unsigned char *ret;
+	
+	ret = &(_sixaxis_buf[0][_sixaxis_buf_index]);
+     2f8:	e0 91 8e 01 	lds	r30, 0x018E
+	_sixaxis_buf_index = (_sixaxis_buf_index == 1) ? 0 : 1;
+     2fc:	10 92 8e 01 	sts	0x018E, r1
+     300:	e1 30       	cpi	r30, 0x01	; 1
+     302:	11 f0       	breq	.+4      	; 0x308 <main+0x11a>
+     304:	00 93 8e 01 	sts	0x018E, r16
+							&(_sixaxis_buf[0][_sixaxis_buf_index]), 
+							SIXAXIS_DATA_LENGTH
+						  );
+			sixaxis = (SIXAXIS*)((Toggle_SIXAXIS_Buffer()) + 2);
+
+			if( sixaxis->Button.PS != 0 )	break;
+     308:	f0 e0       	ldi	r31, 0x00	; 0
+     30a:	e0 5d       	subi	r30, 0xD0	; 208
+     30c:	fe 4f       	sbci	r31, 0xFE	; 254
+     30e:	82 81       	ldd	r24, Z+2	; 0x02
+     310:	80 ff       	sbrs	r24, 0
+     312:	de cf       	rjmp	.-68     	; 0x2d0 <main+0xe2>
+		}
+	LED_ON_ALL;
+     314:	82 b3       	in	r24, 0x12	; 18
+     316:	84 65       	ori	r24, 0x54	; 84
+     318:	82 bb       	out	0x12, r24	; 18
+				sl811_write(SL811H_INTSTATUSREG, 0xFF);
+			
+			for ( ; error; )
+				error = sl811_read(SL811H_INTSTATUSREG);
+
+			IntInTransfer(	&dev, 
+     31a:	85 e0       	ldi	r24, 0x05	; 5
+     31c:	c8 2e       	mov	r12, r24
+     31e:	d1 2c       	mov	r13, r1
+     320:	cc 0e       	add	r12, r28
+     322:	dd 1e       	adc	r13, r29
+unsigned char *Toggle_SIXAXIS_Buffer(void)
+{
+	unsigned char *ret;
+	
+	ret = &(_sixaxis_buf[0][_sixaxis_buf_index]);
+	_sixaxis_buf_index = (_sixaxis_buf_index == 1) ? 0 : 1;
+     324:	01 e0       	ldi	r16, 0x01	; 1
+
+			txdata.detail.AnalogR.X = R_STICK_X;
+			txdata.detail.AnalogR.Y = R_STICK_Y;
+			// Analog Stick
+
+			MU2_SendData(txdata.buf,RC_DATA_LENGTH);
+     326:	7e 01       	movw	r14, r28
+     328:	08 94       	sec
+     32a:	e1 1c       	adc	r14, r1
+     32c:	f1 1c       	adc	r15, r1
+						  );
+			sixaxis = (SIXAXIS*)((Toggle_SIXAXIS_Buffer()) + 2);
+
+			if( sixaxis->Button.PS != 0 )	break;
+		}
+	LED_ON_ALL;
+     32e:	10 e0       	ldi	r17, 0x00	; 0
+	while(1)
+		{
+			for ( i=0; i<20; i++ )
+				sl811_write(SL811H_INTSTATUSREG, 0xFF);
+     330:	8d e0       	ldi	r24, 0x0D	; 13
+     332:	6f ef       	ldi	r22, 0xFF	; 255
+     334:	0e 94 c9 05 	call	0xb92	; 0xb92 <sl811_write>
+			if( sixaxis->Button.PS != 0 )	break;
+		}
+	LED_ON_ALL;
+	while(1)
+		{
+			for ( i=0; i<20; i++ )
+     338:	1f 5f       	subi	r17, 0xFF	; 255
+     33a:	14 31       	cpi	r17, 0x14	; 20
+     33c:	c9 f7       	brne	.-14     	; 0x330 <main+0x142>
+				sl811_write(SL811H_INTSTATUSREG, 0xFF);
+			
+			for ( ; error; )
+				error = sl811_read(SL811H_INTSTATUSREG);
+
+			IntInTransfer(	&dev, 
+     33e:	40 91 8e 01 	lds	r20, 0x018E
+     342:	50 e0       	ldi	r21, 0x00	; 0
+     344:	42 5d       	subi	r20, 0xD2	; 210
+     346:	5e 4f       	sbci	r21, 0xFE	; 254
+     348:	c6 01       	movw	r24, r12
+     34a:	61 e0       	ldi	r22, 0x01	; 1
+     34c:	70 e0       	ldi	r23, 0x00	; 0
+     34e:	20 e3       	ldi	r18, 0x30	; 48
+     350:	30 e0       	ldi	r19, 0x00	; 0
+     352:	0e 94 32 03 	call	0x664	; 0x664 <IntInTransfer>
+}
+unsigned char *Toggle_SIXAXIS_Buffer(void)
+{
+	unsigned char *ret;
+	
+	ret = &(_sixaxis_buf[0][_sixaxis_buf_index]);
+     356:	e0 91 8e 01 	lds	r30, 0x018E
+	_sixaxis_buf_index = (_sixaxis_buf_index == 1) ? 0 : 1;
+     35a:	10 92 8e 01 	sts	0x018E, r1
+     35e:	e1 30       	cpi	r30, 0x01	; 1
+     360:	11 f0       	breq	.+4      	; 0x366 <main+0x178>
+     362:	00 93 8e 01 	sts	0x018E, r16
+			IntInTransfer(	&dev, 
+							1, 
+							&(_sixaxis_buf[0][_sixaxis_buf_index]), 
+							SIXAXIS_DATA_LENGTH
+						  );
+			sixaxis = (SIXAXIS*)((Toggle_SIXAXIS_Buffer()) + 2);
+     366:	f0 e0       	ldi	r31, 0x00	; 0
+     368:	e2 5d       	subi	r30, 0xD2	; 210
+     36a:	fe 4f       	sbci	r31, 0xFE	; 254
+     36c:	df 01       	movw	r26, r30
+     36e:	12 96       	adiw	r26, 0x02	; 2
+
+			txdata.detail.Button.LEFT = sixaxis->Button.LEFT;
+     370:	42 81       	ldd	r20, Z+2	; 0x02
+     372:	24 2f       	mov	r18, r20
+     374:	22 1f       	adc	r18, r18
+     376:	22 27       	eor	r18, r18
+     378:	22 1f       	adc	r18, r18
+     37a:	89 81       	ldd	r24, Y+1	; 0x01
+     37c:	8c 7f       	andi	r24, 0xFC	; 252
+			txdata.detail.Button.DOWN = sixaxis->Button.DOWN;
+     37e:	94 2f       	mov	r25, r20
+     380:	92 95       	swap	r25
+     382:	96 95       	lsr	r25
+     384:	92 70       	andi	r25, 0x02	; 2
+     386:	82 2b       	or	r24, r18
+     388:	89 2b       	or	r24, r25
+			txdata.detail.Button.RIGHT = sixaxis->Button.RIGHT;
+     38a:	24 2f       	mov	r18, r20
+     38c:	26 95       	lsr	r18
+     38e:	26 95       	lsr	r18
+     390:	26 95       	lsr	r18
+     392:	24 70       	andi	r18, 0x04	; 4
+     394:	83 7f       	andi	r24, 0xF3	; 243
+			txdata.detail.Button.UP = sixaxis->Button.UP;
+     396:	94 2f       	mov	r25, r20
+     398:	96 95       	lsr	r25
+     39a:	98 70       	andi	r25, 0x08	; 8
+     39c:	82 2b       	or	r24, r18
+     39e:	89 2b       	or	r24, r25
+			txdata.detail.Button.SQU = sixaxis->Button.SQU;
+     3a0:	11 96       	adiw	r26, 0x01	; 1
+     3a2:	3c 91       	ld	r19, X
+     3a4:	11 97       	sbiw	r26, 0x01	; 1
+     3a6:	23 2f       	mov	r18, r19
+     3a8:	22 1f       	adc	r18, r18
+     3aa:	22 27       	eor	r18, r18
+     3ac:	22 1f       	adc	r18, r18
+     3ae:	22 95       	swap	r18
+     3b0:	20 7f       	andi	r18, 0xF0	; 240
+     3b2:	8f 7c       	andi	r24, 0xCF	; 207
+			txdata.detail.Button.BAT = sixaxis->Button.BAT;
+     3b4:	93 2f       	mov	r25, r19
+     3b6:	96 95       	lsr	r25
+     3b8:	90 72       	andi	r25, 0x20	; 32
+     3ba:	82 2b       	or	r24, r18
+     3bc:	89 2b       	or	r24, r25
+			txdata.detail.Button.CIR = sixaxis->Button.CIR;
+     3be:	23 2f       	mov	r18, r19
+     3c0:	22 0f       	add	r18, r18
+     3c2:	20 74       	andi	r18, 0x40	; 64
+     3c4:	8f 73       	andi	r24, 0x3F	; 63
+			txdata.detail.Button.TRI = sixaxis->Button.TRI;
+     3c6:	93 2f       	mov	r25, r19
+     3c8:	92 95       	swap	r25
+     3ca:	9f 70       	andi	r25, 0x0F	; 15
+     3cc:	97 95       	ror	r25
+     3ce:	99 27       	eor	r25, r25
+     3d0:	97 95       	ror	r25
+     3d2:	82 2b       	or	r24, r18
+     3d4:	89 2b       	or	r24, r25
+     3d6:	89 83       	std	Y+1, r24	; 0x01
+			txdata.detail.Button.R1 = sixaxis->Button.R1;
+     3d8:	93 2f       	mov	r25, r19
+     3da:	96 95       	lsr	r25
+     3dc:	96 95       	lsr	r25
+     3de:	96 95       	lsr	r25
+     3e0:	91 70       	andi	r25, 0x01	; 1
+     3e2:	8a 81       	ldd	r24, Y+2	; 0x02
+     3e4:	8c 7f       	andi	r24, 0xFC	; 252
+			txdata.detail.Button.L1 = sixaxis->Button.L1;
+     3e6:	36 95       	lsr	r19
+     3e8:	32 70       	andi	r19, 0x02	; 2
+     3ea:	89 2b       	or	r24, r25
+     3ec:	83 2b       	or	r24, r19
+			txdata.detail.Button.START = sixaxis->Button.START;
+     3ee:	94 2f       	mov	r25, r20
+     3f0:	99 0f       	add	r25, r25
+     3f2:	99 0f       	add	r25, r25
+     3f4:	99 0f       	add	r25, r25
+     3f6:	90 74       	andi	r25, 0x40	; 64
+     3f8:	8f 7b       	andi	r24, 0xBF	; 191
+     3fa:	89 2b       	or	r24, r25
+     3fc:	8a 83       	std	Y+2, r24	; 0x02
+			txdata.detail.Button.SELECT = sixaxis->Button.SELECT;
+     3fe:	e4 2f       	mov	r30, r20
+     400:	e1 70       	andi	r30, 0x01	; 1
+
+			if( sixaxis->AnalogButton.R2 < 100 )		ad = 0;
+     402:	51 96       	adiw	r26, 0x11	; 17
+     404:	8c 91       	ld	r24, X
+     406:	51 97       	sbiw	r26, 0x11	; 17
+     408:	84 36       	cpi	r24, 0x64	; 100
+     40a:	10 f4       	brcc	.+4      	; 0x410 <main+0x222>
+     40c:	40 e0       	ldi	r20, 0x00	; 0
+     40e:	09 c0       	rjmp	.+18     	; 0x422 <main+0x234>
+			else if( sixaxis->AnalogButton.R2 < 180 )	ad = 1;
+     410:	84 3b       	cpi	r24, 0xB4	; 180
+     412:	10 f4       	brcc	.+4      	; 0x418 <main+0x22a>
+     414:	41 e0       	ldi	r20, 0x01	; 1
+     416:	05 c0       	rjmp	.+10     	; 0x422 <main+0x234>
+			else if( sixaxis->AnalogButton.R2 < 255 )	ad = 2;
+     418:	8f 3f       	cpi	r24, 0xFF	; 255
+     41a:	11 f4       	brne	.+4      	; 0x420 <main+0x232>
+     41c:	43 e0       	ldi	r20, 0x03	; 3
+     41e:	01 c0       	rjmp	.+2      	; 0x422 <main+0x234>
+     420:	42 e0       	ldi	r20, 0x02	; 2
+			else										ad = 3;
+			txdata.detail.Button.R2 = ad;
+		
+			if( sixaxis->AnalogButton.L2 < 100 )		ad = 0;
+     422:	50 96       	adiw	r26, 0x10	; 16
+     424:	8c 91       	ld	r24, X
+     426:	50 97       	sbiw	r26, 0x10	; 16
+     428:	84 36       	cpi	r24, 0x64	; 100
+     42a:	10 f4       	brcc	.+4      	; 0x430 <main+0x242>
+     42c:	10 e0       	ldi	r17, 0x00	; 0
+     42e:	09 c0       	rjmp	.+18     	; 0x442 <main+0x254>
+			else if( sixaxis->AnalogButton.L2 < 180 )	ad = 1;
+     430:	84 3b       	cpi	r24, 0xB4	; 180
+     432:	10 f4       	brcc	.+4      	; 0x438 <main+0x24a>
+     434:	11 e0       	ldi	r17, 0x01	; 1
+     436:	05 c0       	rjmp	.+10     	; 0x442 <main+0x254>
+			else if( sixaxis->AnalogButton.L2 < 255 )	ad = 2;
+     438:	8f 3f       	cpi	r24, 0xFF	; 255
+     43a:	11 f4       	brne	.+4      	; 0x440 <main+0x252>
+     43c:	13 e0       	ldi	r17, 0x03	; 3
+     43e:	01 c0       	rjmp	.+2      	; 0x442 <main+0x254>
+     440:	12 e0       	ldi	r17, 0x02	; 2
+			else										ad = 3;
+			txdata.detail.Button.L2 = ad;
+			// Analog Button
+		
+			// Analog Stick
+			L_STICK_X = (sixaxis->AnalogL.X)/17;
+     442:	14 96       	adiw	r26, 0x04	; 4
+     444:	8c 91       	ld	r24, X
+     446:	14 97       	sbiw	r26, 0x04	; 4
+     448:	61 e1       	ldi	r22, 0x11	; 17
+     44a:	0e 94 f3 09 	call	0x13e6	; 0x13e6 <__udivmodqi4>
+     44e:	38 2f       	mov	r19, r24
+			if(L_STICK_X == 15) L_STICK_X = 14;
+     450:	8f 30       	cpi	r24, 0x0F	; 15
+     452:	09 f4       	brne	.+2      	; 0x456 <main+0x268>
+     454:	3e e0       	ldi	r19, 0x0E	; 14
+
+			L_STICK_Y = (sixaxis->AnalogL.Y)/17;
+     456:	15 96       	adiw	r26, 0x05	; 5
+     458:	8c 91       	ld	r24, X
+     45a:	15 97       	sbiw	r26, 0x05	; 5
+     45c:	61 e1       	ldi	r22, 0x11	; 17
+     45e:	0e 94 f3 09 	call	0x13e6	; 0x13e6 <__udivmodqi4>
+     462:	58 2f       	mov	r21, r24
+			if(L_STICK_Y == 15) L_STICK_Y = 14;
+     464:	8f 30       	cpi	r24, 0x0F	; 15
+     466:	09 f4       	brne	.+2      	; 0x46a <main+0x27c>
+     468:	5e e0       	ldi	r21, 0x0E	; 14
+
+			txdata.detail.AnalogL.X = L_STICK_X;
+			txdata.detail.AnalogL.Y = L_STICK_Y;
+
+			R_STICK_X = (sixaxis->AnalogR.X)/17;
+     46a:	16 96       	adiw	r26, 0x06	; 6
+     46c:	8c 91       	ld	r24, X
+     46e:	16 97       	sbiw	r26, 0x06	; 6
+     470:	61 e1       	ldi	r22, 0x11	; 17
+     472:	0e 94 f3 09 	call	0x13e6	; 0x13e6 <__udivmodqi4>
+     476:	28 2f       	mov	r18, r24
+			if(R_STICK_X == 15) R_STICK_X = 14;
+     478:	8f 30       	cpi	r24, 0x0F	; 15
+     47a:	09 f4       	brne	.+2      	; 0x47e <main+0x290>
+     47c:	2e e0       	ldi	r18, 0x0E	; 14
+
+			R_STICK_Y = (sixaxis->AnalogR.Y)/17;
+     47e:	17 96       	adiw	r26, 0x07	; 7
+     480:	8c 91       	ld	r24, X
+     482:	61 e1       	ldi	r22, 0x11	; 17
+     484:	0e 94 f3 09 	call	0x13e6	; 0x13e6 <__udivmodqi4>
+     488:	98 2f       	mov	r25, r24
+			if(R_STICK_Y == 15) R_STICK_Y = 14;		
+     48a:	8f 30       	cpi	r24, 0x0F	; 15
+     48c:	09 f4       	brne	.+2      	; 0x490 <main+0x2a2>
+     48e:	9e e0       	ldi	r25, 0x0E	; 14
+			txdata.detail.Button.CIR = sixaxis->Button.CIR;
+			txdata.detail.Button.TRI = sixaxis->Button.TRI;
+			txdata.detail.Button.R1 = sixaxis->Button.R1;
+			txdata.detail.Button.L1 = sixaxis->Button.L1;
+			txdata.detail.Button.START = sixaxis->Button.START;
+			txdata.detail.Button.SELECT = sixaxis->Button.SELECT;
+     490:	e7 95       	ror	r30
+     492:	ee 27       	eor	r30, r30
+     494:	e7 95       	ror	r30
+     496:	8a 81       	ldd	r24, Y+2	; 0x02
+     498:	83 77       	andi	r24, 0x73	; 115
+
+			if( sixaxis->AnalogButton.R2 < 100 )		ad = 0;
+			else if( sixaxis->AnalogButton.R2 < 180 )	ad = 1;
+			else if( sixaxis->AnalogButton.R2 < 255 )	ad = 2;
+			else										ad = 3;
+			txdata.detail.Button.R2 = ad;
+     49a:	44 0f       	add	r20, r20
+     49c:	44 0f       	add	r20, r20
+     49e:	8e 2b       	or	r24, r30
+     4a0:	84 2b       	or	r24, r20
+		
+			if( sixaxis->AnalogButton.L2 < 100 )		ad = 0;
+			else if( sixaxis->AnalogButton.L2 < 180 )	ad = 1;
+			else if( sixaxis->AnalogButton.L2 < 255 )	ad = 2;
+			else										ad = 3;
+			txdata.detail.Button.L2 = ad;
+     4a2:	12 95       	swap	r17
+     4a4:	10 7f       	andi	r17, 0xF0	; 240
+     4a6:	8f 7c       	andi	r24, 0xCF	; 207
+     4a8:	81 2b       	or	r24, r17
+     4aa:	8a 83       	std	Y+2, r24	; 0x02
+
+			L_STICK_Y = (sixaxis->AnalogL.Y)/17;
+			if(L_STICK_Y == 15) L_STICK_Y = 14;
+
+			txdata.detail.AnalogL.X = L_STICK_X;
+			txdata.detail.AnalogL.Y = L_STICK_Y;
+     4ac:	52 95       	swap	r21
+     4ae:	50 7f       	andi	r21, 0xF0	; 240
+     4b0:	3f 70       	andi	r19, 0x0F	; 15
+     4b2:	35 2b       	or	r19, r21
+     4b4:	3b 83       	std	Y+3, r19	; 0x03
+
+			R_STICK_Y = (sixaxis->AnalogR.Y)/17;
+			if(R_STICK_Y == 15) R_STICK_Y = 14;		
+
+			txdata.detail.AnalogR.X = R_STICK_X;
+			txdata.detail.AnalogR.Y = R_STICK_Y;
+     4b6:	92 95       	swap	r25
+     4b8:	90 7f       	andi	r25, 0xF0	; 240
+     4ba:	2f 70       	andi	r18, 0x0F	; 15
+     4bc:	29 2b       	or	r18, r25
+     4be:	2c 83       	std	Y+4, r18	; 0x04
+			// Analog Stick
+
+			MU2_SendData(txdata.buf,RC_DATA_LENGTH);
+     4c0:	c7 01       	movw	r24, r14
+     4c2:	64 e0       	ldi	r22, 0x04	; 4
+     4c4:	0e 94 cc 07 	call	0xf98	; 0xf98 <MU2_SendData>
+     4c8:	32 cf       	rjmp	.-412    	; 0x32e <main+0x140>
+
+000004ca <wait_ms>:
+/**
+ * wait for ms
+ *
+ * @param {t} wait time
+ */
+void wait_ms(uint16_t t){
+     4ca:	df 93       	push	r29
+     4cc:	cf 93       	push	r28
+     4ce:	00 d0       	rcall	.+0      	; 0x4d0 <wait_ms+0x6>
+     4d0:	0f 92       	push	r0
+     4d2:	cd b7       	in	r28, 0x3d	; 61
+     4d4:	de b7       	in	r29, 0x3e	; 62
+     4d6:	9a 83       	std	Y+2, r25	; 0x02
+     4d8:	89 83       	std	Y+1, r24	; 0x01
+     4da:	04 c0       	rjmp	.+8      	; 0x4e4 <wait_ms+0x1a>
+	while(t--){
+		wait_us(999);
+     4dc:	87 ee       	ldi	r24, 0xE7	; 231
+     4de:	93 e0       	ldi	r25, 0x03	; 3
+     4e0:	0e 94 87 02 	call	0x50e	; 0x50e <wait_us>
+ * wait for ms
+ *
+ * @param {t} wait time
+ */
+void wait_ms(uint16_t t){
+	while(t--){
+     4e4:	1b 82       	std	Y+3, r1	; 0x03
+     4e6:	89 81       	ldd	r24, Y+1	; 0x01
+     4e8:	9a 81       	ldd	r25, Y+2	; 0x02
+     4ea:	00 97       	sbiw	r24, 0x00	; 0
+     4ec:	11 f0       	breq	.+4      	; 0x4f2 <wait_ms+0x28>
+     4ee:	81 e0       	ldi	r24, 0x01	; 1
+     4f0:	8b 83       	std	Y+3, r24	; 0x03
+     4f2:	89 81       	ldd	r24, Y+1	; 0x01
+     4f4:	9a 81       	ldd	r25, Y+2	; 0x02
+     4f6:	01 97       	sbiw	r24, 0x01	; 1
+     4f8:	9a 83       	std	Y+2, r25	; 0x02
+     4fa:	89 83       	std	Y+1, r24	; 0x01
+     4fc:	8b 81       	ldd	r24, Y+3	; 0x03
+     4fe:	88 23       	and	r24, r24
+     500:	69 f7       	brne	.-38     	; 0x4dc <wait_ms+0x12>
+		wait_us(999);
+	}
+	return;
+}
+     502:	0f 90       	pop	r0
+     504:	0f 90       	pop	r0
+     506:	0f 90       	pop	r0
+     508:	cf 91       	pop	r28
+     50a:	df 91       	pop	r29
+     50c:	08 95       	ret
+
+0000050e <wait_us>:
+/**
+ * wait for us
+ *
+ * @param {t} wait time
+ */
+void wait_us(uint16_t t){
+     50e:	df 93       	push	r29
+     510:	cf 93       	push	r28
+     512:	00 d0       	rcall	.+0      	; 0x514 <wait_us+0x6>
+     514:	0f 92       	push	r0
+     516:	cd b7       	in	r28, 0x3d	; 61
+     518:	de b7       	in	r29, 0x3e	; 62
+     51a:	9b 83       	std	Y+3, r25	; 0x03
+     51c:	8a 83       	std	Y+2, r24	; 0x02
+  unsigned char lpcnt=0;
+     51e:	19 82       	std	Y+1, r1	; 0x01
+  __asm__ __volatile__("\n"
+     520:	8a 81       	ldd	r24, Y+2	; 0x02
+     522:	9b 81       	ldd	r25, Y+3	; 0x03
+
+00000524 <CPU_wait_entry49>:
+     524:	21 e0       	ldi	r18, 0x01	; 1
+
+00000526 <CPU_wait_lp49>:
+     526:	00 00       	nop
+     528:	2a 95       	dec	r18
+     52a:	e9 f7       	brne	.-6      	; 0x526 <CPU_wait_lp49>
+     52c:	01 97       	sbiw	r24, 0x01	; 1
+     52e:	d1 f7       	brne	.-12     	; 0x524 <CPU_wait_entry49>
+     530:	29 83       	std	Y+1, r18	; 0x01
+    "brne CPU_wait_entry%=\n\t"
+    :"=&a"(lpcnt)
+    :"w"(t)
+  );
+  return;
+}
+     532:	0f 90       	pop	r0
+     534:	0f 90       	pop	r0
+     536:	0f 90       	pop	r0
+     538:	cf 91       	pop	r28
+     53a:	df 91       	pop	r29
+     53c:	08 95       	ret
+
+0000053e <USBIntTxManagerInit>:
+/**
+ * USB SWorderrupt Transfer Manager Initialize
+ */
+void USBIntTxManagerInit(void)
+{
+	usbqueue = NULL;
+     53e:	10 92 92 01 	sts	0x0192, r1
+     542:	10 92 91 01 	sts	0x0191, r1
+	usb_int_tx_enable = 1;
+     546:	81 e0       	ldi	r24, 0x01	; 1
+     548:	90 e0       	ldi	r25, 0x00	; 0
+     54a:	90 93 90 01 	sts	0x0190, r25
+     54e:	80 93 8f 01 	sts	0x018F, r24
+}
+     552:	08 95       	ret
+
+00000554 <SL811DeviceInit>:
+void SL811DeviceInit(SL811USBDevInfo *d,
+					 SWord ep, 
+					 SWord epsize, 
+					 SWord retry, 
+					 SWord pre, 
+					 SWord addr){
+     554:	ef 92       	push	r14
+     556:	0f 93       	push	r16
+     558:	1f 93       	push	r17
+     55a:	fc 01       	movw	r30, r24
+	d->ep = ep;
+     55c:	61 83       	std	Z+1, r22	; 0x01
+	d->epsize = epsize;
+     55e:	42 83       	std	Z+2, r20	; 0x02
+	d->retry = retry;
+     560:	23 83       	std	Z+3, r18	; 0x03
+	d->pre = (pre) ? (PREAMBLE) : (0x00);
+     562:	01 2b       	or	r16, r17
+     564:	11 f4       	brne	.+4      	; 0x56a <SL811DeviceInit+0x16>
+     566:	80 e0       	ldi	r24, 0x00	; 0
+     568:	01 c0       	rjmp	.+2      	; 0x56c <SL811DeviceInit+0x18>
+     56a:	80 e8       	ldi	r24, 0x80	; 128
+     56c:	86 83       	std	Z+6, r24	; 0x06
+	d->addr = addr;
+     56e:	e0 82       	st	Z, r14
+}
+     570:	1f 91       	pop	r17
+     572:	0f 91       	pop	r16
+     574:	ef 90       	pop	r14
+     576:	08 95       	ret
+
+00000578 <USBAddIntTxTask>:
+ * @param {fp} インタラプト転送処理ハンドラ
+ * @return 正常終了時 : 0
+ *         不正終了時 : -1
+ */
+SWord USBAddIntTxTask(USBDevice *d, SWord ep, SWord interval, void (*fp)(USBDevice*))
+{
+     578:	cf 92       	push	r12
+     57a:	df 92       	push	r13
+     57c:	ef 92       	push	r14
+     57e:	ff 92       	push	r15
+     580:	0f 93       	push	r16
+     582:	1f 93       	push	r17
+     584:	cf 93       	push	r28
+     586:	df 93       	push	r29
+     588:	ec 01       	movw	r28, r24
+     58a:	7a 01       	movw	r14, r20
+     58c:	69 01       	movw	r12, r18
+	
+	USBIntQueueItem	*newitem;
+	SWord i;
+	char flag;
+	
+	if( ep < 1 || ep > 15 )	return -1;
+     58e:	cb 01       	movw	r24, r22
+     590:	01 97       	sbiw	r24, 0x01	; 1
+     592:	0f 97       	sbiw	r24, 0x0f	; 15
+     594:	08 f0       	brcs	.+2      	; 0x598 <USBAddIntTxTask+0x20>
+     596:	53 c0       	rjmp	.+166    	; 0x63e <USBAddIntTxTask+0xc6>
+	
+	flag = 0;
+	for( i=0; i < d->intfdesc->bNumEndpoints; i++ ){
+     598:	ef 8d       	ldd	r30, Y+31	; 0x1f
+     59a:	f8 a1       	ldd	r31, Y+32	; 0x20
+     59c:	84 81       	ldd	r24, Z+4	; 0x04
+     59e:	08 2f       	mov	r16, r24
+     5a0:	10 e0       	ldi	r17, 0x00	; 0
+     5a2:	a0 e0       	ldi	r26, 0x00	; 0
+     5a4:	b0 e0       	ldi	r27, 0x00	; 0
+     5a6:	20 e0       	ldi	r18, 0x00	; 0
+     5a8:	30 e0       	ldi	r19, 0x00	; 0
+     5aa:	0f c0       	rjmp	.+30     	; 0x5ca <USBAddIntTxTask+0x52>
+		if( (d->epdesc[i].bEndpointAddress & EPADDR_MASK_ADDRESS) == ep ){
+     5ac:	4d a1       	ldd	r20, Y+37	; 0x25
+     5ae:	5e a1       	ldd	r21, Y+38	; 0x26
+     5b0:	fa 01       	movw	r30, r20
+     5b2:	e2 0f       	add	r30, r18
+     5b4:	f3 1f       	adc	r31, r19
+     5b6:	82 81       	ldd	r24, Z+2	; 0x02
+     5b8:	90 e0       	ldi	r25, 0x00	; 0
+     5ba:	8f 70       	andi	r24, 0x0F	; 15
+     5bc:	90 70       	andi	r25, 0x00	; 0
+     5be:	29 5f       	subi	r18, 0xF9	; 249
+     5c0:	3f 4f       	sbci	r19, 0xFF	; 255
+     5c2:	86 17       	cp	r24, r22
+     5c4:	97 07       	cpc	r25, r23
+     5c6:	29 f0       	breq	.+10     	; 0x5d2 <USBAddIntTxTask+0x5a>
+	char flag;
+	
+	if( ep < 1 || ep > 15 )	return -1;
+	
+	flag = 0;
+	for( i=0; i < d->intfdesc->bNumEndpoints; i++ ){
+     5c8:	11 96       	adiw	r26, 0x01	; 1
+     5ca:	a0 17       	cp	r26, r16
+     5cc:	b1 07       	cpc	r27, r17
+     5ce:	74 f3       	brlt	.-36     	; 0x5ac <USBAddIntTxTask+0x34>
+     5d0:	36 c0       	rjmp	.+108    	; 0x63e <USBAddIntTxTask+0xc6>
+		if( (d->epdesc[i].bEndpointAddress & EPADDR_MASK_ADDRESS) == ep ){
+			flag = 1;
+			break;
+		}
+	}
+	if( !flag || (((d->epdesc[i].bmAttributes) & 0x03 ) != 3) ||  (d->epdesc[i].bInterval == 0) )	return -1;
+     5d2:	fd 01       	movw	r30, r26
+     5d4:	83 e0       	ldi	r24, 0x03	; 3
+     5d6:	ee 0f       	add	r30, r30
+     5d8:	ff 1f       	adc	r31, r31
+     5da:	8a 95       	dec	r24
+     5dc:	e1 f7       	brne	.-8      	; 0x5d6 <USBAddIntTxTask+0x5e>
+     5de:	ea 1b       	sub	r30, r26
+     5e0:	fb 0b       	sbc	r31, r27
+     5e2:	e4 0f       	add	r30, r20
+     5e4:	f5 1f       	adc	r31, r21
+     5e6:	83 81       	ldd	r24, Z+3	; 0x03
+     5e8:	83 70       	andi	r24, 0x03	; 3
+     5ea:	83 30       	cpi	r24, 0x03	; 3
+     5ec:	41 f5       	brne	.+80     	; 0x63e <USBAddIntTxTask+0xc6>
+     5ee:	86 81       	ldd	r24, Z+6	; 0x06
+     5f0:	88 23       	and	r24, r24
+     5f2:	29 f1       	breq	.+74     	; 0x63e <USBAddIntTxTask+0xc6>
+
+	newitem = &_newitem;
+	
+	newitem->device = d;
+     5f4:	d0 93 18 02 	sts	0x0218, r29
+     5f8:	c0 93 17 02 	sts	0x0217, r28
+	newitem->ep = ep;
+     5fc:	70 93 1a 02 	sts	0x021A, r23
+     600:	60 93 19 02 	sts	0x0219, r22
+	newitem->handler = fp;
+     604:	d0 92 1c 02 	sts	0x021C, r13
+     608:	c0 92 1b 02 	sts	0x021B, r12
+	newitem->interval = interval;
+     60c:	f0 92 14 02 	sts	0x0214, r15
+     610:	e0 92 13 02 	sts	0x0213, r14
+	newitem->cnt = interval;
+     614:	f0 92 16 02 	sts	0x0216, r15
+     618:	e0 92 15 02 	sts	0x0215, r14
+	
+	newitem->next = usbqueue;
+     61c:	80 91 91 01 	lds	r24, 0x0191
+     620:	90 91 92 01 	lds	r25, 0x0192
+     624:	90 93 1e 02 	sts	0x021E, r25
+     628:	80 93 1d 02 	sts	0x021D, r24
+	usbqueue = newitem;	// ポインタのつなぎかえ
+     62c:	83 e1       	ldi	r24, 0x13	; 19
+     62e:	92 e0       	ldi	r25, 0x02	; 2
+     630:	90 93 92 01 	sts	0x0192, r25
+     634:	80 93 91 01 	sts	0x0191, r24
+     638:	20 e0       	ldi	r18, 0x00	; 0
+     63a:	30 e0       	ldi	r19, 0x00	; 0
+     63c:	02 c0       	rjmp	.+4      	; 0x642 <USBAddIntTxTask+0xca>
+
+	return 0;
+     63e:	2f ef       	ldi	r18, 0xFF	; 255
+     640:	3f ef       	ldi	r19, 0xFF	; 255
+}
+     642:	c9 01       	movw	r24, r18
+     644:	df 91       	pop	r29
+     646:	cf 91       	pop	r28
+     648:	1f 91       	pop	r17
+     64a:	0f 91       	pop	r16
+     64c:	ff 90       	pop	r15
+     64e:	ef 90       	pop	r14
+     650:	df 90       	pop	r13
+     652:	cf 90       	pop	r12
+     654:	08 95       	ret
+
+00000656 <SL811IntInTransfer>:
+ * @param 受信するデータのサイズ
+ * @return 正常終了時 : 受信したデータのサイズ
+ *         不正終了時 : SL811_HANDSHAKE_NAK [-1] もしくは SL811_HANDSHAKE_STALL [-2]
+ */
+SWord SL811IntInTransfer(SL811USBDevInfo *d, Byte *data, SWord size)
+{
+     656:	fc 01       	movw	r30, r24
+	d->rd_cmd = DATA0_RD;
+     658:	83 e0       	ldi	r24, 0x03	; 3
+     65a:	85 83       	std	Z+5, r24	; 0x05
+	return SL811ReadData(d, data, size);
+     65c:	cf 01       	movw	r24, r30
+     65e:	0e 94 83 06 	call	0xd06	; 0xd06 <SL811ReadData>
+}
+     662:	08 95       	ret
+
+00000664 <IntInTransfer>:
+ * @param {ep} エンドポイント番号
+ * @param {data} 受信するデータ
+ * @param {size} 受信するデータのサイズ
+ */
+SWord IntInTransfer(USBDevice *d, SWord ep, Byte *data, SWord size)
+{
+     664:	fc 01       	movw	r30, r24
+	d->devinfo.ep = ep;
+     666:	61 83       	std	Z+1, r22	; 0x01
+ * @return 正常終了時 : 受信したデータのサイズ
+ *         不正終了時 : SL811_HANDSHAKE_NAK [-1] もしくは SL811_HANDSHAKE_STALL [-2]
+ */
+SWord SL811IntInTransfer(SL811USBDevInfo *d, Byte *data, SWord size)
+{
+	d->rd_cmd = DATA0_RD;
+     668:	83 e0       	ldi	r24, 0x03	; 3
+     66a:	85 83       	std	Z+5, r24	; 0x05
+	return SL811ReadData(d, data, size);
+     66c:	cf 01       	movw	r24, r30
+     66e:	ba 01       	movw	r22, r20
+     670:	a9 01       	movw	r20, r18
+     672:	0e 94 83 06 	call	0xd06	; 0xd06 <SL811ReadData>
+ */
+SWord IntInTransfer(USBDevice *d, SWord ep, Byte *data, SWord size)
+{
+	d->devinfo.ep = ep;
+	return SL811IntInTransfer(&(d->devinfo), data, size);
+}
+     676:	08 95       	ret
+
+00000678 <SL811CtrlTransfer>:
+ * @param {data} 送信／受信するデータ
+ * @return 正常終了時 : 送信／受信したデータのサイズ
+ *         不正終了時 : SL811_HANDSHAKE_NAK [-1] もしくは SL811_HANDSHAKE_STALL [-2]
+ */
+SWord SL811CtrlTransfer(SL811USBDevInfo *d, CtrlReq *command, Byte *data)
+{
+     678:	cf 92       	push	r12
+     67a:	df 92       	push	r13
+     67c:	ef 92       	push	r14
+     67e:	ff 92       	push	r15
+     680:	0f 93       	push	r16
+     682:	1f 93       	push	r17
+     684:	cf 93       	push	r28
+     686:	df 93       	push	r29
+     688:	8c 01       	movw	r16, r24
+     68a:	7b 01       	movw	r14, r22
+     68c:	6a 01       	movw	r12, r20
+	SWord size, ret, length;
+
+	d->wr_cmd = DATA0_WR;
+     68e:	87 e0       	ldi	r24, 0x07	; 7
+     690:	f8 01       	movw	r30, r16
+     692:	84 83       	std	Z+4, r24	; 0x04
+	size = SL811WriteData(d, (Byte*)command, sizeof(CtrlReq), SL811WRITE_SETUP);	// SETUP
+     694:	c8 01       	movw	r24, r16
+     696:	48 e0       	ldi	r20, 0x08	; 8
+     698:	50 e0       	ldi	r21, 0x00	; 0
+     69a:	21 e0       	ldi	r18, 0x01	; 1
+     69c:	30 e0       	ldi	r19, 0x00	; 0
+     69e:	0e 94 24 07 	call	0xe48	; 0xe48 <SL811WriteData>
+     6a2:	ec 01       	movw	r28, r24
+
+	if (size < 0)	return size;
+     6a4:	97 fd       	sbrc	r25, 7
+     6a6:	4b c0       	rjmp	.+150    	; 0x73e <SL811CtrlTransfer+0xc6>
+	
+	length = command->wLength;
+     6a8:	f7 01       	movw	r30, r14
+     6aa:	46 81       	ldd	r20, Z+6	; 0x06
+     6ac:	57 81       	ldd	r21, Z+7	; 0x07
+
+	if( length != 0 && data != NULL ){
+     6ae:	41 15       	cp	r20, r1
+     6b0:	51 05       	cpc	r21, r1
+     6b2:	b1 f1       	breq	.+108    	; 0x720 <SL811CtrlTransfer+0xa8>
+     6b4:	c1 14       	cp	r12, r1
+     6b6:	d1 04       	cpc	r13, r1
+     6b8:	99 f1       	breq	.+102    	; 0x720 <SL811CtrlTransfer+0xa8>
+		if( command->bmRequestType & TRANS_TO_HOST ){
+     6ba:	80 81       	ld	r24, Z
+     6bc:	87 ff       	sbrs	r24, 7
+     6be:	17 c0       	rjmp	.+46     	; 0x6ee <SL811CtrlTransfer+0x76>
+			// Read Control
+			d->rd_cmd = DATA1_RD;
+     6c0:	83 e4       	ldi	r24, 0x43	; 67
+     6c2:	f8 01       	movw	r30, r16
+     6c4:	85 83       	std	Z+5, r24	; 0x05
+			size = SL811ReadData(d, data, length);			// IN(DATA)
+     6c6:	c8 01       	movw	r24, r16
+     6c8:	b6 01       	movw	r22, r12
+     6ca:	0e 94 83 06 	call	0xd06	; 0xd06 <SL811ReadData>
+     6ce:	ec 01       	movw	r28, r24
+			if (size < 0)	return size;
+     6d0:	97 fd       	sbrc	r25, 7
+     6d2:	35 c0       	rjmp	.+106    	; 0x73e <SL811CtrlTransfer+0xc6>
+			ret = size;
+
+			d->wr_cmd = DATA1_WR;
+     6d4:	87 e4       	ldi	r24, 0x47	; 71
+     6d6:	f8 01       	movw	r30, r16
+     6d8:	84 83       	std	Z+4, r24	; 0x04
+			size = SL811WriteData(d, NULL, 0, SL811WRITE_OUT);			// OUT(STATUS)
+     6da:	c8 01       	movw	r24, r16
+     6dc:	60 e0       	ldi	r22, 0x00	; 0
+     6de:	70 e0       	ldi	r23, 0x00	; 0
+     6e0:	40 e0       	ldi	r20, 0x00	; 0
+     6e2:	50 e0       	ldi	r21, 0x00	; 0
+     6e4:	20 e0       	ldi	r18, 0x00	; 0
+     6e6:	30 e0       	ldi	r19, 0x00	; 0
+     6e8:	0e 94 24 07 	call	0xe48	; 0xe48 <SL811WriteData>
+     6ec:	16 c0       	rjmp	.+44     	; 0x71a <SL811CtrlTransfer+0xa2>
+		}else{
+			// Write Control
+			d->wr_cmd = DATA1_WR;
+     6ee:	87 e4       	ldi	r24, 0x47	; 71
+     6f0:	f8 01       	movw	r30, r16
+     6f2:	84 83       	std	Z+4, r24	; 0x04
+			size = SL811WriteData(d, data, length, SL811WRITE_OUT);		// OUT(DATA)
+     6f4:	c8 01       	movw	r24, r16
+     6f6:	b6 01       	movw	r22, r12
+     6f8:	20 e0       	ldi	r18, 0x00	; 0
+     6fa:	30 e0       	ldi	r19, 0x00	; 0
+     6fc:	0e 94 24 07 	call	0xe48	; 0xe48 <SL811WriteData>
+     700:	ec 01       	movw	r28, r24
+			if (size < 0)	return size;
+     702:	97 fd       	sbrc	r25, 7
+     704:	1c c0       	rjmp	.+56     	; 0x73e <SL811CtrlTransfer+0xc6>
+			ret = size;
+
+			d->rd_cmd = DATA1_RD;
+     706:	83 e4       	ldi	r24, 0x43	; 67
+     708:	f8 01       	movw	r30, r16
+     70a:	85 83       	std	Z+5, r24	; 0x05
+			size = SL811ReadData(d, NULL, 0);				// IN(STATUS)
+     70c:	c8 01       	movw	r24, r16
+     70e:	60 e0       	ldi	r22, 0x00	; 0
+     710:	70 e0       	ldi	r23, 0x00	; 0
+     712:	40 e0       	ldi	r20, 0x00	; 0
+     714:	50 e0       	ldi	r21, 0x00	; 0
+     716:	0e 94 83 06 	call	0xd06	; 0xd06 <SL811ReadData>
+     71a:	ae 01       	movw	r20, r28
+     71c:	ec 01       	movw	r28, r24
+     71e:	0d c0       	rjmp	.+26     	; 0x73a <SL811CtrlTransfer+0xc2>
+		}
+	}else{
+		// No-data Control
+		d->rd_cmd = DATA1_RD;
+     720:	83 e4       	ldi	r24, 0x43	; 67
+     722:	f8 01       	movw	r30, r16
+     724:	85 83       	std	Z+5, r24	; 0x05
+		size = SL811ReadData(d, NULL, 0);					// IN(STATUS)
+     726:	c8 01       	movw	r24, r16
+     728:	60 e0       	ldi	r22, 0x00	; 0
+     72a:	70 e0       	ldi	r23, 0x00	; 0
+     72c:	40 e0       	ldi	r20, 0x00	; 0
+     72e:	50 e0       	ldi	r21, 0x00	; 0
+     730:	0e 94 83 06 	call	0xd06	; 0xd06 <SL811ReadData>
+     734:	ec 01       	movw	r28, r24
+     736:	40 e0       	ldi	r20, 0x00	; 0
+     738:	50 e0       	ldi	r21, 0x00	; 0
+		ret = 0;
+	}
+	if (size < 0)	return size;
+     73a:	d7 ff       	sbrs	r29, 7
+     73c:	ea 01       	movw	r28, r20
+	return ret;
+}
+     73e:	ce 01       	movw	r24, r28
+     740:	df 91       	pop	r29
+     742:	cf 91       	pop	r28
+     744:	1f 91       	pop	r17
+     746:	0f 91       	pop	r16
+     748:	ff 90       	pop	r15
+     74a:	ef 90       	pop	r14
+     74c:	df 90       	pop	r13
+     74e:	cf 90       	pop	r12
+     750:	08 95       	ret
+
+00000752 <CtrlTransfer>:
+ * @param {data} 送信／受信するデータ
+ * @return 正常終了時 : 送信／受信したデータのサイズ
+ *         不正終了時 : HANDSHAKE_NAK [-1] もしくは HANDSHAKE_STALL [-2]
+ */
+SWord CtrlTransfer(USBDevice *d, CtrlReq *command, Byte *data)
+{
+     752:	fc 01       	movw	r30, r24
+	d->devinfo.ep = 0;
+     754:	11 82       	std	Z+1, r1	; 0x01
+	return SL811CtrlTransfer(&(d->devinfo), command, data);
+     756:	0e 94 3c 03 	call	0x678	; 0x678 <SL811CtrlTransfer>
+}
+     75a:	08 95       	ret
+
+0000075c <Get_Report>:
+ * @param {SWordf} インターフェース番号
+ * @return 正常終了時 : 受信したデータのサイズ
+ *         不正終了時 : HANDSHAKE_NAK [-1] もしくは HANDSHAKE_STALL [-2]
+ */
+SWord Get_Report(USBDevice *d, SWord type, Byte *data, size_t length, Byte report_id, SWord intf)
+{
+     75c:	ef 92       	push	r14
+     75e:	ff 92       	push	r15
+     760:	0f 93       	push	r16
+     762:	1f 93       	push	r17
+     764:	df 93       	push	r29
+     766:	cf 93       	push	r28
+     768:	cd b7       	in	r28, 0x3d	; 61
+     76a:	de b7       	in	r29, 0x3e	; 62
+     76c:	28 97       	sbiw	r28, 0x08	; 8
+     76e:	0f b6       	in	r0, 0x3f	; 63
+     770:	f8 94       	cli
+     772:	de bf       	out	0x3e, r29	; 62
+     774:	0f be       	out	0x3f, r0	; 63
+     776:	cd bf       	out	0x3d, r28	; 61
+	CtrlReq command;
+	
+	command.bmRequestType = TRANS_TO_HOST | TRANS_TO_IF | TYPE_CLASS;
+     778:	71 ea       	ldi	r23, 0xA1	; 161
+     77a:	79 83       	std	Y+1, r23	; 0x01
+	command.bRequest = GET_REPORT;
+     77c:	71 e0       	ldi	r23, 0x01	; 1
+     77e:	7a 83       	std	Y+2, r23	; 0x02
+	command.wValue = ((type << 8) | report_id);
+     780:	10 e0       	ldi	r17, 0x00	; 0
+     782:	f6 2f       	mov	r31, r22
+     784:	e0 e0       	ldi	r30, 0x00	; 0
+     786:	0e 2b       	or	r16, r30
+     788:	1f 2b       	or	r17, r31
+     78a:	1c 83       	std	Y+4, r17	; 0x04
+     78c:	0b 83       	std	Y+3, r16	; 0x03
+	command.wIndex = intf;
+     78e:	fe 82       	std	Y+6, r15	; 0x06
+     790:	ed 82       	std	Y+5, r14	; 0x05
+	command.wLength = length;
+     792:	38 87       	std	Y+8, r19	; 0x08
+     794:	2f 83       	std	Y+7, r18	; 0x07
+
+	return CtrlTransfer(d, &command, data);
+     796:	be 01       	movw	r22, r28
+     798:	6f 5f       	subi	r22, 0xFF	; 255
+     79a:	7f 4f       	sbci	r23, 0xFF	; 255
+     79c:	0e 94 a9 03 	call	0x752	; 0x752 <CtrlTransfer>
+}
+     7a0:	28 96       	adiw	r28, 0x08	; 8
+     7a2:	0f b6       	in	r0, 0x3f	; 63
+     7a4:	f8 94       	cli
+     7a6:	de bf       	out	0x3e, r29	; 62
+     7a8:	0f be       	out	0x3f, r0	; 63
+     7aa:	cd bf       	out	0x3d, r28	; 61
+     7ac:	cf 91       	pop	r28
+     7ae:	df 91       	pop	r29
+     7b0:	1f 91       	pop	r17
+     7b2:	0f 91       	pop	r16
+     7b4:	ff 90       	pop	r15
+     7b6:	ef 90       	pop	r14
+     7b8:	08 95       	ret
+
+000007ba <Get_Configuration>:
+ * @param {config} コンフィギュレーション番号
+ * @return 正常終了時 : 受信したデータのサイズ
+ *         不正終了時 : HANDSHAKE_NAK [-1] もしくは HANDSHAKE_STALL [-2]
+ */
+SWord Get_Configuration(USBDevice *d, Byte *config)
+{
+     7ba:	df 93       	push	r29
+     7bc:	cf 93       	push	r28
+     7be:	cd b7       	in	r28, 0x3d	; 61
+     7c0:	de b7       	in	r29, 0x3e	; 62
+     7c2:	28 97       	sbiw	r28, 0x08	; 8
+     7c4:	0f b6       	in	r0, 0x3f	; 63
+     7c6:	f8 94       	cli
+     7c8:	de bf       	out	0x3e, r29	; 62
+     7ca:	0f be       	out	0x3f, r0	; 63
+     7cc:	cd bf       	out	0x3d, r28	; 61
+     7ce:	ab 01       	movw	r20, r22
+	CtrlReq command;
+	
+	command.bmRequestType = TRANS_TO_HOST;
+     7d0:	20 e8       	ldi	r18, 0x80	; 128
+     7d2:	29 83       	std	Y+1, r18	; 0x01
+	command.bRequest = GET_CONFIG;
+     7d4:	28 e0       	ldi	r18, 0x08	; 8
+     7d6:	2a 83       	std	Y+2, r18	; 0x02
+	command.wValue = 0;
+     7d8:	1c 82       	std	Y+4, r1	; 0x04
+     7da:	1b 82       	std	Y+3, r1	; 0x03
+	command.wIndex = 0;
+     7dc:	1e 82       	std	Y+6, r1	; 0x06
+     7de:	1d 82       	std	Y+5, r1	; 0x05
+	command.wLength = 1;
+     7e0:	21 e0       	ldi	r18, 0x01	; 1
+     7e2:	30 e0       	ldi	r19, 0x00	; 0
+     7e4:	38 87       	std	Y+8, r19	; 0x08
+     7e6:	2f 83       	std	Y+7, r18	; 0x07
+
+	return CtrlTransfer(d, &command, config);
+     7e8:	be 01       	movw	r22, r28
+     7ea:	6f 5f       	subi	r22, 0xFF	; 255
+     7ec:	7f 4f       	sbci	r23, 0xFF	; 255
+     7ee:	0e 94 a9 03 	call	0x752	; 0x752 <CtrlTransfer>
+}
+     7f2:	28 96       	adiw	r28, 0x08	; 8
+     7f4:	0f b6       	in	r0, 0x3f	; 63
+     7f6:	f8 94       	cli
+     7f8:	de bf       	out	0x3e, r29	; 62
+     7fa:	0f be       	out	0x3f, r0	; 63
+     7fc:	cd bf       	out	0x3d, r28	; 61
+     7fe:	cf 91       	pop	r28
+     800:	df 91       	pop	r29
+     802:	08 95       	ret
+
+00000804 <Set_Configuration>:
+ * @param {config} コンフィギュレーション番号
+ * @return 正常終了時 : 送信したデータのサイズ
+ *         不正終了時 : HANDSHAKE_NAK [-1] もしくは HANDSHAKE_STALL [-2]
+ */
+SWord Set_Configuration(USBDevice *d, SWord config)
+{
+     804:	df 93       	push	r29
+     806:	cf 93       	push	r28
+     808:	cd b7       	in	r28, 0x3d	; 61
+     80a:	de b7       	in	r29, 0x3e	; 62
+     80c:	28 97       	sbiw	r28, 0x08	; 8
+     80e:	0f b6       	in	r0, 0x3f	; 63
+     810:	f8 94       	cli
+     812:	de bf       	out	0x3e, r29	; 62
+     814:	0f be       	out	0x3f, r0	; 63
+     816:	cd bf       	out	0x3d, r28	; 61
+	CtrlReq command;
+	
+	command.bmRequestType = TRANS_TO_DEV;
+     818:	19 82       	std	Y+1, r1	; 0x01
+	command.bRequest = SET_CONFIG;
+     81a:	29 e0       	ldi	r18, 0x09	; 9
+     81c:	2a 83       	std	Y+2, r18	; 0x02
+	command.wValue = config;
+     81e:	7c 83       	std	Y+4, r23	; 0x04
+     820:	6b 83       	std	Y+3, r22	; 0x03
+	command.wIndex = 0;
+     822:	1e 82       	std	Y+6, r1	; 0x06
+     824:	1d 82       	std	Y+5, r1	; 0x05
+	command.wLength = 0;
+     826:	18 86       	std	Y+8, r1	; 0x08
+     828:	1f 82       	std	Y+7, r1	; 0x07
+
+	return CtrlTransfer(d, &command, NULL);
+     82a:	be 01       	movw	r22, r28
+     82c:	6f 5f       	subi	r22, 0xFF	; 255
+     82e:	7f 4f       	sbci	r23, 0xFF	; 255
+     830:	40 e0       	ldi	r20, 0x00	; 0
+     832:	50 e0       	ldi	r21, 0x00	; 0
+     834:	0e 94 a9 03 	call	0x752	; 0x752 <CtrlTransfer>
+}
+     838:	28 96       	adiw	r28, 0x08	; 8
+     83a:	0f b6       	in	r0, 0x3f	; 63
+     83c:	f8 94       	cli
+     83e:	de bf       	out	0x3e, r29	; 62
+     840:	0f be       	out	0x3f, r0	; 63
+     842:	cd bf       	out	0x3d, r28	; 61
+     844:	cf 91       	pop	r28
+     846:	df 91       	pop	r29
+     848:	08 95       	ret
+
+0000084a <Set_Address>:
+ * @param {addr} アドレス
+ * @return 正常終了時 : 受信したデータのサイズ
+ *         不正終了時 : HANDSHAKE_NAK [-1] もしくは HANDSHAKE_STALL [-2]
+ */
+SWord Set_Address(USBDevice *d, SWord addr)
+{
+     84a:	cf 92       	push	r12
+     84c:	df 92       	push	r13
+     84e:	ef 92       	push	r14
+     850:	ff 92       	push	r15
+     852:	0f 93       	push	r16
+     854:	1f 93       	push	r17
+     856:	df 93       	push	r29
+     858:	cf 93       	push	r28
+     85a:	cd b7       	in	r28, 0x3d	; 61
+     85c:	de b7       	in	r29, 0x3e	; 62
+     85e:	28 97       	sbiw	r28, 0x08	; 8
+     860:	0f b6       	in	r0, 0x3f	; 63
+     862:	f8 94       	cli
+     864:	de bf       	out	0x3e, r29	; 62
+     866:	0f be       	out	0x3f, r0	; 63
+     868:	cd bf       	out	0x3d, r28	; 61
+     86a:	6c 01       	movw	r12, r24
+     86c:	7b 01       	movw	r14, r22
+	CtrlReq command;
+	SWord ret;
+
+	command.bmRequestType = TRANS_TO_DEV;
+     86e:	19 82       	std	Y+1, r1	; 0x01
+	command.bRequest = SET_ADDRESS;
+     870:	85 e0       	ldi	r24, 0x05	; 5
+     872:	8a 83       	std	Y+2, r24	; 0x02
+	command.wValue = addr;
+     874:	7c 83       	std	Y+4, r23	; 0x04
+     876:	6b 83       	std	Y+3, r22	; 0x03
+	command.wIndex = 0;
+     878:	1e 82       	std	Y+6, r1	; 0x06
+     87a:	1d 82       	std	Y+5, r1	; 0x05
+	command.wLength = 0;
+     87c:	18 86       	std	Y+8, r1	; 0x08
+     87e:	1f 82       	std	Y+7, r1	; 0x07
+	
+	
+	ret = CtrlTransfer(d, &command, NULL);
+     880:	c6 01       	movw	r24, r12
+     882:	be 01       	movw	r22, r28
+     884:	6f 5f       	subi	r22, 0xFF	; 255
+     886:	7f 4f       	sbci	r23, 0xFF	; 255
+     888:	40 e0       	ldi	r20, 0x00	; 0
+     88a:	50 e0       	ldi	r21, 0x00	; 0
+     88c:	0e 94 a9 03 	call	0x752	; 0x752 <CtrlTransfer>
+     890:	8c 01       	movw	r16, r24
+	if( ret<0 )	return ret;
+     892:	97 fd       	sbrc	r25, 7
+     894:	0c c0       	rjmp	.+24     	; 0x8ae <Set_Address+0x64>
+	
+	__device_addr[addr] = 1;
+     896:	f7 01       	movw	r30, r14
+     898:	ed 56       	subi	r30, 0x6D	; 109
+     89a:	fe 4f       	sbci	r31, 0xFE	; 254
+     89c:	81 e0       	ldi	r24, 0x01	; 1
+     89e:	80 83       	st	Z, r24
+	d->address = addr;
+     8a0:	f6 01       	movw	r30, r12
+     8a2:	f0 86       	std	Z+8, r15	; 0x08
+     8a4:	e7 82       	std	Z+7, r14	; 0x07
+	SL811SetAddress(&(d->devinfo), addr);
+     8a6:	c6 01       	movw	r24, r12
+     8a8:	b7 01       	movw	r22, r14
+     8aa:	0e 94 83 05 	call	0xb06	; 0xb06 <SL811SetAddress>
+
+	return ret;
+}
+     8ae:	c8 01       	movw	r24, r16
+     8b0:	28 96       	adiw	r28, 0x08	; 8
+     8b2:	0f b6       	in	r0, 0x3f	; 63
+     8b4:	f8 94       	cli
+     8b6:	de bf       	out	0x3e, r29	; 62
+     8b8:	0f be       	out	0x3f, r0	; 63
+     8ba:	cd bf       	out	0x3d, r28	; 61
+     8bc:	cf 91       	pop	r28
+     8be:	df 91       	pop	r29
+     8c0:	1f 91       	pop	r17
+     8c2:	0f 91       	pop	r16
+     8c4:	ff 90       	pop	r15
+     8c6:	ef 90       	pop	r14
+     8c8:	df 90       	pop	r13
+     8ca:	cf 90       	pop	r12
+     8cc:	08 95       	ret
+
+000008ce <Get_Descriptor>:
+SWord Get_Descriptor(USBDevice *d,
+					 Byte type, 
+					 void *data, 
+					 SWord length, 
+					 Byte index, 
+					 SWord lang){
+     8ce:	ef 92       	push	r14
+     8d0:	ff 92       	push	r15
+     8d2:	0f 93       	push	r16
+     8d4:	df 93       	push	r29
+     8d6:	cf 93       	push	r28
+     8d8:	cd b7       	in	r28, 0x3d	; 61
+     8da:	de b7       	in	r29, 0x3e	; 62
+     8dc:	28 97       	sbiw	r28, 0x08	; 8
+     8de:	0f b6       	in	r0, 0x3f	; 63
+     8e0:	f8 94       	cli
+     8e2:	de bf       	out	0x3e, r29	; 62
+     8e4:	0f be       	out	0x3f, r0	; 63
+     8e6:	cd bf       	out	0x3d, r28	; 61
+     8e8:	dc 01       	movw	r26, r24
+     8ea:	f9 01       	movw	r30, r18
+	CtrlReq command;
+	
+	command.bmRequestType = TRANS_TO_HOST;
+     8ec:	80 e8       	ldi	r24, 0x80	; 128
+     8ee:	89 83       	std	Y+1, r24	; 0x01
+	
+	if( type == HID_TYPE || type == REPORT_TYPE )	command.bmRequestType |= TRANS_TO_IF;
+     8f0:	86 2f       	mov	r24, r22
+     8f2:	81 52       	subi	r24, 0x21	; 33
+     8f4:	82 30       	cpi	r24, 0x02	; 2
+     8f6:	10 f4       	brcc	.+4      	; 0x8fc <Get_Descriptor+0x2e>
+     8f8:	81 e8       	ldi	r24, 0x81	; 129
+     8fa:	89 83       	std	Y+1, r24	; 0x01
+
+	command.bRequest = GET_DESCRIPTOR;
+     8fc:	86 e0       	ldi	r24, 0x06	; 6
+     8fe:	8a 83       	std	Y+2, r24	; 0x02
+	command.wValue = (type << 8) | index;
+     900:	20 2f       	mov	r18, r16
+     902:	30 e0       	ldi	r19, 0x00	; 0
+     904:	96 2f       	mov	r25, r22
+     906:	80 e0       	ldi	r24, 0x00	; 0
+     908:	28 2b       	or	r18, r24
+     90a:	39 2b       	or	r19, r25
+     90c:	3c 83       	std	Y+4, r19	; 0x04
+     90e:	2b 83       	std	Y+3, r18	; 0x03
+	command.wIndex = lang;
+     910:	fe 82       	std	Y+6, r15	; 0x06
+     912:	ed 82       	std	Y+5, r14	; 0x05
+	command.wLength = length;
+     914:	f8 87       	std	Y+8, r31	; 0x08
+     916:	ef 83       	std	Y+7, r30	; 0x07
+	
+	return CtrlTransfer(d, &command, (Byte*)data);
+     918:	cd 01       	movw	r24, r26
+     91a:	be 01       	movw	r22, r28
+     91c:	6f 5f       	subi	r22, 0xFF	; 255
+     91e:	7f 4f       	sbci	r23, 0xFF	; 255
+     920:	0e 94 a9 03 	call	0x752	; 0x752 <CtrlTransfer>
+}
+     924:	28 96       	adiw	r28, 0x08	; 8
+     926:	0f b6       	in	r0, 0x3f	; 63
+     928:	f8 94       	cli
+     92a:	de bf       	out	0x3e, r29	; 62
+     92c:	0f be       	out	0x3f, r0	; 63
+     92e:	cd bf       	out	0x3d, r28	; 61
+     930:	cf 91       	pop	r28
+     932:	df 91       	pop	r29
+     934:	0f 91       	pop	r16
+     936:	ff 90       	pop	r15
+     938:	ef 90       	pop	r14
+     93a:	08 95       	ret
+
+0000093c <USBDeviceInit_in3>:
+ * @param {speed} 対象デバイスの速度
+ * @return 正常終了時 : 0
+ *         不正終了時 : -1
+ */
+SWord USBDeviceInit_in3(USBDevice *d, USBDevice *parent, SWord speed)
+{
+     93c:	af 92       	push	r10
+     93e:	bf 92       	push	r11
+     940:	cf 92       	push	r12
+     942:	df 92       	push	r13
+     944:	ef 92       	push	r14
+     946:	ff 92       	push	r15
+     948:	0f 93       	push	r16
+     94a:	df 93       	push	r29
+     94c:	cf 93       	push	r28
+     94e:	0f 92       	push	r0
+     950:	cd b7       	in	r28, 0x3d	; 61
+     952:	de b7       	in	r29, 0x3e	; 62
+     954:	6c 01       	movw	r12, r24
+	
+//**/	SWord	i, epnum;
+	Byte tmp;
+	
+	// EndPoSWord No. - 0, EndPoSWordSize - 8, Retry - 12, PRE - Preamble, Address - 0
+	SL811DeviceInit(&(d->devinfo), 0, 8, 12 + ((parent != NULL && speed == USB_LOW) ? 8 : 0), ((parent != NULL && speed == USB_LOW) ? 1 : 0), 0);
+     956:	67 2b       	or	r22, r23
+     958:	41 f0       	breq	.+16     	; 0x96a <USBDeviceInit_in3+0x2e>
+     95a:	41 30       	cpi	r20, 0x01	; 1
+     95c:	51 05       	cpc	r21, r1
+     95e:	29 f4       	brne	.+10     	; 0x96a <USBDeviceInit_in3+0x2e>
+     960:	61 e0       	ldi	r22, 0x01	; 1
+     962:	70 e0       	ldi	r23, 0x00	; 0
+     964:	24 e1       	ldi	r18, 0x14	; 20
+     966:	30 e0       	ldi	r19, 0x00	; 0
+     968:	04 c0       	rjmp	.+8      	; 0x972 <USBDeviceInit_in3+0x36>
+     96a:	60 e0       	ldi	r22, 0x00	; 0
+     96c:	70 e0       	ldi	r23, 0x00	; 0
+     96e:	2c e0       	ldi	r18, 0x0C	; 12
+     970:	30 e0       	ldi	r19, 0x00	; 0
+					 SWord ep, 
+					 SWord epsize, 
+					 SWord retry, 
+					 SWord pre, 
+					 SWord addr){
+	d->ep = ep;
+     972:	d6 01       	movw	r26, r12
+     974:	11 96       	adiw	r26, 0x01	; 1
+     976:	1c 92       	st	X, r1
+     978:	11 97       	sbiw	r26, 0x01	; 1
+	d->epsize = epsize;
+     97a:	88 e0       	ldi	r24, 0x08	; 8
+     97c:	12 96       	adiw	r26, 0x02	; 2
+     97e:	8c 93       	st	X, r24
+     980:	12 97       	sbiw	r26, 0x02	; 2
+	d->retry = retry;
+     982:	13 96       	adiw	r26, 0x03	; 3
+     984:	2c 93       	st	X, r18
+	d->pre = (pre) ? (PREAMBLE) : (0x00);
+     986:	67 2b       	or	r22, r23
+     988:	11 f4       	brne	.+4      	; 0x98e <USBDeviceInit_in3+0x52>
+     98a:	80 e0       	ldi	r24, 0x00	; 0
+     98c:	01 c0       	rjmp	.+2      	; 0x990 <USBDeviceInit_in3+0x54>
+     98e:	80 e8       	ldi	r24, 0x80	; 128
+     990:	f6 01       	movw	r30, r12
+     992:	86 83       	std	Z+6, r24	; 0x06
+	d->addr = addr;
+     994:	10 82       	st	Z, r1
+//**/	SWord	i, epnum;
+	Byte tmp;
+	
+	// EndPoSWord No. - 0, EndPoSWordSize - 8, Retry - 12, PRE - Preamble, Address - 0
+	SL811DeviceInit(&(d->devinfo), 0, 8, 12 + ((parent != NULL && speed == USB_LOW) ? 8 : 0), ((parent != NULL && speed == USB_LOW) ? 1 : 0), 0);
+	d->speed = speed;
+     996:	52 87       	std	Z+10, r21	; 0x0a
+     998:	41 87       	std	Z+9, r20	; 0x09
+	
+	// デバイスディスクプリタの仮取得
+	if( Get_Descriptor(d, DEVICE_TYPE, &(d->devdesc), 8, 0, 0) < 0 )	return -1;
+     99a:	2b e0       	ldi	r18, 0x0B	; 11
+     99c:	a2 2e       	mov	r10, r18
+     99e:	b1 2c       	mov	r11, r1
+     9a0:	ac 0c       	add	r10, r12
+     9a2:	bd 1c       	adc	r11, r13
+     9a4:	c6 01       	movw	r24, r12
+     9a6:	61 e0       	ldi	r22, 0x01	; 1
+     9a8:	a5 01       	movw	r20, r10
+     9aa:	28 e0       	ldi	r18, 0x08	; 8
+     9ac:	30 e0       	ldi	r19, 0x00	; 0
+     9ae:	00 e0       	ldi	r16, 0x00	; 0
+     9b0:	ee 24       	eor	r14, r14
+     9b2:	ff 24       	eor	r15, r15
+     9b4:	0e 94 67 04 	call	0x8ce	; 0x8ce <Get_Descriptor>
+     9b8:	97 fd       	sbrc	r25, 7
+     9ba:	83 c0       	rjmp	.+262    	; 0xac2 <USBDeviceInit_in3+0x186>
+LED2_ON;	
+     9bc:	96 9a       	sbi	0x12, 6	; 18
+	// エンドポイントサイズの設定
+	SL811DeviceInit(&(d->devinfo), 0, d->devdesc.bMaxPacketSize0, 20, 0, 0);
+     9be:	d6 01       	movw	r26, r12
+     9c0:	52 96       	adiw	r26, 0x12	; 18
+     9c2:	8c 91       	ld	r24, X
+     9c4:	52 97       	sbiw	r26, 0x12	; 18
+					 SWord ep, 
+					 SWord epsize, 
+					 SWord retry, 
+					 SWord pre, 
+					 SWord addr){
+	d->ep = ep;
+     9c6:	11 96       	adiw	r26, 0x01	; 1
+     9c8:	1c 92       	st	X, r1
+     9ca:	11 97       	sbiw	r26, 0x01	; 1
+	d->epsize = epsize;
+     9cc:	12 96       	adiw	r26, 0x02	; 2
+     9ce:	8c 93       	st	X, r24
+     9d0:	12 97       	sbiw	r26, 0x02	; 2
+	d->retry = retry;
+     9d2:	84 e1       	ldi	r24, 0x14	; 20
+     9d4:	13 96       	adiw	r26, 0x03	; 3
+     9d6:	8c 93       	st	X, r24
+     9d8:	13 97       	sbiw	r26, 0x03	; 3
+	d->pre = (pre) ? (PREAMBLE) : (0x00);
+     9da:	16 96       	adiw	r26, 0x06	; 6
+     9dc:	1c 92       	st	X, r1
+     9de:	16 97       	sbiw	r26, 0x06	; 6
+	d->addr = addr;
+     9e0:	1c 92       	st	X, r1
+	// エンドポイントサイズの設定
+	SL811DeviceInit(&(d->devinfo), 0, d->devdesc.bMaxPacketSize0, 20, 0, 0);
+	
+	// デバイスアドレスをセット
+	devaddr = 1;
+	if( Set_Address(d, devaddr) == -1 )	return -1;
+     9e2:	c6 01       	movw	r24, r12
+     9e4:	61 e0       	ldi	r22, 0x01	; 1
+     9e6:	70 e0       	ldi	r23, 0x00	; 0
+     9e8:	0e 94 25 04 	call	0x84a	; 0x84a <Set_Address>
+     9ec:	8f 5f       	subi	r24, 0xFF	; 255
+     9ee:	9f 4f       	sbci	r25, 0xFF	; 255
+     9f0:	09 f4       	brne	.+2      	; 0x9f4 <USBDeviceInit_in3+0xb8>
+     9f2:	67 c0       	rjmp	.+206    	; 0xac2 <USBDeviceInit_in3+0x186>
+	
+	// デバイスディスクプリタの取得
+	if( Get_Descriptor(d, DEVICE_TYPE, &(d->devdesc), sizeof(DevDesc), 0, 0) < 0 )	return -1;
+     9f4:	c6 01       	movw	r24, r12
+     9f6:	61 e0       	ldi	r22, 0x01	; 1
+     9f8:	a5 01       	movw	r20, r10
+     9fa:	22 e1       	ldi	r18, 0x12	; 18
+     9fc:	30 e0       	ldi	r19, 0x00	; 0
+     9fe:	0e 94 67 04 	call	0x8ce	; 0x8ce <Get_Descriptor>
+     a02:	97 fd       	sbrc	r25, 7
+     a04:	5e c0       	rjmp	.+188    	; 0xac2 <USBDeviceInit_in3+0x186>
+
+	// コンフィグレーションディスクプリタの仮取得
+	if( Get_Descriptor(d, CONFIG_TYPE, &config, sizeof(CfgDesc), 0, 0) < 0 )	return -1;
+     a06:	91 e2       	ldi	r25, 0x21	; 33
+     a08:	a9 2e       	mov	r10, r25
+     a0a:	92 e0       	ldi	r25, 0x02	; 2
+     a0c:	b9 2e       	mov	r11, r25
+     a0e:	c6 01       	movw	r24, r12
+     a10:	62 e0       	ldi	r22, 0x02	; 2
+     a12:	a5 01       	movw	r20, r10
+     a14:	29 e0       	ldi	r18, 0x09	; 9
+     a16:	30 e0       	ldi	r19, 0x00	; 0
+     a18:	0e 94 67 04 	call	0x8ce	; 0x8ce <Get_Descriptor>
+     a1c:	97 fd       	sbrc	r25, 7
+     a1e:	51 c0       	rjmp	.+162    	; 0xac2 <USBDeviceInit_in3+0x186>
+
+	// コンフィグレーションディスクプリタの取得
+	d->cfgdesc = &config;
+     a20:	f6 01       	movw	r30, r12
+     a22:	b6 8e       	std	Z+30, r11	; 0x1e
+     a24:	a5 8e       	std	Z+29, r10	; 0x1d
+	if( Get_Descriptor(d, CONFIG_TYPE, d->cfgdesc, config.wTotalLength, 0, 0) < 0 )	return -1;
+     a26:	20 91 23 02 	lds	r18, 0x0223
+     a2a:	30 91 24 02 	lds	r19, 0x0224
+     a2e:	c6 01       	movw	r24, r12
+     a30:	62 e0       	ldi	r22, 0x02	; 2
+     a32:	a5 01       	movw	r20, r10
+     a34:	0e 94 67 04 	call	0x8ce	; 0x8ce <Get_Descriptor>
+     a38:	97 fd       	sbrc	r25, 7
+     a3a:	43 c0       	rjmp	.+134    	; 0xac2 <USBDeviceInit_in3+0x186>
+LED2_OFF;	
+     a3c:	96 98       	cbi	0x12, 6	; 18
+	// ポインタのセット
+	d->intfdesc = (IntfDesc*)((Byte*)d->cfgdesc + d->cfgdesc->bLength);
+     a3e:	d6 01       	movw	r26, r12
+     a40:	5d 96       	adiw	r26, 0x1d	; 29
+     a42:	ed 91       	ld	r30, X+
+     a44:	fc 91       	ld	r31, X
+     a46:	5e 97       	sbiw	r26, 0x1e	; 30
+     a48:	80 81       	ld	r24, Z
+     a4a:	e8 0f       	add	r30, r24
+     a4c:	f1 1d       	adc	r31, r1
+     a4e:	90 96       	adiw	r26, 0x20	; 32
+     a50:	fc 93       	st	X, r31
+     a52:	ee 93       	st	-X, r30
+     a54:	5f 97       	sbiw	r26, 0x1f	; 31
+
+	if( d->devdesc.bDeviceClass == 0x00 &&
+     a56:	1f 96       	adiw	r26, 0x0f	; 15
+     a58:	8c 91       	ld	r24, X
+     a5a:	1f 97       	sbiw	r26, 0x0f	; 15
+     a5c:	88 23       	and	r24, r24
+     a5e:	71 f4       	brne	.+28     	; 0xa7c <USBDeviceInit_in3+0x140>
+     a60:	85 81       	ldd	r24, Z+5	; 0x05
+     a62:	83 30       	cpi	r24, 0x03	; 3
+     a64:	59 f4       	brne	.+22     	; 0xa7c <USBDeviceInit_in3+0x140>
+		d->intfdesc->bInterfaceClass == HID_CLASS ){
+		
+		d->hiddesc = (HIDDesc*)((Byte*)d->intfdesc + d->intfdesc->bLength);
+     a66:	80 81       	ld	r24, Z
+     a68:	e8 0f       	add	r30, r24
+     a6a:	f1 1d       	adc	r31, r1
+     a6c:	92 96       	adiw	r26, 0x22	; 34
+     a6e:	fc 93       	st	X, r31
+     a70:	ee 93       	st	-X, r30
+     a72:	91 97       	sbiw	r26, 0x21	; 33
+		d->epdesc = (EPDesc*)((Byte*)d->hiddesc + d->hiddesc->bLength);
+     a74:	80 81       	ld	r24, Z
+     a76:	e8 0f       	add	r30, r24
+     a78:	f1 1d       	adc	r31, r1
+     a7a:	0c c0       	rjmp	.+24     	; 0xa94 <USBDeviceInit_in3+0x158>
+		{
+//			d->repdesc = &_repdesc;//(RptDesc*)malloc( (d->hiddesc->Report[0].wDescriptorLength) );
+//			Get_Descriptor(d, REPORT_TYPE, d->repdesc, d->hiddesc->Report[0].wDescriptorLength, 0, 0);
+		}
+	}else{
+		d->hiddesc = NULL;
+     a7c:	f6 01       	movw	r30, r12
+     a7e:	12 a2       	std	Z+34, r1	; 0x22
+     a80:	11 a2       	std	Z+33, r1	; 0x21
+		d->repdesc = NULL;
+     a82:	14 a2       	std	Z+36, r1	; 0x24
+     a84:	13 a2       	std	Z+35, r1	; 0x23
+		d->epdesc = (EPDesc*)((Byte*)d->intfdesc + d->intfdesc->bLength);
+     a86:	07 8c       	ldd	r0, Z+31	; 0x1f
+     a88:	f0 a1       	ldd	r31, Z+32	; 0x20
+     a8a:	e0 2d       	mov	r30, r0
+     a8c:	80 81       	ld	r24, Z
+     a8e:	e8 0f       	add	r30, r24
+     a90:	f1 1d       	adc	r31, r1
+     a92:	d6 01       	movw	r26, r12
+     a94:	96 96       	adiw	r26, 0x26	; 38
+     a96:	fc 93       	st	X, r31
+     a98:	ee 93       	st	-X, r30
+     a9a:	95 97       	sbiw	r26, 0x25	; 37
+	}
+
+	// コンフィギュレーションの設定
+	Set_Configuration(d, d->cfgdesc->bConfigurationValue);
+     a9c:	d6 01       	movw	r26, r12
+     a9e:	5d 96       	adiw	r26, 0x1d	; 29
+     aa0:	ed 91       	ld	r30, X+
+     aa2:	fc 91       	ld	r31, X
+     aa4:	5e 97       	sbiw	r26, 0x1e	; 30
+     aa6:	65 81       	ldd	r22, Z+5	; 0x05
+     aa8:	c6 01       	movw	r24, r12
+     aaa:	70 e0       	ldi	r23, 0x00	; 0
+     aac:	0e 94 02 04 	call	0x804	; 0x804 <Set_Configuration>
+	
+	// 情報の表示
+	
+	Get_Configuration(d, &tmp);
+     ab0:	c6 01       	movw	r24, r12
+     ab2:	be 01       	movw	r22, r28
+     ab4:	6f 5f       	subi	r22, 0xFF	; 255
+     ab6:	7f 4f       	sbci	r23, 0xFF	; 255
+     ab8:	0e 94 dd 03 	call	0x7ba	; 0x7ba <Get_Configuration>
+     abc:	20 e0       	ldi	r18, 0x00	; 0
+     abe:	30 e0       	ldi	r19, 0x00	; 0
+     ac0:	02 c0       	rjmp	.+4      	; 0xac6 <USBDeviceInit_in3+0x18a>
+
+	for( i=0; i<epnum; i++){
+		prSWord_desc(&d->epdesc[i], ENDPOSWord_TYPE);
+	}	
+*/
+	return 0;
+     ac2:	2f ef       	ldi	r18, 0xFF	; 255
+     ac4:	3f ef       	ldi	r19, 0xFF	; 255
+}
+     ac6:	c9 01       	movw	r24, r18
+     ac8:	0f 90       	pop	r0
+     aca:	cf 91       	pop	r28
+     acc:	df 91       	pop	r29
+     ace:	0f 91       	pop	r16
+     ad0:	ff 90       	pop	r15
+     ad2:	ef 90       	pop	r14
+     ad4:	df 90       	pop	r13
+     ad6:	cf 90       	pop	r12
+     ad8:	bf 90       	pop	r11
+     ada:	af 90       	pop	r10
+     adc:	08 95       	ret
+
+00000ade <USBInit>:
+ */
+SWord USBInit(void)
+{
+	SWord x;
+	
+	__usb_dev_mode = USB_NONE;
+     ade:	10 92 20 02 	sts	0x0220, r1
+     ae2:	10 92 1f 02 	sts	0x021F, r1
+	
+	x = SL811USBInit();
+     ae6:	0e 94 15 06 	call	0xc2a	; 0xc2a <SL811USBInit>
+	
+	return x;
+}
+     aea:	08 95       	ret
+
+00000aec <sl811_init>:
+/**
+ * SL811HSTの初期化
+ */
+void sl811_init(void)
+{
+	__sl811_addr = (volatile Byte *)0x8000;
+     aec:	80 e0       	ldi	r24, 0x00	; 0
+     aee:	90 e8       	ldi	r25, 0x80	; 128
+     af0:	90 93 2b 02 	sts	0x022B, r25
+     af4:	80 93 2a 02 	sts	0x022A, r24
+	__sl811_data = (volatile Byte *)0xC000;
+     af8:	80 e0       	ldi	r24, 0x00	; 0
+     afa:	90 ec       	ldi	r25, 0xC0	; 192
+     afc:	90 93 2d 02 	sts	0x022D, r25
+     b00:	80 93 2c 02 	sts	0x022C, r24
+}
+     b04:	08 95       	ret
+
+00000b06 <SL811SetAddress>:
+ *
+ * @param {d} 対象デバイス
+ * @param {addr} デバイスのアドレス
+ */
+void SL811SetAddress(SL811USBDevInfo *d, SWord addr)
+{
+     b06:	fc 01       	movw	r30, r24
+	d->addr = addr;
+     b08:	60 83       	st	Z, r22
+}
+     b0a:	08 95       	ret
+
+00000b0c <sl811_buf_write>:
+
+/**
+ * SL811HST FIFOメモリ・バッファへブロック・データ書き込み
+ */
+void sl811_buf_write(const Byte offset, const Byte *buf, SWord size)
+{
+     b0c:	0f 93       	push	r16
+     b0e:	1f 93       	push	r17
+     b10:	cf 93       	push	r28
+     b12:	df 93       	push	r29
+     b14:	8b 01       	movw	r16, r22
+     b16:	ea 01       	movw	r28, r20
+	*(__sl811_addr) = offset;
+     b18:	e0 91 2a 02 	lds	r30, 0x022A
+     b1c:	f0 91 2b 02 	lds	r31, 0x022B
+     b20:	07 c0       	rjmp	.+14     	; 0xb30 <sl811_buf_write+0x24>
+	_DELAY_US(150);
+
+	while( size-- ){
+		*(__sl811_data) = *buf;
+     b22:	e0 91 2c 02 	lds	r30, 0x022C
+     b26:	f0 91 2d 02 	lds	r31, 0x022D
+     b2a:	d8 01       	movw	r26, r16
+     b2c:	8d 91       	ld	r24, X+
+     b2e:	8d 01       	movw	r16, r26
+     b30:	80 83       	st	Z, r24
+		_DELAY_US(150);
+     b32:	86 e9       	ldi	r24, 0x96	; 150
+     b34:	90 e0       	ldi	r25, 0x00	; 0
+     b36:	0e 94 87 02 	call	0x50e	; 0x50e <wait_us>
+void sl811_buf_write(const Byte offset, const Byte *buf, SWord size)
+{
+	*(__sl811_addr) = offset;
+	_DELAY_US(150);
+
+	while( size-- ){
+     b3a:	21 97       	sbiw	r28, 0x01	; 1
+     b3c:	bf ef       	ldi	r27, 0xFF	; 255
+     b3e:	cf 3f       	cpi	r28, 0xFF	; 255
+     b40:	db 07       	cpc	r29, r27
+     b42:	79 f7       	brne	.-34     	; 0xb22 <sl811_buf_write+0x16>
+		*(__sl811_data) = *buf;
+		_DELAY_US(150);
+		buf++;
+	}
+}
+     b44:	df 91       	pop	r29
+     b46:	cf 91       	pop	r28
+     b48:	1f 91       	pop	r17
+     b4a:	0f 91       	pop	r16
+     b4c:	08 95       	ret
+
+00000b4e <sl811_buf_read>:
+
+/**
+ *  SL811HST FIFOメモリ・バッファからのブロック・データ読み込み
+ */
+void sl811_buf_read(const Byte offset, Byte *buf, SWord size)
+{
+     b4e:	0f 93       	push	r16
+     b50:	1f 93       	push	r17
+     b52:	cf 93       	push	r28
+     b54:	df 93       	push	r29
+     b56:	8b 01       	movw	r16, r22
+     b58:	ea 01       	movw	r28, r20
+	*(__sl811_addr) = offset;
+     b5a:	e0 91 2a 02 	lds	r30, 0x022A
+     b5e:	f0 91 2b 02 	lds	r31, 0x022B
+     b62:	80 83       	st	Z, r24
+     b64:	08 c0       	rjmp	.+16     	; 0xb76 <sl811_buf_read+0x28>
+	_DELAY_US(150);
+
+	while( size-- ){
+		 *buf = *(__sl811_data);
+     b66:	e0 91 2c 02 	lds	r30, 0x022C
+     b6a:	f0 91 2d 02 	lds	r31, 0x022D
+     b6e:	80 81       	ld	r24, Z
+     b70:	f8 01       	movw	r30, r16
+     b72:	81 93       	st	Z+, r24
+     b74:	8f 01       	movw	r16, r30
+		 _DELAY_US(150);
+     b76:	86 e9       	ldi	r24, 0x96	; 150
+     b78:	90 e0       	ldi	r25, 0x00	; 0
+     b7a:	0e 94 87 02 	call	0x50e	; 0x50e <wait_us>
+void sl811_buf_read(const Byte offset, Byte *buf, SWord size)
+{
+	*(__sl811_addr) = offset;
+	_DELAY_US(150);
+
+	while( size-- ){
+     b7e:	21 97       	sbiw	r28, 0x01	; 1
+     b80:	ff ef       	ldi	r31, 0xFF	; 255
+     b82:	cf 3f       	cpi	r28, 0xFF	; 255
+     b84:	df 07       	cpc	r29, r31
+     b86:	79 f7       	brne	.-34     	; 0xb66 <sl811_buf_read+0x18>
+		 *buf = *(__sl811_data);
+		 _DELAY_US(150);
+		 buf++;
+	}
+}
+     b88:	df 91       	pop	r29
+     b8a:	cf 91       	pop	r28
+     b8c:	1f 91       	pop	r17
+     b8e:	0f 91       	pop	r16
+     b90:	08 95       	ret
+
+00000b92 <sl811_write>:
+
+/**
+ * SL811HST専用レジスタへの書き込み
+ */
+void sl811_write(const Byte offset, const Byte data)
+{
+     b92:	1f 93       	push	r17
+     b94:	16 2f       	mov	r17, r22
+	*(__sl811_addr) = offset;
+     b96:	e0 91 2a 02 	lds	r30, 0x022A
+     b9a:	f0 91 2b 02 	lds	r31, 0x022B
+     b9e:	80 83       	st	Z, r24
+	_DELAY_US(150);
+     ba0:	86 e9       	ldi	r24, 0x96	; 150
+     ba2:	90 e0       	ldi	r25, 0x00	; 0
+     ba4:	0e 94 87 02 	call	0x50e	; 0x50e <wait_us>
+	*(__sl811_data) = data;
+     ba8:	e0 91 2c 02 	lds	r30, 0x022C
+     bac:	f0 91 2d 02 	lds	r31, 0x022D
+     bb0:	10 83       	st	Z, r17
+	_DELAY_US(150);
+     bb2:	86 e9       	ldi	r24, 0x96	; 150
+     bb4:	90 e0       	ldi	r25, 0x00	; 0
+     bb6:	0e 94 87 02 	call	0x50e	; 0x50e <wait_us>
+}
+     bba:	1f 91       	pop	r17
+     bbc:	08 95       	ret
+
+00000bbe <sl811_read>:
+
+/**
+ * SL811HST専用レジスタからの読み込み
+ */
+Byte sl811_read(const Byte offset)
+{
+     bbe:	1f 93       	push	r17
+	 * sl811からの受信データ
+	 * @type Byte
+	 */
+	Byte data;
+
+	*(__sl811_addr) = offset;
+     bc0:	e0 91 2a 02 	lds	r30, 0x022A
+     bc4:	f0 91 2b 02 	lds	r31, 0x022B
+     bc8:	80 83       	st	Z, r24
+	_DELAY_US(150);
+     bca:	86 e9       	ldi	r24, 0x96	; 150
+     bcc:	90 e0       	ldi	r25, 0x00	; 0
+     bce:	0e 94 87 02 	call	0x50e	; 0x50e <wait_us>
+	data = *(__sl811_data);
+     bd2:	e0 91 2c 02 	lds	r30, 0x022C
+     bd6:	f0 91 2d 02 	lds	r31, 0x022D
+     bda:	10 81       	ld	r17, Z
+	_DELAY_US(150);
+     bdc:	86 e9       	ldi	r24, 0x96	; 150
+     bde:	90 e0       	ldi	r25, 0x00	; 0
+     be0:	0e 94 87 02 	call	0x50e	; 0x50e <wait_us>
+
+	return data;
+}
+     be4:	81 2f       	mov	r24, r17
+     be6:	1f 91       	pop	r17
+     be8:	08 95       	ret
+
+00000bea <sl811_regtest>:
+ *
+ * @return 正常終了: 0
+ *         異常終了: -1
+ */
+SWord sl811_regtest(void)
+{
+     bea:	1f 93       	push	r17
+     bec:	cf 93       	push	r28
+     bee:	df 93       	push	r29
+     bf0:	c0 ef       	ldi	r28, 0xF0	; 240
+     bf2:	d0 e0       	ldi	r29, 0x00	; 0
+     bf4:	ce 01       	movw	r24, r28
+     bf6:	81 95       	neg	r24
+     bf8:	18 2f       	mov	r17, r24
+	int	i, data;
+
+	for( i=SL811H_MEMBUF_BGN; i<SL811H_MEMBUF_END; i++ )
+	{
+		sl811_write(i, 256-i);
+     bfa:	6c 2f       	mov	r22, r28
+     bfc:	0e 94 c9 05 	call	0xb92	; 0xb92 <sl811_write>
+		data = sl811_read(i);
+     c00:	81 2f       	mov	r24, r17
+     c02:	0e 94 df 05 	call	0xbbe	; 0xbbe <sl811_read>
+		if( data != (256-i) )
+     c06:	90 e0       	ldi	r25, 0x00	; 0
+     c08:	8c 17       	cp	r24, r28
+     c0a:	9d 07       	cpc	r25, r29
+     c0c:	19 f0       	breq	.+6      	; 0xc14 <sl811_regtest+0x2a>
+     c0e:	2f ef       	ldi	r18, 0xFF	; 255
+     c10:	3f ef       	ldi	r19, 0xFF	; 255
+     c12:	06 c0       	rjmp	.+12     	; 0xc20 <sl811_regtest+0x36>
+     c14:	21 97       	sbiw	r28, 0x01	; 1
+ */
+SWord sl811_regtest(void)
+{
+	int	i, data;
+
+	for( i=SL811H_MEMBUF_BGN; i<SL811H_MEMBUF_END; i++ )
+     c16:	c1 30       	cpi	r28, 0x01	; 1
+     c18:	d1 05       	cpc	r29, r1
+     c1a:	61 f7       	brne	.-40     	; 0xbf4 <sl811_regtest+0xa>
+     c1c:	20 e0       	ldi	r18, 0x00	; 0
+     c1e:	30 e0       	ldi	r19, 0x00	; 0
+			return -1;
+		}
+	}
+	
+	return 0;
+}
+     c20:	c9 01       	movw	r24, r18
+     c22:	df 91       	pop	r29
+     c24:	cf 91       	pop	r28
+     c26:	1f 91       	pop	r17
+     c28:	08 95       	ret
+
+00000c2a <SL811USBInit>:
+/**
+ * SL811HSTの初期化
+ */
+void sl811_init(void)
+{
+	__sl811_addr = (volatile Byte *)0x8000;
+     c2a:	80 e0       	ldi	r24, 0x00	; 0
+     c2c:	90 e8       	ldi	r25, 0x80	; 128
+     c2e:	90 93 2b 02 	sts	0x022B, r25
+     c32:	80 93 2a 02 	sts	0x022A, r24
+	__sl811_data = (volatile Byte *)0xC000;
+     c36:	80 e0       	ldi	r24, 0x00	; 0
+     c38:	90 ec       	ldi	r25, 0xC0	; 192
+     c3a:	90 93 2d 02 	sts	0x022D, r25
+     c3e:	80 93 2c 02 	sts	0x022C, r24
+ */
+SWord SL811USBInit(void)
+{
+	sl811_init();
+	
+	return sl811_regtest();
+     c42:	0e 94 f5 05 	call	0xbea	; 0xbea <sl811_regtest>
+}
+     c46:	08 95       	ret
+
+00000c48 <SL811USBReset>:
+ * @return デバイス無し: SL811_USB_NONE [0]
+ *         LowSpeed:     SL811_USB_LOW  [1]
+ *         FullSpeed:    SL811_USB_FULL [2]
+ */
+SWord SL811USBReset(void)
+{
+     c48:	1f 93       	push	r17
+     c4a:	cf 93       	push	r28
+     c4c:	df 93       	push	r29
+	SWord ret;
+	Byte status;
+
+	_DELAY_MS(100);
+     c4e:	84 e6       	ldi	r24, 0x64	; 100
+     c50:	90 e0       	ldi	r25, 0x00	; 0
+     c52:	0e 94 65 02 	call	0x4ca	; 0x4ca <wait_ms>
+
+	// Config host mode
+	sl811_write(SL811H_CTLREG2, SL811H_CTLREG2MASK_HOSTMODE);
+     c56:	8f e0       	ldi	r24, 0x0F	; 15
+     c58:	60 e8       	ldi	r22, 0x80	; 128
+     c5a:	0e 94 c9 05 	call	0xb92	; 0xb92 <sl811_write>
+
+	sl811_write(SL811H_CTLREG1, SL811H_CTLREG1VAL_RESET);	// reset USB
+     c5e:	85 e0       	ldi	r24, 0x05	; 5
+     c60:	68 e0       	ldi	r22, 0x08	; 8
+     c62:	0e 94 c9 05 	call	0xb92	; 0xb92 <sl811_write>
+	_DELAY_MS(30);
+     c66:	8e e1       	ldi	r24, 0x1E	; 30
+     c68:	90 e0       	ldi	r25, 0x00	; 0
+     c6a:	0e 94 65 02 	call	0x4ca	; 0x4ca <wait_ms>
+	sl811_write(SL811H_CTLREG1, 0x00);						// remove SE0
+     c6e:	85 e0       	ldi	r24, 0x05	; 5
+     c70:	60 e0       	ldi	r22, 0x00	; 0
+     c72:	0e 94 c9 05 	call	0xb92	; 0xb92 <sl811_write>
+     c76:	10 e0       	ldi	r17, 0x00	; 0
+
+	for(status=0; status<100; status++)
+		sl811_write(SL811H_INTSTATUSREG, 0xFF);				// clear all interrupt bits
+     c78:	8d e0       	ldi	r24, 0x0D	; 13
+     c7a:	6f ef       	ldi	r22, 0xFF	; 255
+     c7c:	0e 94 c9 05 	call	0xb92	; 0xb92 <sl811_write>
+
+	sl811_write(SL811H_CTLREG1, SL811H_CTLREG1VAL_RESET);	// reset USB
+	_DELAY_MS(30);
+	sl811_write(SL811H_CTLREG1, 0x00);						// remove SE0
+
+	for(status=0; status<100; status++)
+     c80:	1f 5f       	subi	r17, 0xFF	; 255
+     c82:	14 36       	cpi	r17, 0x64	; 100
+     c84:	c9 f7       	brne	.-14     	; 0xc78 <SL811USBReset+0x30>
+		sl811_write(SL811H_INTSTATUSREG, 0xFF);				// clear all interrupt bits
+
+	// Full/Low Speed Detection
+	status = sl811_read(SL811H_INTSTATUSREG);
+     c86:	8d e0       	ldi	r24, 0x0D	; 13
+     c88:	0e 94 df 05 	call	0xbbe	; 0xbbe <sl811_read>
+	
+	if( status & SL811H_INTMASK_NODEVICE )
+     c8c:	86 ff       	sbrs	r24, 6
+     c8e:	07 c0       	rjmp	.+14     	; 0xc9e <SL811USBReset+0x56>
+	{
+		// USB device none
+
+		sl811_write(SL811H_INTENBLREG,
+     c90:	86 e0       	ldi	r24, 0x06	; 6
+     c92:	60 e1       	ldi	r22, 0x10	; 16
+     c94:	0e 94 c9 05 	call	0xb92	; 0xb92 <sl811_write>
+     c98:	c0 e0       	ldi	r28, 0x00	; 0
+     c9a:	d0 e0       	ldi	r29, 0x00	; 0
+     c9c:	2f c0       	rjmp	.+94     	; 0xcfc <SL811USBReset+0xb4>
+			SL811H_INTMASK_SOFINTR 		// Interrupt on SOF Timer
+		);
+		return SL811_USB_NONE;
+	}
+
+	if( status & SL811H_INTMASK_DATAPLUS )
+     c9e:	87 ff       	sbrs	r24, 7
+     ca0:	13 c0       	rjmp	.+38     	; 0xcc8 <SL811USBReset+0x80>
+	{
+		// Full speed device
+		ret = SL811_USB_FULL;
+
+		sl811_write(SL811H_SOFCNTLOW, 0xE0);	// 下位 E0
+     ca2:	8e e0       	ldi	r24, 0x0E	; 14
+     ca4:	60 ee       	ldi	r22, 0xE0	; 224
+     ca6:	0e 94 c9 05 	call	0xb92	; 0xb92 <sl811_write>
+		sl811_write(SL811H_SOFCNTHIGH, SL811H_CTLREG2MASK_HOSTMODE | 0x2E);		// SOF High 2E + HOSTMode
+     caa:	8f e0       	ldi	r24, 0x0F	; 15
+     cac:	6e ea       	ldi	r22, 0xAE	; 174
+     cae:	0e 94 c9 05 	call	0xb92	; 0xb92 <sl811_write>
+		sl811_write(SL811H_CTLREG1, SL811H_CTLREG1MASK_ENABLESOF | SL811H_CTLREG1MASK_FULLSPEED);
+     cb2:	85 e0       	ldi	r24, 0x05	; 5
+     cb4:	61 e0       	ldi	r22, 0x01	; 1
+     cb6:	0e 94 c9 05 	call	0xb92	; 0xb92 <sl811_write>
+
+		// clear all interrupt bits
+		sl811_write(SL811H_INTSTATUSREG, 0xFF);
+     cba:	8d e0       	ldi	r24, 0x0D	; 13
+     cbc:	6f ef       	ldi	r22, 0xFF	; 255
+     cbe:	0e 94 c9 05 	call	0xb92	; 0xb92 <sl811_write>
+     cc2:	c2 e0       	ldi	r28, 0x02	; 2
+     cc4:	d0 e0       	ldi	r29, 0x00	; 0
+     cc6:	16 c0       	rjmp	.+44     	; 0xcf4 <SL811USBReset+0xac>
+	else
+	{
+		// Low speed device
+		ret = SL811_USB_LOW;
+
+		sl811_write(SL811H_SOFCNTLOW, 0xE0);	// 下位 E0
+     cc8:	8e e0       	ldi	r24, 0x0E	; 14
+     cca:	60 ee       	ldi	r22, 0xE0	; 224
+     ccc:	0e 94 c9 05 	call	0xb92	; 0xb92 <sl811_write>
+		sl811_write(SL811H_SOFCNTHIGH, SL811H_CTLREG2MASK_HOSTMODE | SL811H_CTLREG2MASK_DSWAP | 0x2E);	// SOF High 2E + HOSTMode + Data Priority Swap
+     cd0:	8f e0       	ldi	r24, 0x0F	; 15
+     cd2:	6e ee       	ldi	r22, 0xEE	; 238
+     cd4:	0e 94 c9 05 	call	0xb92	; 0xb92 <sl811_write>
+		sl811_write(SL811H_CTLREG1, SL811H_CTLREG1MASK_ENABLESOF | SL811H_CTLREG1MASK_LOWSPEED);
+     cd8:	85 e0       	ldi	r24, 0x05	; 5
+     cda:	61 e2       	ldi	r22, 0x21	; 33
+     cdc:	0e 94 c9 05 	call	0xb92	; 0xb92 <sl811_write>
+     ce0:	10 e0       	ldi	r17, 0x00	; 0
+		
+		// clear all interrupt bits
+		for(status=0; status<20; status++)
+			sl811_write(SL811H_INTSTATUSREG, 0xFF);
+     ce2:	8d e0       	ldi	r24, 0x0D	; 13
+     ce4:	6f ef       	ldi	r22, 0xFF	; 255
+     ce6:	0e 94 c9 05 	call	0xb92	; 0xb92 <sl811_write>
+		sl811_write(SL811H_SOFCNTLOW, 0xE0);	// 下位 E0
+		sl811_write(SL811H_SOFCNTHIGH, SL811H_CTLREG2MASK_HOSTMODE | SL811H_CTLREG2MASK_DSWAP | 0x2E);	// SOF High 2E + HOSTMode + Data Priority Swap
+		sl811_write(SL811H_CTLREG1, SL811H_CTLREG1MASK_ENABLESOF | SL811H_CTLREG1MASK_LOWSPEED);
+		
+		// clear all interrupt bits
+		for(status=0; status<20; status++)
+     cea:	1f 5f       	subi	r17, 0xFF	; 255
+     cec:	14 31       	cpi	r17, 0x14	; 20
+     cee:	c9 f7       	brne	.-14     	; 0xce2 <SL811USBReset+0x9a>
+     cf0:	c1 e0       	ldi	r28, 0x01	; 1
+     cf2:	d0 e0       	ldi	r29, 0x00	; 0
+			sl811_write(SL811H_INTSTATUSREG, 0xFF);
+	}
+
+	// enable all interrupts
+	sl811_write(SL811H_INTENBLREG,
+     cf4:	86 e0       	ldi	r24, 0x06	; 6
+     cf6:	60 e1       	ldi	r22, 0x10	; 16
+     cf8:	0e 94 c9 05 	call	0xb92	; 0xb92 <sl811_write>
+		SL811H_INTMASK_SOFINTR		// Interrupt on SOF Timer
+	);
+	
+	return ret;
+}
+     cfc:	ce 01       	movw	r24, r28
+     cfe:	df 91       	pop	r29
+     d00:	cf 91       	pop	r28
+     d02:	1f 91       	pop	r17
+     d04:	08 95       	ret
+
+00000d06 <SL811ReadData>:
+ * @param {data} 受信データ
+ * @param {size} 受信データのサイズ
+ * @return {size} 異常時：SL811_HANDSHAKE_NAK [-1] or SL811_HANDSHAKE_STALL [-2]
+ */
+SWord SL811ReadData(SL811USBDevInfo *d, Byte *data, SWord size)
+{
+     d06:	2f 92       	push	r2
+     d08:	3f 92       	push	r3
+     d0a:	4f 92       	push	r4
+     d0c:	5f 92       	push	r5
+     d0e:	6f 92       	push	r6
+     d10:	7f 92       	push	r7
+     d12:	8f 92       	push	r8
+     d14:	9f 92       	push	r9
+     d16:	af 92       	push	r10
+     d18:	bf 92       	push	r11
+     d1a:	cf 92       	push	r12
+     d1c:	df 92       	push	r13
+     d1e:	ef 92       	push	r14
+     d20:	ff 92       	push	r15
+     d22:	0f 93       	push	r16
+     d24:	1f 93       	push	r17
+     d26:	cf 93       	push	r28
+     d28:	df 93       	push	r29
+     d2a:	ec 01       	movw	r28, r24
+     d2c:	3b 01       	movw	r6, r22
+     d2e:	4a 01       	movw	r8, r20
+	
+	// 未処理のデータ数
+	remain = size;
+
+	// USBデバイスがNAKのときのリトライ回数
+	maxretry = d->retry;
+     d30:	8b 81       	ldd	r24, Y+3	; 0x03
+     d32:	28 2e       	mov	r2, r24
+     d34:	33 24       	eor	r3, r3
+
+	// 短い待ち時間でのリトライ回数
+	minretry = (maxretry <= 7) ? maxretry : maxretry / 3;
+
+	d->rd_cmd |= d->pre;
+     d36:	8d 81       	ldd	r24, Y+5	; 0x05
+     d38:	9e 81       	ldd	r25, Y+6	; 0x06
+     d3a:	89 2b       	or	r24, r25
+     d3c:	8d 83       	std	Y+5, r24	; 0x05
+
+	// 対象となるUSBデバイスアドレスの指定
+	sl811_write(SL811H_HOSTDEVADDR_B, d->addr);
+     d3e:	8c e0       	ldi	r24, 0x0C	; 12
+     d40:	68 81       	ld	r22, Y
+     d42:	0e 94 c9 05 	call	0xb92	; 0xb92 <sl811_write>
+
+	// パケット種別(IN)とエンドポイント番号の指定
+	sl811_write(SL811H_PIDDEVENDPT_B, PID_IN | d->ep);
+     d46:	69 81       	ldd	r22, Y+1	; 0x01
+     d48:	60 69       	ori	r22, 0x90	; 144
+     d4a:	8b e0       	ldi	r24, 0x0B	; 11
+     d4c:	0e 94 c9 05 	call	0xb92	; 0xb92 <sl811_write>
+     d50:	74 01       	movw	r14, r8
+     d52:	20 e1       	ldi	r18, 0x10	; 16
+     d54:	a2 2e       	mov	r10, r18
+     d56:	b1 2c       	mov	r11, r1
+
+		// 処理済みのデータ数を差し引く
+		remain -= rcnt;
+
+		// データパケットのトグルを行う
+		d->rd_cmd ^= TOGGLE;
+     d58:	90 e4       	ldi	r25, 0x40	; 64
+     d5a:	49 2e       	mov	r4, r25
+	// パケット種別(IN)とエンドポイント番号の指定
+	sl811_write(SL811H_PIDDEVENDPT_B, PID_IN | d->ep);
+
+	do{
+		// 1つのパケットで送信するデータ数を算出
+		rsiz = (remain > d->epsize) ? d->epsize : remain;
+     d5c:	8a 81       	ldd	r24, Y+2	; 0x02
+     d5e:	90 e0       	ldi	r25, 0x00	; 0
+     d60:	67 01       	movw	r12, r14
+     d62:	8e 15       	cp	r24, r14
+     d64:	9f 05       	cpc	r25, r15
+     d66:	0c f4       	brge	.+2      	; 0xd6a <SL811ReadData+0x64>
+     d68:	6c 01       	movw	r12, r24
+
+		// 現在のUSB FIFOメモリバッファがSL811H_MEMBUF_END(FFH)を超える場合、初期値設定
+		if( (fifo + rsiz) > SL811H_MEMBUF_END )
+     d6a:	c6 01       	movw	r24, r12
+     d6c:	8a 0d       	add	r24, r10
+     d6e:	9b 1d       	adc	r25, r11
+     d70:	8f 3f       	cpi	r24, 0xFF	; 255
+     d72:	91 05       	cpc	r25, r1
+     d74:	21 f0       	breq	.+8      	; 0xd7e <SL811ReadData+0x78>
+     d76:	1c f0       	brlt	.+6      	; 0xd7e <SL811ReadData+0x78>
+     d78:	80 e1       	ldi	r24, 0x10	; 16
+     d7a:	a8 2e       	mov	r10, r24
+     d7c:	b1 2c       	mov	r11, r1
+			fifo = SL811H_MEMBUF_BGN;	
+
+		// 現在のUSB FIFOメモリバッファの先頭アドレスの指定
+		sl811_write(SL811H_HOSTBASEADDR_B, fifo);
+     d7e:	5a 2c       	mov	r5, r10
+     d80:	89 e0       	ldi	r24, 0x09	; 9
+     d82:	6a 2d       	mov	r22, r10
+     d84:	0e 94 c9 05 	call	0xb92	; 0xb92 <sl811_write>
+		
+		// 受信データの大きさをセット
+		sl811_write(SL811H_HOSTBASELNG_B, rsiz);
+     d88:	8a e0       	ldi	r24, 0x0A	; 10
+     d8a:	6c 2d       	mov	r22, r12
+     d8c:	0e 94 c9 05 	call	0xb92	; 0xb92 <sl811_write>
+     d90:	00 e0       	ldi	r16, 0x00	; 0
+     d92:	10 e0       	ldi	r17, 0x00	; 0
+     d94:	19 c0       	rjmp	.+50     	; 0xdc8 <SL811ReadData+0xc2>
+		for( timeovr=0; timeovr<maxretry; timeovr++ )
+		{
+			
+
+			// USB_BよりUSB FIFOメモリバッファへ内容を受信する
+			sl811_write(SL811H_HOSTCTLREG_B, d->rd_cmd);
+     d96:	88 e0       	ldi	r24, 0x08	; 8
+     d98:	6d 81       	ldd	r22, Y+5	; 0x05
+     d9a:	0e 94 c9 05 	call	0xb92	; 0xb92 <sl811_write>
+
+			// 200us または 2ms の時間待ち
+			_DELAY_MS(2);
+     d9e:	82 e0       	ldi	r24, 0x02	; 2
+     da0:	90 e0       	ldi	r25, 0x00	; 0
+     da2:	0e 94 65 02 	call	0x4ca	; 0x4ca <wait_ms>
+
+			// USB_Bの受信が完了するまで待つ
+			while( (sl811_read(SL811H_INTSTATUSREG) & SL811H_INTMASK_XFERDONE_B) == 0 );
+     da6:	8d e0       	ldi	r24, 0x0D	; 13
+     da8:	0e 94 df 05 	call	0xbbe	; 0xbbe <sl811_read>
+     dac:	81 ff       	sbrs	r24, 1
+     dae:	fb cf       	rjmp	.-10     	; 0xda6 <SL811ReadData+0xa0>
+			
+			// USB_Bのパケット受信状態を読み込む
+			pktstatus = sl811_read(SL811H_USBSTATUS_B);
+     db0:	8b e0       	ldi	r24, 0x0B	; 11
+     db2:	0e 94 df 05 	call	0xbbe	; 0xbbe <sl811_read>
+
+			// USBデバイスがSTALLの場合はエラー終了
+			if( pktstatus & SL811H_STATUSMASK_STALL )
+     db6:	87 ff       	sbrs	r24, 7
+     db8:	03 c0       	rjmp	.+6      	; 0xdc0 <SL811ReadData+0xba>
+     dba:	4e ef       	ldi	r20, 0xFE	; 254
+     dbc:	5f ef       	ldi	r21, 0xFF	; 255
+     dbe:	30 c0       	rjmp	.+96     	; 0xe20 <SL811ReadData+0x11a>
+			{
+				return SL811_HANDSHAKE_STALL;
+			}
+			// USBデバイスからACKが返ってくれば、ループを抜ける
+			if( pktstatus & SL811H_STATUSMASK_ACK )	break;
+     dc0:	80 fd       	sbrc	r24, 0
+     dc2:	08 c0       	rjmp	.+16     	; 0xdd4 <SL811ReadData+0xce>
+		
+		// 受信データの大きさをセット
+		sl811_write(SL811H_HOSTBASELNG_B, rsiz);
+
+		// USBデバイスがNAKの場合、再度USBデータ受信をする
+		for( timeovr=0; timeovr<maxretry; timeovr++ )
+     dc4:	0f 5f       	subi	r16, 0xFF	; 255
+     dc6:	1f 4f       	sbci	r17, 0xFF	; 255
+     dc8:	02 15       	cp	r16, r2
+     dca:	13 05       	cpc	r17, r3
+     dcc:	24 f3       	brlt	.-56     	; 0xd96 <SL811ReadData+0x90>
+     dce:	4f ef       	ldi	r20, 0xFF	; 255
+     dd0:	5f ef       	ldi	r21, 0xFF	; 255
+     dd2:	26 c0       	rjmp	.+76     	; 0xe20 <SL811ReadData+0x11a>
+		{
+			return SL811_HANDSHAKE_NAK;
+		}
+
+		// 実際に受信をしたデータ数を算出
+		rcnt = rsiz - (int)sl811_read(SL811H_TRANSFERCNT);
+     dd4:	8c e0       	ldi	r24, 0x0C	; 12
+     dd6:	0e 94 df 05 	call	0xbbe	; 0xbbe <sl811_read>
+     dda:	86 01       	movw	r16, r12
+     ddc:	08 1b       	sub	r16, r24
+     dde:	11 09       	sbc	r17, r1
+
+		// 受信データがある場合は、USB FIFOメモリバッファから転送する
+		if( (pktstatus & SL811H_STATUSMASK_ACK) && data != 0 && size > 0 )
+     de0:	61 14       	cp	r6, r1
+     de2:	71 04       	cpc	r7, r1
+     de4:	61 f0       	breq	.+24     	; 0xdfe <SL811ReadData+0xf8>
+     de6:	18 14       	cp	r1, r8
+     de8:	19 04       	cpc	r1, r9
+     dea:	4c f4       	brge	.+18     	; 0xdfe <SL811ReadData+0xf8>
+			sl811_buf_read(fifo, &data[size - remain], rsiz);
+     dec:	b4 01       	movw	r22, r8
+     dee:	6e 19       	sub	r22, r14
+     df0:	7f 09       	sbc	r23, r15
+     df2:	66 0d       	add	r22, r6
+     df4:	77 1d       	adc	r23, r7
+     df6:	85 2d       	mov	r24, r5
+     df8:	a6 01       	movw	r20, r12
+     dfa:	0e 94 a7 05 	call	0xb4e	; 0xb4e <sl811_buf_read>
+
+		// 処理済みのデータ数を差し引く
+		remain -= rcnt;
+     dfe:	e0 1a       	sub	r14, r16
+     e00:	f1 0a       	sbc	r15, r17
+
+		// データパケットのトグルを行う
+		d->rd_cmd ^= TOGGLE;
+     e02:	8d 81       	ldd	r24, Y+5	; 0x05
+     e04:	84 25       	eor	r24, r4
+     e06:	8d 83       	std	Y+5, r24	; 0x05
+
+		// 現在のUSB FIFOメモリバッファの先頭アドレスの更新
+		fifo += rcnt;
+	}while( remain > 0 && rcnt == rsiz );	// 残りデータがある間、繰り返す
+     e08:	1e 14       	cp	r1, r14
+     e0a:	1f 04       	cpc	r1, r15
+     e0c:	34 f4       	brge	.+12     	; 0xe1a <SL811ReadData+0x114>
+     e0e:	0c 15       	cp	r16, r12
+     e10:	1d 05       	cpc	r17, r13
+     e12:	19 f4       	brne	.+6      	; 0xe1a <SL811ReadData+0x114>
+
+		// データパケットのトグルを行う
+		d->rd_cmd ^= TOGGLE;
+
+		// 現在のUSB FIFOメモリバッファの先頭アドレスの更新
+		fifo += rcnt;
+     e14:	a0 0e       	add	r10, r16
+     e16:	b1 1e       	adc	r11, r17
+     e18:	a1 cf       	rjmp	.-190    	; 0xd5c <SL811ReadData+0x56>
+	}while( remain > 0 && rcnt == rsiz );	// 残りデータがある間、繰り返す
+
+	return size - remain;	// USBデータ受信したサイズを返す
+     e1a:	a4 01       	movw	r20, r8
+     e1c:	4e 19       	sub	r20, r14
+     e1e:	5f 09       	sbc	r21, r15
+}
+     e20:	ca 01       	movw	r24, r20
+     e22:	df 91       	pop	r29
+     e24:	cf 91       	pop	r28
+     e26:	1f 91       	pop	r17
+     e28:	0f 91       	pop	r16
+     e2a:	ff 90       	pop	r15
+     e2c:	ef 90       	pop	r14
+     e2e:	df 90       	pop	r13
+     e30:	cf 90       	pop	r12
+     e32:	bf 90       	pop	r11
+     e34:	af 90       	pop	r10
+     e36:	9f 90       	pop	r9
+     e38:	8f 90       	pop	r8
+     e3a:	7f 90       	pop	r7
+     e3c:	6f 90       	pop	r6
+     e3e:	5f 90       	pop	r5
+     e40:	4f 90       	pop	r4
+     e42:	3f 90       	pop	r3
+     e44:	2f 90       	pop	r2
+     e46:	08 95       	ret
+
+00000e48 <SL811WriteData>:
+ *               SL811WRITE_OUT [0] の場合はOUTパケット
+ *               SL811WRITE_SETUP [1] の場合はSETUPパケット
+ * @return {size} 異常時：SL811_HANDSHAKE_NAK [-1] or SL811_HANDSHAKE_STALL [-2]
+ */
+SWord SL811WriteData(SL811USBDevInfo *d, Byte *data, SWord size, SWord flag)
+{
+     e48:	5f 92       	push	r5
+     e4a:	6f 92       	push	r6
+     e4c:	7f 92       	push	r7
+     e4e:	8f 92       	push	r8
+     e50:	9f 92       	push	r9
+     e52:	af 92       	push	r10
+     e54:	bf 92       	push	r11
+     e56:	cf 92       	push	r12
+     e58:	df 92       	push	r13
+     e5a:	ef 92       	push	r14
+     e5c:	ff 92       	push	r15
+     e5e:	0f 93       	push	r16
+     e60:	1f 93       	push	r17
+     e62:	cf 93       	push	r28
+     e64:	df 93       	push	r29
+     e66:	ec 01       	movw	r28, r24
+     e68:	4b 01       	movw	r8, r22
+     e6a:	7a 01       	movw	r14, r20
+     e6c:	89 01       	movw	r16, r18
+	SWord remain, wsiz, timeovr, retry;
+	
+	// 未処理のデータ数
+	remain = size;
+
+	retry = d->retry;
+     e6e:	8b 81       	ldd	r24, Y+3	; 0x03
+     e70:	68 2e       	mov	r6, r24
+     e72:	77 24       	eor	r7, r7
+	d->wr_cmd |= d->pre;
+     e74:	8c 81       	ldd	r24, Y+4	; 0x04
+     e76:	9e 81       	ldd	r25, Y+6	; 0x06
+     e78:	89 2b       	or	r24, r25
+     e7a:	8c 83       	std	Y+4, r24	; 0x04
+	
+	// USB FIFOメモリバッファの先頭アドレスの指定
+	sl811_write(SL811H_HOSTBASEADDR_A, SL811H_MEMBUF_BGN);
+     e7c:	81 e0       	ldi	r24, 0x01	; 1
+     e7e:	60 e1       	ldi	r22, 0x10	; 16
+     e80:	0e 94 c9 05 	call	0xb92	; 0xb92 <sl811_write>
+
+	// 対象となるUSBデバイスのアドレスの指定
+	sl811_write(SL811H_HOSTDEVADDR_A, d->addr);
+     e84:	84 e0       	ldi	r24, 0x04	; 4
+     e86:	68 81       	ld	r22, Y
+     e88:	0e 94 c9 05 	call	0xb92	; 0xb92 <sl811_write>
+
+	// パケット種別(OUT/SETUP)エンドポイント番号の指定
+	sl811_write(SL811H_PIDDEVENDPT_A, (flag == SL811WRITE_SETUP) ? PID_SETUP : (PID_OUT | d->ep));
+     e8c:	01 30       	cpi	r16, 0x01	; 1
+     e8e:	11 05       	cpc	r17, r1
+     e90:	11 f4       	brne	.+4      	; 0xe96 <SL811WriteData+0x4e>
+     e92:	60 ed       	ldi	r22, 0xD0	; 208
+     e94:	02 c0       	rjmp	.+4      	; 0xe9a <SL811WriteData+0x52>
+     e96:	69 81       	ldd	r22, Y+1	; 0x01
+     e98:	60 61       	ori	r22, 0x10	; 16
+     e9a:	83 e0       	ldi	r24, 0x03	; 3
+     e9c:	0e 94 c9 05 	call	0xb92	; 0xb92 <sl811_write>
+     ea0:	67 01       	movw	r12, r14
+		
+		// 処理済みのデータ数を差し引く
+		remain -= wsiz;
+
+		// データパケットのトグルを行う
+		d->wr_cmd ^= TOGGLE;
+     ea2:	40 e4       	ldi	r20, 0x40	; 64
+     ea4:	54 2e       	mov	r5, r20
+	// パケット種別(OUT/SETUP)エンドポイント番号の指定
+	sl811_write(SL811H_PIDDEVENDPT_A, (flag == SL811WRITE_SETUP) ? PID_SETUP : (PID_OUT | d->ep));
+
+	do{
+		// 1つのパケットで送信するデータ数を算出
+		wsiz = (remain > d->epsize) ? d->epsize : remain;
+     ea6:	8a 81       	ldd	r24, Y+2	; 0x02
+     ea8:	90 e0       	ldi	r25, 0x00	; 0
+     eaa:	56 01       	movw	r10, r12
+     eac:	8c 15       	cp	r24, r12
+     eae:	9d 05       	cpc	r25, r13
+     eb0:	0c f4       	brge	.+2      	; 0xeb4 <SL811WriteData+0x6c>
+     eb2:	5c 01       	movw	r10, r24
+
+		// 送信データがある場合は、USB FIFOメモリバッファへ転送する
+		if( data != NULL && size > 0 )
+     eb4:	81 14       	cp	r8, r1
+     eb6:	91 04       	cpc	r9, r1
+     eb8:	61 f0       	breq	.+24     	; 0xed2 <SL811WriteData+0x8a>
+     eba:	1e 14       	cp	r1, r14
+     ebc:	1f 04       	cpc	r1, r15
+     ebe:	4c f4       	brge	.+18     	; 0xed2 <SL811WriteData+0x8a>
+			sl811_buf_write(SL811H_MEMBUF_BGN, &data[size - remain], wsiz);
+     ec0:	b7 01       	movw	r22, r14
+     ec2:	6c 19       	sub	r22, r12
+     ec4:	7d 09       	sbc	r23, r13
+     ec6:	68 0d       	add	r22, r8
+     ec8:	79 1d       	adc	r23, r9
+     eca:	80 e1       	ldi	r24, 0x10	; 16
+     ecc:	a5 01       	movw	r20, r10
+     ece:	0e 94 86 05 	call	0xb0c	; 0xb0c <sl811_buf_write>
+		
+		// 送信データの大きさをセット
+		sl811_write(SL811H_HOSTBASELNG_A, wsiz);
+     ed2:	82 e0       	ldi	r24, 0x02	; 2
+     ed4:	6a 2d       	mov	r22, r10
+     ed6:	0e 94 c9 05 	call	0xb92	; 0xb92 <sl811_write>
+     eda:	00 e0       	ldi	r16, 0x00	; 0
+     edc:	10 e0       	ldi	r17, 0x00	; 0
+     ede:	25 c0       	rjmp	.+74     	; 0xf2a <SL811WriteData+0xe2>
+		// USBデバイスがNAKの場合、再度USBデータ送信をする
+		for( timeovr=0; timeovr<retry; timeovr++ )
+		{
+
+			// USB_AからUSB FIFOメモリバッファの内容を送信する
+			sl811_write(SL811H_HOSTCTLREG_A, d->wr_cmd);
+     ee0:	80 e0       	ldi	r24, 0x00	; 0
+     ee2:	6c 81       	ldd	r22, Y+4	; 0x04
+     ee4:	0e 94 c9 05 	call	0xb92	; 0xb92 <sl811_write>
+
+			_DELAY_MS(50);
+     ee8:	82 e3       	ldi	r24, 0x32	; 50
+     eea:	90 e0       	ldi	r25, 0x00	; 0
+     eec:	0e 94 65 02 	call	0x4ca	; 0x4ca <wait_ms>
+			// USB_Aの送信が完了するまで待つ
+			while( (sl811_read(SL811H_INTSTATUSREG) & SL811H_INTMASK_XFERDONE_A) == 0 );
+     ef0:	8d e0       	ldi	r24, 0x0D	; 13
+     ef2:	0e 94 df 05 	call	0xbbe	; 0xbbe <sl811_read>
+     ef6:	80 ff       	sbrs	r24, 0
+     ef8:	fb cf       	rjmp	.-10     	; 0xef0 <SL811WriteData+0xa8>
+
+			// USB_Aのパケット送信状態を読み込む
+			pktstatus = sl811_read(SL811H_USBSTATUS_A);
+     efa:	83 e0       	ldi	r24, 0x03	; 3
+     efc:	0e 94 df 05 	call	0xbbe	; 0xbbe <sl811_read>
+     f00:	80 93 10 01 	sts	0x0110, r24
+
+			// USBデバイスがSTALLの場合はエラー終了
+			if( pktstatus & SL811H_STATUSMASK_STALL )
+     f04:	80 91 10 01 	lds	r24, 0x0110
+     f08:	87 ff       	sbrs	r24, 7
+     f0a:	05 c0       	rjmp	.+10     	; 0xf16 <SL811WriteData+0xce>
+     f0c:	3e ef       	ldi	r19, 0xFE	; 254
+     f0e:	e3 2e       	mov	r14, r19
+     f10:	3f ef       	ldi	r19, 0xFF	; 255
+     f12:	f3 2e       	mov	r15, r19
+     f14:	1e c0       	rjmp	.+60     	; 0xf52 <SL811WriteData+0x10a>
+			{
+				return SL811_HANDSHAKE_STALL;
+			}
+			// USBデバイスからACKが返ってくれば、ループを抜ける
+			if( pktstatus & SL811H_STATUSMASK_ACK )	break;
+     f16:	80 91 10 01 	lds	r24, 0x0110
+     f1a:	80 fd       	sbrc	r24, 0
+     f1c:	09 c0       	rjmp	.+18     	; 0xf30 <SL811WriteData+0xe8>
+
+			// リトライの場合は5ms待つ
+			_DELAY_MS(5);			
+     f1e:	85 e0       	ldi	r24, 0x05	; 5
+     f20:	90 e0       	ldi	r25, 0x00	; 0
+     f22:	0e 94 65 02 	call	0x4ca	; 0x4ca <wait_ms>
+		
+		// 送信データの大きさをセット
+		sl811_write(SL811H_HOSTBASELNG_A, wsiz);
+
+		// USBデバイスがNAKの場合、再度USBデータ送信をする
+		for( timeovr=0; timeovr<retry; timeovr++ )
+     f26:	0f 5f       	subi	r16, 0xFF	; 255
+     f28:	1f 4f       	sbci	r17, 0xFF	; 255
+     f2a:	06 15       	cp	r16, r6
+     f2c:	17 05       	cpc	r17, r7
+     f2e:	c4 f2       	brlt	.-80     	; 0xee0 <SL811WriteData+0x98>
+			// リトライの場合は5ms待つ
+			_DELAY_MS(5);			
+		}
+
+		// USBデータ送信の結果がリトライをしてもACKでない場合は、エラー終了
+		if( !(pktstatus & SL811H_STATUSMASK_ACK) )
+     f30:	80 91 10 01 	lds	r24, 0x0110
+     f34:	80 fd       	sbrc	r24, 0
+     f36:	04 c0       	rjmp	.+8      	; 0xf40 <SL811WriteData+0xf8>
+     f38:	ee 24       	eor	r14, r14
+     f3a:	ea 94       	dec	r14
+     f3c:	fe 2c       	mov	r15, r14
+     f3e:	09 c0       	rjmp	.+18     	; 0xf52 <SL811WriteData+0x10a>
+		{
+			return SL811_HANDSHAKE_NAK;
+		}
+		
+		// 処理済みのデータ数を差し引く
+		remain -= wsiz;
+     f40:	ca 18       	sub	r12, r10
+     f42:	db 08       	sbc	r13, r11
+
+		// データパケットのトグルを行う
+		d->wr_cmd ^= TOGGLE;
+     f44:	8c 81       	ldd	r24, Y+4	; 0x04
+     f46:	85 25       	eor	r24, r5
+     f48:	8c 83       	std	Y+4, r24	; 0x04
+	}while( remain>0 );	// 残りデータがある間、繰り返す
+     f4a:	1c 14       	cp	r1, r12
+     f4c:	1d 04       	cpc	r1, r13
+     f4e:	0c f4       	brge	.+2      	; 0xf52 <SL811WriteData+0x10a>
+     f50:	aa cf       	rjmp	.-172    	; 0xea6 <SL811WriteData+0x5e>
+
+	return size;	// USBデータ送信したサイズを返す
+}
+     f52:	c7 01       	movw	r24, r14
+     f54:	df 91       	pop	r29
+     f56:	cf 91       	pop	r28
+     f58:	1f 91       	pop	r17
+     f5a:	0f 91       	pop	r16
+     f5c:	ff 90       	pop	r15
+     f5e:	ef 90       	pop	r14
+     f60:	df 90       	pop	r13
+     f62:	cf 90       	pop	r12
+     f64:	bf 90       	pop	r11
+     f66:	af 90       	pop	r10
+     f68:	9f 90       	pop	r9
+     f6a:	8f 90       	pop	r8
+     f6c:	7f 90       	pop	r7
+     f6e:	6f 90       	pop	r6
+     f70:	5f 90       	pop	r5
+     f72:	08 95       	ret
+
+00000f74 <Byte2Str>:
+/// </summary>
+/// <param name="num">変換対象の数字</param>
+/// <param name="str">変換後の文字列を格納する領域</param>
+void Byte2Str(unsigned char num, char *str)
+{
+	str[0] = ascii[(num >> 4) & 0x0F];
+     f74:	98 2f       	mov	r25, r24
+     f76:	92 95       	swap	r25
+     f78:	9f 70       	andi	r25, 0x0F	; 15
+     f7a:	a0 e0       	ldi	r26, 0x00	; 0
+     f7c:	b1 e0       	ldi	r27, 0x01	; 1
+     f7e:	fd 01       	movw	r30, r26
+     f80:	e9 0f       	add	r30, r25
+     f82:	f1 1d       	adc	r31, r1
+     f84:	90 81       	ld	r25, Z
+     f86:	fb 01       	movw	r30, r22
+     f88:	90 83       	st	Z, r25
+	str[1] = ascii[num&0x0F];
+     f8a:	8f 70       	andi	r24, 0x0F	; 15
+     f8c:	a8 0f       	add	r26, r24
+     f8e:	b1 1d       	adc	r27, r1
+     f90:	8c 91       	ld	r24, X
+     f92:	81 83       	std	Z+1, r24	; 0x01
+	str[2] = '\0';
+     f94:	12 82       	std	Z+2, r1	; 0x02
+}
+     f96:	08 95       	ret
+
+00000f98 <MU2_SendData>:
+	if(tmp[1]=='E'&&tmp[2]=='R'){return 1;}
+	return 0;
+}
+
+unsigned char MU2_SendData(unsigned char *data, unsigned char len)
+{
+     f98:	0f 93       	push	r16
+     f9a:	1f 93       	push	r17
+     f9c:	cf 93       	push	r28
+     f9e:	df 93       	push	r29
+     fa0:	ec 01       	movw	r28, r24
+     fa2:	06 2f       	mov	r16, r22
+	char size[3];
+
+	// Prefix
+	uart0_putchar('@');
+     fa4:	80 e4       	ldi	r24, 0x40	; 64
+     fa6:	0e 94 e9 08 	call	0x11d2	; 0x11d2 <uart0_putchar>
+	// Command Name
+	uart0_putchar('D');	uart0_putchar('T');
+     faa:	84 e4       	ldi	r24, 0x44	; 68
+     fac:	0e 94 e9 08 	call	0x11d2	; 0x11d2 <uart0_putchar>
+     fb0:	84 e5       	ldi	r24, 0x54	; 84
+     fb2:	0e 94 e9 08 	call	0x11d2	; 0x11d2 <uart0_putchar>
+/// <param name="num">変換対象の数字</param>
+/// <param name="str">変換後の文字列を格納する領域</param>
+void Byte2Str(unsigned char num, char *str)
+{
+	str[0] = ascii[(num >> 4) & 0x0F];
+	str[1] = ascii[num&0x0F];
+     fb6:	e0 2f       	mov	r30, r16
+     fb8:	f0 e0       	ldi	r31, 0x00	; 0
+     fba:	ef 70       	andi	r30, 0x0F	; 15
+     fbc:	f0 70       	andi	r31, 0x00	; 0
+     fbe:	e0 50       	subi	r30, 0x00	; 0
+     fc0:	ff 4f       	sbci	r31, 0xFF	; 255
+     fc2:	10 81       	ld	r17, Z
+	// Command Name
+	uart0_putchar('D');	uart0_putchar('T');
+
+	// Data Size
+	Byte2Str(len, size);
+	uart0_putchar(size[0]);
+     fc4:	e0 2f       	mov	r30, r16
+     fc6:	e2 95       	swap	r30
+     fc8:	ef 70       	andi	r30, 0x0F	; 15
+     fca:	f0 e0       	ldi	r31, 0x00	; 0
+     fcc:	e0 50       	subi	r30, 0x00	; 0
+     fce:	ff 4f       	sbci	r31, 0xFF	; 255
+     fd0:	80 81       	ld	r24, Z
+     fd2:	0e 94 e9 08 	call	0x11d2	; 0x11d2 <uart0_putchar>
+	uart0_putchar(size[1]);
+     fd6:	81 2f       	mov	r24, r17
+     fd8:	0e 94 e9 08 	call	0x11d2	; 0x11d2 <uart0_putchar>
+     fdc:	04 c0       	rjmp	.+8      	; 0xfe6 <MU2_SendData+0x4e>
+
+	// Data
+	while( len-- ){
+		uart0_putchar(*data);
+     fde:	89 91       	ld	r24, Y+
+     fe0:	0e 94 e9 08 	call	0x11d2	; 0x11d2 <uart0_putchar>
+		data++;
+     fe4:	01 50       	subi	r16, 0x01	; 1
+	Byte2Str(len, size);
+	uart0_putchar(size[0]);
+	uart0_putchar(size[1]);
+
+	// Data
+	while( len-- ){
+     fe6:	00 23       	and	r16, r16
+     fe8:	d1 f7       	brne	.-12     	; 0xfde <MU2_SendData+0x46>
+		uart0_putchar(*data);
+		data++;
+	}
+
+	// Terminator
+	uart0_putchar('\r');
+     fea:	8d e0       	ldi	r24, 0x0D	; 13
+     fec:	0e 94 e9 08 	call	0x11d2	; 0x11d2 <uart0_putchar>
+	uart0_putchar('\n');
+     ff0:	8a e0       	ldi	r24, 0x0A	; 10
+     ff2:	0e 94 e9 08 	call	0x11d2	; 0x11d2 <uart0_putchar>
+
+    return 0;
+}
+     ff6:	80 e0       	ldi	r24, 0x00	; 0
+     ff8:	df 91       	pop	r29
+     ffa:	cf 91       	pop	r28
+     ffc:	1f 91       	pop	r17
+     ffe:	0f 91       	pop	r16
+    1000:	08 95       	ret
+
+00001002 <mu2_command_eeprom>:
+	} 
+	if(tmp[1]=='E'&&tmp[2]=='R'){return 1;}
+	return 0;
+}
+
+unsigned char mu2_command_eeprom(const char *cmd, char *val){
+    1002:	0f 93       	push	r16
+    1004:	1f 93       	push	r17
+    1006:	cf 93       	push	r28
+    1008:	df 93       	push	r29
+    100a:	8c 01       	movw	r16, r24
+    100c:	eb 01       	movw	r28, r22
+	uart0_putchar('@');
+    100e:	80 e4       	ldi	r24, 0x40	; 64
+    1010:	0e 94 e9 08 	call	0x11d2	; 0x11d2 <uart0_putchar>
+	uart0_putchar(cmd[0]);
+    1014:	f8 01       	movw	r30, r16
+    1016:	80 81       	ld	r24, Z
+    1018:	0e 94 e9 08 	call	0x11d2	; 0x11d2 <uart0_putchar>
+	uart0_putchar(cmd[1]);
+    101c:	f8 01       	movw	r30, r16
+    101e:	81 81       	ldd	r24, Z+1	; 0x01
+    1020:	0e 94 e9 08 	call	0x11d2	; 0x11d2 <uart0_putchar>
+    1024:	03 c0       	rjmp	.+6      	; 0x102c <mu2_command_eeprom+0x2a>
+	while(*val!='\0'){
+		uart0_putchar(*val);
+    1026:	0e 94 e9 08 	call	0x11d2	; 0x11d2 <uart0_putchar>
+		val++;
+    102a:	21 96       	adiw	r28, 0x01	; 1
+
+unsigned char mu2_command_eeprom(const char *cmd, char *val){
+	uart0_putchar('@');
+	uart0_putchar(cmd[0]);
+	uart0_putchar(cmd[1]);
+	while(*val!='\0'){
+    102c:	88 81       	ld	r24, Y
+    102e:	88 23       	and	r24, r24
+    1030:	d1 f7       	brne	.-12     	; 0x1026 <mu2_command_eeprom+0x24>
+		uart0_putchar(*val);
+		val++;
+	}
+	uart0_putchar('/');
+    1032:	8f e2       	ldi	r24, 0x2F	; 47
+    1034:	0e 94 e9 08 	call	0x11d2	; 0x11d2 <uart0_putchar>
+	uart0_putchar('W');
+    1038:	87 e5       	ldi	r24, 0x57	; 87
+    103a:	0e 94 e9 08 	call	0x11d2	; 0x11d2 <uart0_putchar>
+	uart0_putchar(0x0d);
+    103e:	8d e0       	ldi	r24, 0x0D	; 13
+    1040:	0e 94 e9 08 	call	0x11d2	; 0x11d2 <uart0_putchar>
+	uart0_putchar(0x0a);
+    1044:	8a e0       	ldi	r24, 0x0A	; 10
+    1046:	0e 94 e9 08 	call	0x11d2	; 0x11d2 <uart0_putchar>
+	for(i=0;i<10;i++){
+    104a:	10 92 11 01 	sts	0x0111, r1
+    104e:	21 c0       	rjmp	.+66     	; 0x1092 <mu2_command_eeprom+0x90>
+		tmp[i] = uart0_getchar();
+    1050:	0e 94 e4 08 	call	0x11c8	; 0x11c8 <uart0_getchar>
+    1054:	e0 2f       	mov	r30, r16
+    1056:	f0 e0       	ldi	r31, 0x00	; 0
+    1058:	ee 5e       	subi	r30, 0xEE	; 238
+    105a:	fe 4f       	sbci	r31, 0xFE	; 254
+    105c:	80 83       	st	Z, r24
+		uart1_putchar(tmp[i]);
+    105e:	e0 91 11 01 	lds	r30, 0x0111
+    1062:	f0 e0       	ldi	r31, 0x00	; 0
+    1064:	ee 5e       	subi	r30, 0xEE	; 238
+    1066:	fe 4f       	sbci	r31, 0xFE	; 254
+    1068:	80 81       	ld	r24, Z
+    106a:	0e 94 f0 08 	call	0x11e0	; 0x11e0 <uart1_putchar>
+		if(i>0&&tmp[i-1] == 0x0d && tmp[i] == 0x0a) break;
+    106e:	90 91 11 01 	lds	r25, 0x0111
+    1072:	99 23       	and	r25, r25
+    1074:	59 f0       	breq	.+22     	; 0x108c <mu2_command_eeprom+0x8a>
+    1076:	e9 2f       	mov	r30, r25
+    1078:	f0 e0       	ldi	r31, 0x00	; 0
+    107a:	ee 5e       	subi	r30, 0xEE	; 238
+    107c:	fe 4f       	sbci	r31, 0xFE	; 254
+    107e:	82 91       	ld	r24, -Z
+    1080:	31 96       	adiw	r30, 0x01	; 1
+    1082:	8d 30       	cpi	r24, 0x0D	; 13
+    1084:	19 f4       	brne	.+6      	; 0x108c <mu2_command_eeprom+0x8a>
+    1086:	80 81       	ld	r24, Z
+    1088:	8a 30       	cpi	r24, 0x0A	; 10
+    108a:	39 f0       	breq	.+14     	; 0x109a <mu2_command_eeprom+0x98>
+	}
+	uart0_putchar('/');
+	uart0_putchar('W');
+	uart0_putchar(0x0d);
+	uart0_putchar(0x0a);
+	for(i=0;i<10;i++){
+    108c:	9f 5f       	subi	r25, 0xFF	; 255
+    108e:	90 93 11 01 	sts	0x0111, r25
+    1092:	00 91 11 01 	lds	r16, 0x0111
+    1096:	0a 30       	cpi	r16, 0x0A	; 10
+    1098:	d8 f2       	brcs	.-74     	; 0x1050 <mu2_command_eeprom+0x4e>
+		tmp[i] = uart0_getchar();
+		uart1_putchar(tmp[i]);
+		if(i>0&&tmp[i-1] == 0x0d && tmp[i] == 0x0a) break;
+	} 
+	if(tmp[1]=='E'&&tmp[2]=='R'){return 1;}
+    109a:	80 91 13 01 	lds	r24, 0x0113
+    109e:	85 34       	cpi	r24, 0x45	; 69
+    10a0:	11 f0       	breq	.+4      	; 0x10a6 <mu2_command_eeprom+0xa4>
+    10a2:	90 e0       	ldi	r25, 0x00	; 0
+    10a4:	06 c0       	rjmp	.+12     	; 0x10b2 <mu2_command_eeprom+0xb0>
+    10a6:	90 e0       	ldi	r25, 0x00	; 0
+    10a8:	80 91 14 01 	lds	r24, 0x0114
+    10ac:	82 35       	cpi	r24, 0x52	; 82
+    10ae:	09 f4       	brne	.+2      	; 0x10b2 <mu2_command_eeprom+0xb0>
+    10b0:	91 e0       	ldi	r25, 0x01	; 1
+	return 0;
+}
+    10b2:	89 2f       	mov	r24, r25
+    10b4:	df 91       	pop	r29
+    10b6:	cf 91       	pop	r28
+    10b8:	1f 91       	pop	r17
+    10ba:	0f 91       	pop	r16
+    10bc:	08 95       	ret
+
+000010be <mu2_command>:
+	str[0] = ascii[(num >> 4) & 0x0F];
+	str[1] = ascii[num&0x0F];
+	str[2] = '\0';
+}
+
+unsigned char mu2_command(const char *cmd, char *val){
+    10be:	0f 93       	push	r16
+    10c0:	1f 93       	push	r17
+    10c2:	cf 93       	push	r28
+    10c4:	df 93       	push	r29
+    10c6:	8c 01       	movw	r16, r24
+    10c8:	eb 01       	movw	r28, r22
+	uart0_putchar('@');
+    10ca:	80 e4       	ldi	r24, 0x40	; 64
+    10cc:	0e 94 e9 08 	call	0x11d2	; 0x11d2 <uart0_putchar>
+	uart0_putchar(cmd[0]);
+    10d0:	f8 01       	movw	r30, r16
+    10d2:	80 81       	ld	r24, Z
+    10d4:	0e 94 e9 08 	call	0x11d2	; 0x11d2 <uart0_putchar>
+	uart0_putchar(cmd[1]);
+    10d8:	f8 01       	movw	r30, r16
+    10da:	81 81       	ldd	r24, Z+1	; 0x01
+    10dc:	0e 94 e9 08 	call	0x11d2	; 0x11d2 <uart0_putchar>
+    10e0:	03 c0       	rjmp	.+6      	; 0x10e8 <mu2_command+0x2a>
+	while(*val!='\0'){
+		uart0_putchar(*val);
+    10e2:	0e 94 e9 08 	call	0x11d2	; 0x11d2 <uart0_putchar>
+		val++;
+    10e6:	21 96       	adiw	r28, 0x01	; 1
+
+unsigned char mu2_command(const char *cmd, char *val){
+	uart0_putchar('@');
+	uart0_putchar(cmd[0]);
+	uart0_putchar(cmd[1]);
+	while(*val!='\0'){
+    10e8:	88 81       	ld	r24, Y
+    10ea:	88 23       	and	r24, r24
+    10ec:	d1 f7       	brne	.-12     	; 0x10e2 <mu2_command+0x24>
+		uart0_putchar(*val);
+		val++;
+	}
+	uart0_putchar(0x0d);
+    10ee:	8d e0       	ldi	r24, 0x0D	; 13
+    10f0:	0e 94 e9 08 	call	0x11d2	; 0x11d2 <uart0_putchar>
+	uart0_putchar(0x0a);
+    10f4:	8a e0       	ldi	r24, 0x0A	; 10
+    10f6:	0e 94 e9 08 	call	0x11d2	; 0x11d2 <uart0_putchar>
+	for(i=0;i<10;i++){
+    10fa:	10 92 11 01 	sts	0x0111, r1
+    10fe:	21 c0       	rjmp	.+66     	; 0x1142 <__stack+0x43>
+		tmp[i] = uart0_getchar();
+    1100:	0e 94 e4 08 	call	0x11c8	; 0x11c8 <uart0_getchar>
+    1104:	e0 2f       	mov	r30, r16
+    1106:	f0 e0       	ldi	r31, 0x00	; 0
+    1108:	ee 5e       	subi	r30, 0xEE	; 238
+    110a:	fe 4f       	sbci	r31, 0xFE	; 254
+    110c:	80 83       	st	Z, r24
+		uart1_putchar(tmp[i]);
+    110e:	e0 91 11 01 	lds	r30, 0x0111
+    1112:	f0 e0       	ldi	r31, 0x00	; 0
+    1114:	ee 5e       	subi	r30, 0xEE	; 238
+    1116:	fe 4f       	sbci	r31, 0xFE	; 254
+    1118:	80 81       	ld	r24, Z
+    111a:	0e 94 f0 08 	call	0x11e0	; 0x11e0 <uart1_putchar>
+		if(i>0&&tmp[i-1] == 0x0d && tmp[i] == 0x0a) break;
+    111e:	90 91 11 01 	lds	r25, 0x0111
+    1122:	99 23       	and	r25, r25
+    1124:	59 f0       	breq	.+22     	; 0x113c <__stack+0x3d>
+    1126:	e9 2f       	mov	r30, r25
+    1128:	f0 e0       	ldi	r31, 0x00	; 0
+    112a:	ee 5e       	subi	r30, 0xEE	; 238
+    112c:	fe 4f       	sbci	r31, 0xFE	; 254
+    112e:	82 91       	ld	r24, -Z
+    1130:	31 96       	adiw	r30, 0x01	; 1
+    1132:	8d 30       	cpi	r24, 0x0D	; 13
+    1134:	19 f4       	brne	.+6      	; 0x113c <__stack+0x3d>
+    1136:	80 81       	ld	r24, Z
+    1138:	8a 30       	cpi	r24, 0x0A	; 10
+    113a:	39 f0       	breq	.+14     	; 0x114a <__stack+0x4b>
+		uart0_putchar(*val);
+		val++;
+	}
+	uart0_putchar(0x0d);
+	uart0_putchar(0x0a);
+	for(i=0;i<10;i++){
+    113c:	9f 5f       	subi	r25, 0xFF	; 255
+    113e:	90 93 11 01 	sts	0x0111, r25
+    1142:	00 91 11 01 	lds	r16, 0x0111
+    1146:	0a 30       	cpi	r16, 0x0A	; 10
+    1148:	d8 f2       	brcs	.-74     	; 0x1100 <__stack+0x1>
+		tmp[i] = uart0_getchar();
+		uart1_putchar(tmp[i]);
+		if(i>0&&tmp[i-1] == 0x0d && tmp[i] == 0x0a) break;
+	} 
+	if(tmp[1]=='E'&&tmp[2]=='R'){return 1;}
+    114a:	80 91 13 01 	lds	r24, 0x0113
+    114e:	85 34       	cpi	r24, 0x45	; 69
+    1150:	11 f0       	breq	.+4      	; 0x1156 <__stack+0x57>
+    1152:	90 e0       	ldi	r25, 0x00	; 0
+    1154:	06 c0       	rjmp	.+12     	; 0x1162 <__stack+0x63>
+    1156:	90 e0       	ldi	r25, 0x00	; 0
+    1158:	80 91 14 01 	lds	r24, 0x0114
+    115c:	82 35       	cpi	r24, 0x52	; 82
+    115e:	09 f4       	brne	.+2      	; 0x1162 <__stack+0x63>
+    1160:	91 e0       	ldi	r25, 0x01	; 1
+	return 0;
+}
+    1162:	89 2f       	mov	r24, r25
+    1164:	df 91       	pop	r29
+    1166:	cf 91       	pop	r28
+    1168:	1f 91       	pop	r17
+    116a:	0f 91       	pop	r16
+    116c:	08 95       	ret
+
+0000116e <uart_init>:
+#define stop_uart1tx_interrupt()	cbi(UCSR1B,UDRIE1)
+
+int uart_init(int uart_no,unsigned char option,unsigned int baud)
+{
+	int i;
+	switch( uart_no ){
+    116e:	00 97       	sbiw	r24, 0x00	; 0
+    1170:	29 f0       	breq	.+10     	; 0x117c <uart_init+0xe>
+    1172:	01 97       	sbiw	r24, 0x01	; 1
+    1174:	99 f0       	breq	.+38     	; 0x119c <uart_init+0x2e>
+    1176:	2f ef       	ldi	r18, 0xFF	; 255
+    1178:	3f ef       	ldi	r19, 0xFF	; 255
+    117a:	24 c0       	rjmp	.+72     	; 0x11c4 <uart_init+0x56>
+		case 0:
+			UCSR0B = 0x00;
+    117c:	1a b8       	out	0x0a, r1	; 10
+			UCSR0C |= 0x06;
+    117e:	80 91 95 00 	lds	r24, 0x0095
+    1182:	86 60       	ori	r24, 0x06	; 6
+    1184:	80 93 95 00 	sts	0x0095, r24
+			for(i=0; i<5000; i++);		// Wait
+			UCSR0B = option;					
+    1188:	6a b9       	out	0x0a, r22	; 10
+			UBRR0H = (unsigned char)(baud>>8);
+    118a:	50 93 90 00 	sts	0x0090, r21
+	 		UBRR0L = (unsigned char)baud;		
+    118e:	49 b9       	out	0x09, r20	; 9
+			UCSR0A;						// DummyRead
+    1190:	8b b1       	in	r24, 0x0b	; 11
+			UCSR0A &= 0xe3;				// Clear Error Flag
+    1192:	8b b1       	in	r24, 0x0b	; 11
+    1194:	83 7e       	andi	r24, 0xE3	; 227
+    1196:	8b b9       	out	0x0b, r24	; 11
+			UDR0 = 0;
+    1198:	1c b8       	out	0x0c, r1	; 12
+    119a:	12 c0       	rjmp	.+36     	; 0x11c0 <uart_init+0x52>
+			break;
+		case 1:
+			UBRR1H = (unsigned char)(baud>>8);
+    119c:	50 93 98 00 	sts	0x0098, r21
+	 		UBRR1L = (unsigned char)baud;	 
+    11a0:	40 93 99 00 	sts	0x0099, r20
+			for(i=0; i<5000; i++);		// Wait
+			UCSR1B |= option;
+    11a4:	80 91 9a 00 	lds	r24, 0x009A
+    11a8:	86 2b       	or	r24, r22
+    11aa:	80 93 9a 00 	sts	0x009A, r24
+			UCSR1A;						// DummyRead
+    11ae:	80 91 9b 00 	lds	r24, 0x009B
+			UCSR1A &= 0xe3;				// Clear Error Flag
+    11b2:	80 91 9b 00 	lds	r24, 0x009B
+    11b6:	83 7e       	andi	r24, 0xE3	; 227
+    11b8:	80 93 9b 00 	sts	0x009B, r24
+			UDR1 = 0;
+    11bc:	10 92 9c 00 	sts	0x009C, r1
+    11c0:	20 e0       	ldi	r18, 0x00	; 0
+    11c2:	30 e0       	ldi	r19, 0x00	; 0
+			break;
+		default:
+			return -1;
+	}
+	return 0;
+}
+    11c4:	c9 01       	movw	r24, r18
+    11c6:	08 95       	ret
+
+000011c8 <uart0_getchar>:
+	RingInit(&(__uartbuf[uart_no]), buf, size);
+}
+
+unsigned char uart0_getchar(void)
+{
+	while( !bit_is_set(UCSR0A,RXC0) );
+    11c8:	5f 9b       	sbis	0x0b, 7	; 11
+    11ca:	fe cf       	rjmp	.-4      	; 0x11c8 <uart0_getchar>
+	cbi(UCSR0A,RXC0);
+    11cc:	5f 98       	cbi	0x0b, 7	; 11
+	return UDR0;
+    11ce:	8c b1       	in	r24, 0x0c	; 12
+}
+    11d0:	08 95       	ret
+
+000011d2 <uart0_putchar>:
+#elif (UART0_LINE_FEED == CR_CODE)				// CR
+	if( c == '\n' )		c = '\r';
+#elif (UART0_LINE_FEED == LF_CODE)
+#else
+#endif*/
+	while( !bit_is_set(UCSR0A,UDRE0) );
+    11d2:	5d 9b       	sbis	0x0b, 5	; 11
+    11d4:	fe cf       	rjmp	.-4      	; 0x11d2 <uart0_putchar>
+	UDR0 = c;
+    11d6:	8c b9       	out	0x0c, r24	; 12
+	cbi(UCSR0A,UDRE0);
+    11d8:	5d 98       	cbi	0x0b, 5	; 11
+	
+	return 0;
+}
+    11da:	80 e0       	ldi	r24, 0x00	; 0
+    11dc:	90 e0       	ldi	r25, 0x00	; 0
+    11de:	08 95       	ret
+
+000011e0 <uart1_putchar>:
+
+int uart1_putchar(char c)
+{
+    11e0:	98 2f       	mov	r25, r24
+#if (UART1_LINE_FEED == CR_CODE | LF_CODE)		// CRLF
+	if( c == '\n' ){
+    11e2:	8a 30       	cpi	r24, 0x0A	; 10
+    11e4:	61 f4       	brne	.+24     	; 0x11fe <uart1_putchar+0x1e>
+		while( !bit_is_set(UCSR1A,UDRE1) );
+    11e6:	80 91 9b 00 	lds	r24, 0x009B
+    11ea:	85 ff       	sbrs	r24, 5
+    11ec:	fc cf       	rjmp	.-8      	; 0x11e6 <uart1_putchar+0x6>
+		UDR1 = '\r';
+    11ee:	8d e0       	ldi	r24, 0x0D	; 13
+    11f0:	80 93 9c 00 	sts	0x009C, r24
+		cbi(UCSR1A,UDRE1);
+    11f4:	80 91 9b 00 	lds	r24, 0x009B
+    11f8:	8f 7d       	andi	r24, 0xDF	; 223
+    11fa:	80 93 9b 00 	sts	0x009B, r24
+	}
+#elif (UART1_LINE_FEED == CR_CODE)				// CR
+	if( c == '\n' )		c = '\r';
+#elif (UART1_LINE_FEED == LF_CODE)
+#endif
+	while( !bit_is_set(UCSR1A,UDRE1) );
+    11fe:	80 91 9b 00 	lds	r24, 0x009B
+    1202:	85 ff       	sbrs	r24, 5
+    1204:	fc cf       	rjmp	.-8      	; 0x11fe <uart1_putchar+0x1e>
+	UDR1 = c;
+    1206:	90 93 9c 00 	sts	0x009C, r25
+	cbi(UCSR1A,UDRE1);
+    120a:	80 91 9b 00 	lds	r24, 0x009B
+    120e:	8f 7d       	andi	r24, 0xDF	; 223
+    1210:	80 93 9b 00 	sts	0x009B, r24
+
+	return 0;
+}
+    1214:	80 e0       	ldi	r24, 0x00	; 0
+    1216:	90 e0       	ldi	r25, 0x00	; 0
+    1218:	08 95       	ret
+
+0000121a <uart1_buf_putchar>:
+
+	return ret;
+}
+
+int uart1_buf_putchar(char c)
+{
+    121a:	1f 93       	push	r17
+    121c:	18 2f       	mov	r17, r24
+	int ret;
+	
+	ret = 0;
+	_uart_interrupt_status = SREG;
+    121e:	8f b7       	in	r24, 0x3f	; 63
+    1220:	80 93 1c 01 	sts	0x011C, r24
+	cli();
+    1224:	f8 94       	cli
+	
+#if (UART1_LINE_FEED == CR_CODE | LF_CODE)		// CRLF
+	if( c == '\n' ){
+    1226:	1a 30       	cpi	r17, 0x0A	; 10
+    1228:	51 f4       	brne	.+20     	; 0x123e <uart1_buf_putchar+0x24>
+		if( !RingPut(&__uartbuf[1], '\r') ){
+    122a:	87 e3       	ldi	r24, 0x37	; 55
+    122c:	92 e0       	ldi	r25, 0x02	; 2
+    122e:	6d e0       	ldi	r22, 0x0D	; 13
+    1230:	0e 94 77 09 	call	0x12ee	; 0x12ee <RingPut>
+    1234:	89 2b       	or	r24, r25
+    1236:	19 f4       	brne	.+6      	; 0x123e <uart1_buf_putchar+0x24>
+    1238:	2f ef       	ldi	r18, 0xFF	; 255
+    123a:	3f ef       	ldi	r19, 0xFF	; 255
+    123c:	11 c0       	rjmp	.+34     	; 0x1260 <uart1_buf_putchar+0x46>
+	}
+#elif (UART1_LINE_FEED == CR_CODE)				// CR
+	if( c == '\n' )		c = '\r';
+#elif (UART1_LINE_FEED == LF_CODE)
+#endif
+	if( !RingPut(&__uartbuf[1], c) ){
+    123e:	87 e3       	ldi	r24, 0x37	; 55
+    1240:	92 e0       	ldi	r25, 0x02	; 2
+    1242:	61 2f       	mov	r22, r17
+    1244:	0e 94 77 09 	call	0x12ee	; 0x12ee <RingPut>
+    1248:	89 2b       	or	r24, r25
+    124a:	19 f4       	brne	.+6      	; 0x1252 <uart1_buf_putchar+0x38>
+    124c:	2f ef       	ldi	r18, 0xFF	; 255
+    124e:	3f ef       	ldi	r19, 0xFF	; 255
+    1250:	02 c0       	rjmp	.+4      	; 0x1256 <uart1_buf_putchar+0x3c>
+    1252:	20 e0       	ldi	r18, 0x00	; 0
+    1254:	30 e0       	ldi	r19, 0x00	; 0
+		ret = -1;	// Buffer Full
+	}
+	start_uart1tx_interrupt();
+    1256:	80 91 9a 00 	lds	r24, 0x009A
+    125a:	80 62       	ori	r24, 0x20	; 32
+    125c:	80 93 9a 00 	sts	0x009A, r24
+
+	
+#if (UART1_LINE_FEED == CR_CODE | LF_CODE)		// CRLF
+_exit_uart1_buf_putchar:
+#endif
+	SREG = _uart_interrupt_status;
+    1260:	80 91 1c 01 	lds	r24, 0x011C
+    1264:	8f bf       	out	0x3f, r24	; 63
+
+	return ret;
+}
+    1266:	c9 01       	movw	r24, r18
+    1268:	1f 91       	pop	r17
+    126a:	08 95       	ret
+
+0000126c <uart0_buf_putchar>:
+
+	return 0;
+}
+
+int uart0_buf_putchar(char c)
+{
+    126c:	1f 93       	push	r17
+    126e:	18 2f       	mov	r17, r24
+	int ret;
+	
+	ret = 0;
+	_uart_interrupt_status = SREG;
+    1270:	8f b7       	in	r24, 0x3f	; 63
+    1272:	80 93 1c 01 	sts	0x011C, r24
+	cli();
+    1276:	f8 94       	cli
+	
+#if (UART0_LINE_FEED == CR_CODE | LF_CODE)		// CRLF
+	if( c == '\n' ){
+    1278:	1a 30       	cpi	r17, 0x0A	; 10
+    127a:	51 f4       	brne	.+20     	; 0x1290 <uart0_buf_putchar+0x24>
+		if( !RingPut(&__uartbuf[0], '\r') ){
+    127c:	8e e2       	ldi	r24, 0x2E	; 46
+    127e:	92 e0       	ldi	r25, 0x02	; 2
+    1280:	6d e0       	ldi	r22, 0x0D	; 13
+    1282:	0e 94 77 09 	call	0x12ee	; 0x12ee <RingPut>
+    1286:	89 2b       	or	r24, r25
+    1288:	19 f4       	brne	.+6      	; 0x1290 <uart0_buf_putchar+0x24>
+    128a:	2f ef       	ldi	r18, 0xFF	; 255
+    128c:	3f ef       	ldi	r19, 0xFF	; 255
+    128e:	0d c0       	rjmp	.+26     	; 0x12aa <uart0_buf_putchar+0x3e>
+#elif (UART0_LINE_FEED == CR_CODE)				// CR
+	if( c == '\n' )		c = '\r';
+#elif (UART0_LINE_FEED == LF_CODE)
+#endif
+
+	if( !RingPut(&__uartbuf[0], c) ){
+    1290:	8e e2       	ldi	r24, 0x2E	; 46
+    1292:	92 e0       	ldi	r25, 0x02	; 2
+    1294:	61 2f       	mov	r22, r17
+    1296:	0e 94 77 09 	call	0x12ee	; 0x12ee <RingPut>
+    129a:	89 2b       	or	r24, r25
+    129c:	19 f4       	brne	.+6      	; 0x12a4 <uart0_buf_putchar+0x38>
+    129e:	2f ef       	ldi	r18, 0xFF	; 255
+    12a0:	3f ef       	ldi	r19, 0xFF	; 255
+    12a2:	02 c0       	rjmp	.+4      	; 0x12a8 <uart0_buf_putchar+0x3c>
+    12a4:	20 e0       	ldi	r18, 0x00	; 0
+    12a6:	30 e0       	ldi	r19, 0x00	; 0
+		ret = -1;	// Buffer Full
+	}
+	start_uart0tx_interrupt();
+    12a8:	55 9a       	sbi	0x0a, 5	; 10
+	
+#if (UART0_LINE_FEED == CR_CODE | LF_CODE)		// CRLF
+_exit_uart0_buf_putchar:
+#endif
+	SREG = _uart_interrupt_status;
+    12aa:	80 91 1c 01 	lds	r24, 0x011C
+    12ae:	8f bf       	out	0x3f, r24	; 63
+
+	return ret;
+}
+    12b0:	c9 01       	movw	r24, r18
+    12b2:	1f 91       	pop	r17
+    12b4:	08 95       	ret
+
+000012b6 <uart_setbuffer>:
+	return 0;
+}
+
+void uart_setbuffer(int uart_no, unsigned char *buf, int size)
+{
+	if( uart_no<0 || uart_no>=UART_NUM )	return;
+    12b6:	9c 01       	movw	r18, r24
+    12b8:	82 30       	cpi	r24, 0x02	; 2
+    12ba:	91 05       	cpc	r25, r1
+    12bc:	58 f4       	brcc	.+22     	; 0x12d4 <uart_setbuffer+0x1e>
+	RingInit(&(__uartbuf[uart_no]), buf, size);
+    12be:	e3 e0       	ldi	r30, 0x03	; 3
+    12c0:	88 0f       	add	r24, r24
+    12c2:	99 1f       	adc	r25, r25
+    12c4:	ea 95       	dec	r30
+    12c6:	e1 f7       	brne	.-8      	; 0x12c0 <uart_setbuffer+0xa>
+    12c8:	82 0f       	add	r24, r18
+    12ca:	93 1f       	adc	r25, r19
+    12cc:	82 5d       	subi	r24, 0xD2	; 210
+    12ce:	9d 4f       	sbci	r25, 0xFD	; 253
+    12d0:	0e 94 6b 09 	call	0x12d6	; 0x12d6 <RingInit>
+    12d4:	08 95       	ret
+
+000012d6 <RingInit>:
+#include "ringbuffer.h"
+
+__inline__ void RingInit(RingBuffer *ring, unsigned char *buf, unsigned int size)
+{
+    12d6:	fc 01       	movw	r30, r24
+	ring->buf = buf;
+    12d8:	71 83       	std	Z+1, r23	; 0x01
+    12da:	60 83       	st	Z, r22
+	ring->size = size;
+    12dc:	57 83       	std	Z+7, r21	; 0x07
+    12de:	46 83       	std	Z+6, r20	; 0x06
+	ring->rp = 0;
+    12e0:	13 82       	std	Z+3, r1	; 0x03
+    12e2:	12 82       	std	Z+2, r1	; 0x02
+	ring->wp = 0;
+    12e4:	15 82       	std	Z+5, r1	; 0x05
+    12e6:	14 82       	std	Z+4, r1	; 0x04
+	ring->empty = TRUE;
+    12e8:	81 e0       	ldi	r24, 0x01	; 1
+    12ea:	80 87       	std	Z+8, r24	; 0x08
+}
+    12ec:	08 95       	ret
+
+000012ee <RingPut>:
+
+__inline__ int RingPut(RingBuffer *ring, unsigned char value)
+{
+    12ee:	dc 01       	movw	r26, r24
+	if( !ring->empty && ring->rp == ring->wp ){
+    12f0:	18 96       	adiw	r26, 0x08	; 8
+    12f2:	8c 91       	ld	r24, X
+    12f4:	18 97       	sbiw	r26, 0x08	; 8
+    12f6:	88 23       	and	r24, r24
+    12f8:	71 f4       	brne	.+28     	; 0x1316 <RingPut+0x28>
+    12fa:	12 96       	adiw	r26, 0x02	; 2
+    12fc:	2d 91       	ld	r18, X+
+    12fe:	3c 91       	ld	r19, X
+    1300:	13 97       	sbiw	r26, 0x03	; 3
+    1302:	14 96       	adiw	r26, 0x04	; 4
+    1304:	8d 91       	ld	r24, X+
+    1306:	9c 91       	ld	r25, X
+    1308:	15 97       	sbiw	r26, 0x05	; 5
+    130a:	28 17       	cp	r18, r24
+    130c:	39 07       	cpc	r19, r25
+    130e:	19 f4       	brne	.+6      	; 0x1316 <RingPut+0x28>
+    1310:	20 e0       	ldi	r18, 0x00	; 0
+    1312:	30 e0       	ldi	r19, 0x00	; 0
+    1314:	22 c0       	rjmp	.+68     	; 0x135a <RingPut+0x6c>
+		return FALSE;
+	}
+	ring->buf[ring->wp] = value;
+    1316:	ed 91       	ld	r30, X+
+    1318:	fc 91       	ld	r31, X
+    131a:	11 97       	sbiw	r26, 0x01	; 1
+    131c:	14 96       	adiw	r26, 0x04	; 4
+    131e:	8d 91       	ld	r24, X+
+    1320:	9c 91       	ld	r25, X
+    1322:	15 97       	sbiw	r26, 0x05	; 5
+    1324:	e8 0f       	add	r30, r24
+    1326:	f9 1f       	adc	r31, r25
+    1328:	60 83       	st	Z, r22
+	ring->wp++;
+    132a:	14 96       	adiw	r26, 0x04	; 4
+    132c:	8d 91       	ld	r24, X+
+    132e:	9c 91       	ld	r25, X
+    1330:	15 97       	sbiw	r26, 0x05	; 5
+    1332:	01 96       	adiw	r24, 0x01	; 1
+    1334:	15 96       	adiw	r26, 0x05	; 5
+    1336:	9c 93       	st	X, r25
+    1338:	8e 93       	st	-X, r24
+    133a:	14 97       	sbiw	r26, 0x04	; 4
+	if( ring->wp == ring->size ) ring->wp = 0;
+    133c:	16 96       	adiw	r26, 0x06	; 6
+    133e:	2d 91       	ld	r18, X+
+    1340:	3c 91       	ld	r19, X
+    1342:	17 97       	sbiw	r26, 0x07	; 7
+    1344:	82 17       	cp	r24, r18
+    1346:	93 07       	cpc	r25, r19
+    1348:	21 f4       	brne	.+8      	; 0x1352 <RingPut+0x64>
+    134a:	15 96       	adiw	r26, 0x05	; 5
+    134c:	1c 92       	st	X, r1
+    134e:	1e 92       	st	-X, r1
+    1350:	14 97       	sbiw	r26, 0x04	; 4
+
+	ring->empty = FALSE;
+    1352:	18 96       	adiw	r26, 0x08	; 8
+    1354:	1c 92       	st	X, r1
+    1356:	21 e0       	ldi	r18, 0x01	; 1
+    1358:	30 e0       	ldi	r19, 0x00	; 0
+	
+	return TRUE;
+}
+    135a:	c9 01       	movw	r24, r18
+    135c:	08 95       	ret
+
+0000135e <RingGet>:
+
+__inline__ int RingGet(RingBuffer *ring, unsigned char *value)
+{
+    135e:	cf 93       	push	r28
+    1360:	df 93       	push	r29
+    1362:	dc 01       	movw	r26, r24
+    1364:	eb 01       	movw	r28, r22
+	if( !ring->empty ){
+    1366:	18 96       	adiw	r26, 0x08	; 8
+    1368:	8c 91       	ld	r24, X
+    136a:	18 97       	sbiw	r26, 0x08	; 8
+    136c:	88 23       	and	r24, r24
+    136e:	81 f5       	brne	.+96     	; 0x13d0 <RingGet+0x72>
+		*value = ring->buf[ring->rp];
+    1370:	ed 91       	ld	r30, X+
+    1372:	fc 91       	ld	r31, X
+    1374:	11 97       	sbiw	r26, 0x01	; 1
+    1376:	12 96       	adiw	r26, 0x02	; 2
+    1378:	8d 91       	ld	r24, X+
+    137a:	9c 91       	ld	r25, X
+    137c:	13 97       	sbiw	r26, 0x03	; 3
+    137e:	e8 0f       	add	r30, r24
+    1380:	f9 1f       	adc	r31, r25
+    1382:	80 81       	ld	r24, Z
+    1384:	88 83       	st	Y, r24
+		ring->rp++;
+    1386:	12 96       	adiw	r26, 0x02	; 2
+    1388:	8d 91       	ld	r24, X+
+    138a:	9c 91       	ld	r25, X
+    138c:	13 97       	sbiw	r26, 0x03	; 3
+    138e:	01 96       	adiw	r24, 0x01	; 1
+    1390:	13 96       	adiw	r26, 0x03	; 3
+    1392:	9c 93       	st	X, r25
+    1394:	8e 93       	st	-X, r24
+    1396:	12 97       	sbiw	r26, 0x02	; 2
+		if( ring->rp == ring->size ) ring->rp = 0;
+    1398:	16 96       	adiw	r26, 0x06	; 6
+    139a:	2d 91       	ld	r18, X+
+    139c:	3c 91       	ld	r19, X
+    139e:	17 97       	sbiw	r26, 0x07	; 7
+    13a0:	82 17       	cp	r24, r18
+    13a2:	93 07       	cpc	r25, r19
+    13a4:	21 f4       	brne	.+8      	; 0x13ae <RingGet+0x50>
+    13a6:	13 96       	adiw	r26, 0x03	; 3
+    13a8:	1c 92       	st	X, r1
+    13aa:	1e 92       	st	-X, r1
+    13ac:	12 97       	sbiw	r26, 0x02	; 2
+		if( ring->rp == ring->wp )	ring->empty = TRUE;
+    13ae:	12 96       	adiw	r26, 0x02	; 2
+    13b0:	2d 91       	ld	r18, X+
+    13b2:	3c 91       	ld	r19, X
+    13b4:	13 97       	sbiw	r26, 0x03	; 3
+    13b6:	14 96       	adiw	r26, 0x04	; 4
+    13b8:	8d 91       	ld	r24, X+
+    13ba:	9c 91       	ld	r25, X
+    13bc:	15 97       	sbiw	r26, 0x05	; 5
+    13be:	28 17       	cp	r18, r24
+    13c0:	39 07       	cpc	r19, r25
+    13c2:	19 f4       	brne	.+6      	; 0x13ca <RingGet+0x6c>
+    13c4:	81 e0       	ldi	r24, 0x01	; 1
+    13c6:	18 96       	adiw	r26, 0x08	; 8
+    13c8:	8c 93       	st	X, r24
+    13ca:	21 e0       	ldi	r18, 0x01	; 1
+    13cc:	30 e0       	ldi	r19, 0x00	; 0
+    13ce:	03 c0       	rjmp	.+6      	; 0x13d6 <RingGet+0x78>
+
+		return TRUE;
+	}else{			// リングバッファが空のとき
+		*value = 0;
+    13d0:	18 82       	st	Y, r1
+    13d2:	20 e0       	ldi	r18, 0x00	; 0
+    13d4:	30 e0       	ldi	r19, 0x00	; 0
+		return FALSE;
+	}
+}
+    13d6:	c9 01       	movw	r24, r18
+    13d8:	df 91       	pop	r29
+    13da:	cf 91       	pop	r28
+    13dc:	08 95       	ret
+
+000013de <isRingEmpty>:
+
+__inline__ int isRingEmpty(RingBuffer *ring)
+{
+   return ring->empty;
+}
+    13de:	fc 01       	movw	r30, r24
+    13e0:	80 85       	ldd	r24, Z+8	; 0x08
+    13e2:	90 e0       	ldi	r25, 0x00	; 0
+    13e4:	08 95       	ret
+
+000013e6 <__udivmodqi4>:
+    13e6:	99 1b       	sub	r25, r25
+    13e8:	79 e0       	ldi	r23, 0x09	; 9
+    13ea:	04 c0       	rjmp	.+8      	; 0x13f4 <__udivmodqi4_ep>
+
+000013ec <__udivmodqi4_loop>:
+    13ec:	99 1f       	adc	r25, r25
+    13ee:	96 17       	cp	r25, r22
+    13f0:	08 f0       	brcs	.+2      	; 0x13f4 <__udivmodqi4_ep>
+    13f2:	96 1b       	sub	r25, r22
+
+000013f4 <__udivmodqi4_ep>:
+    13f4:	88 1f       	adc	r24, r24
+    13f6:	7a 95       	dec	r23
+    13f8:	c9 f7       	brne	.-14     	; 0x13ec <__udivmodqi4_loop>
+    13fa:	80 95       	com	r24
+    13fc:	08 95       	ret
+
+000013fe <_exit>:
+    13fe:	f8 94       	cli
+
+00001400 <__stop_program>:
+    1400:	ff cf       	rjmp	.-2      	; 0x1400 <__stop_program>
