@@ -1,2 +1,3 @@
-master
-first commit
+iss2 レスポンスの遅い問題を解決するためのブランチ
+
+WiiからPS3に変更するためUSBを実装する
