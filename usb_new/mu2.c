@@ -1,10 +1,5 @@
 #include "mu2.h"
 
-#include<util/delay.h>
-
-#define TIME 40
-#define SENDTIME 5
-
 int (*__mu2_tx_char)(unsigned char);
 int (*__mu2_rx_char)(unsigned char *);
 
@@ -111,29 +106,28 @@ int MU2_SendData(unsigned char *data, unsigned char len)
 	char size[3];
 
 	// Prefix
-	MU2_TxChar('@');_delay_ms(SENDTIME);
+	MU2_TxChar('@');
 	// Command Name
-	MU2_TxChar('D');	MU2_TxChar('T');_delay_ms(SENDTIME);
+	MU2_TxChar('D');	MU2_TxChar('T');
 
 	// Data Size
-	Byte2Str(len, size);_delay_ms(SENDTIME);
-	MU2_TxChar(size[0]);_delay_ms(SENDTIME);
-	MU2_TxChar(size[1]);_delay_ms(SENDTIME);
+	Byte2Str(len, size);
+	MU2_TxChar(size[0]);
+	MU2_TxChar(size[1]);
 
 	// Data
 	while( len-- ){
 		MU2_TxChar(*data);
-		data++;_delay_ms(SENDTIME);
+		data++;
 	}
 
 	// Terminator
-	MU2_TxChar('\r');_delay_ms(SENDTIME);
-	MU2_TxChar('\n');_delay_ms(SENDTIME);
+	MU2_TxChar('\r');	MU2_TxChar('\n');
 
     return 0;
 }
 
- 
+
 int MU2_ReceiveData(unsigned char *buf, unsigned char size)
 {
     unsigned char c;
@@ -186,36 +180,29 @@ int MU2_SetGroupID(unsigned char id)
 	return 0;
 }
 
-int MU2_SetBoudRate(char b){
-	MU2_Command("BR", b, 2);
-
-	return 0;
-}
-
 int MU2_SendDataBus(unsigned char *data, unsigned char len)
 {
 	char size[3];
 
 	// Prefix
 	MU2_TxChar('*');
-	_delay_ms(TIME);
 	// Command Name
-	MU2_TxChar('D');_delay_ms(TIME);	MU2_TxChar('R');_delay_ms(TIME);
-	MU2_TxChar('=');_delay_ms(TIME);
+	MU2_TxChar('D');	MU2_TxChar('R');
+	MU2_TxChar('=');
 
 	// Data Size
-	Byte2Str(len, size);_delay_ms(TIME);
-	MU2_TxChar(size[0]);_delay_ms(TIME);
-	MU2_TxChar(size[1]);_delay_ms(TIME);
+	Byte2Str(len, size);
+	MU2_TxChar(size[0]);
+	MU2_TxChar(size[1]);
 
 	// Data
 	while( len-- ){
 		MU2_TxChar(*data);
-		data++;_delay_ms(TIME);
+		data++;
 	}
 
 	// Terminator
-	MU2_TxChar('\r');_delay_ms(TIME);	MU2_TxChar('\n');_delay_ms(TIME);
+	MU2_TxChar('\r');	MU2_TxChar('\n');
 
     return 0;
 }

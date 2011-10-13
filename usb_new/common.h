@@ -1,9 +1,7 @@
 #ifndef __COMMON_H__
 #define __COMMON_H__
-#define F_CPU 8000000UL
-#include <util/delay.h>
-#define PERIPHERAL_CLOCK_FREQ		8// [MHz]
 
+#define PERIPHERAL_CLOCK_FREQ		8// [MHz]
 
 #define UART_NUM		2
 

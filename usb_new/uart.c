@@ -1,10 +1,10 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
-#include <common.h>
+#include "common.h"
 #include "ringbuffer.h"
 #include "uart.h"
 
-RingBuffer __uartbuf[UART_NUM][2];
+static RingBuffer __uartbuf[UART_NUM];
 static char _uart_interrupt_status;
 
 #define start_uart0tx_interrupt()	sbi(UCSR0B,UDRIE0)
@@ -69,11 +69,11 @@ int uart_init(int uart_no, unsigned char option, unsigned long speed)
 	return 0;
 }
 
-void uart_setbuffer(int uart_no, int dir, unsigned char *buf, int size)
+void uart_setbuffer(int uart_no, unsigned char *buf, int size)
 {
-	if( uart_no<0 || uart_no>=UART_NUM)	return;
+	if( uart_no<0 || uart_no>=UART_NUM )	return;
 	
-	RingInit(&(__uartbuf[uart_no][dir]), buf, size);
+	RingInit(&(__uartbuf[uart_no]), buf, size);
 }
 
 unsigned char uart0_getchar(void)
@@ -83,9 +83,9 @@ unsigned char uart0_getchar(void)
 	return UDR0;
 }
 
-int uart0_putchar(unsigned char c)
-{/*
-#if (UART0_LINE_FEED == CR_CODE | LF_CODE)		// CRLF
+int uart0_putchar(char c)
+{
+/*#if (UART0_LINE_FEED == CR_CODE | LF_CODE)		// CRLF
 	if( c == '\n' ){
 		while( !bit_is_set(UCSR0A,UDRE0) );
 		UDR0 = '\r';
@@ -98,6 +98,7 @@ int uart0_putchar(unsigned char c)
 	while( !bit_is_set(UCSR0A,UDRE0) );
 	UDR0 = c;
 	cbi(UCSR0A,UDRE0);
+	
 	return 0;
 }
 
@@ -130,7 +131,7 @@ int uart0_buf_putchar(char c)
 	
 #if (UART0_LINE_FEED == CR_CODE | LF_CODE)		// CRLF
 	if( c == '\n' ){
-		if( !RingPut(&__uartbuf[0][TX], '\r') ){
+		if( !RingPut(&__uartbuf[0], '\r') ){
 			ret = -1;	// Buffer Full
 			goto _exit_uart0_buf_putchar;	
 		}
@@ -140,7 +141,7 @@ int uart0_buf_putchar(char c)
 #elif (UART0_LINE_FEED == LF_CODE)
 #endif
 
-	if( !RingPut(&__uartbuf[0][TX], c) ){
+	if( !RingPut(&__uartbuf[0], c) ){
 		ret = -1;	// Buffer Full
 	}
 	start_uart0tx_interrupt();
@@ -163,7 +164,7 @@ int uart1_buf_putchar(char c)
 	
 #if (UART1_LINE_FEED == CR_CODE | LF_CODE)		// CRLF
 	if( c == '\n' ){
-		if( !RingPut(&__uartbuf[1][TX], '\r') ){
+		if( !RingPut(&__uartbuf[1], '\r') ){
 			ret = -1;	// Buffer Full
 			goto _exit_uart1_buf_putchar;	
 		}
@@ -172,7 +173,7 @@ int uart1_buf_putchar(char c)
 	if( c == '\n' )		c = '\r';
 #elif (UART1_LINE_FEED == LF_CODE)
 #endif
-	if( !RingPut(&__uartbuf[1][TX], c) ){
+	if( !RingPut(&__uartbuf[1], c) ){
 		ret = -1;	// Buffer Full
 	}
 	start_uart1tx_interrupt();
@@ -191,7 +192,7 @@ ISR(USART0_UDRE_vect)
 {
 	unsigned char c;
 
-	if( RingGet(&__uartbuf[0][TX], &c) ){
+	if( RingGet(&__uartbuf[0], &c) ){
 		UDR0 = c;
 		cbi(UCSR0A,UDRE0);			// UDREクリア
 	}else{
@@ -204,7 +205,7 @@ ISR(USART1_UDRE_vect)
 {
 	unsigned char c;
 	
-	if( RingGet(&__uartbuf[1][TX], &c) ){
+	if( RingGet(&__uartbuf[1], &c) ){
 		UDR1 = c;
 		cbi(UCSR1A,UDRE1);			// UDREクリア
 	}else{
@@ -213,12 +214,3 @@ ISR(USART1_UDRE_vect)
 	}
 }
 
-ISR(USART0_RX_vect)
-{
-	RingPut(&(__uartbuf[0][0]), UDR0);
-}
-
-ISR(USART1_RX_vect)
-{
-	RingPut(&(__uartbuf[1][0]), UDR1);
-}
