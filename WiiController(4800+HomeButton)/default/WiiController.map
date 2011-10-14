@@ -136,7 +136,7 @@ LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000     0x16d0
+.text           0x00000000     0x16d2
  *(.vectors)
  .vectors       0x00000000       0x34 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr4/crtm88.o
                 0x00000000                __vectors
@@ -217,75 +217,75 @@ LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a
                 0x0000006a                __vector_16
                 0x0000006a                __vector_18
                 0x0000006a                __vector_20
- .text          0x0000006c       0x7a classic_main.o
+ .text          0x0000006c       0xbe classic_main.o
                 0x0000006c                classic
- .text          0x000000e6      0x1ba main.o
-                0x000000e6                main
- .text          0x000002a0       0x7c nunchuk_main.o
-                0x000002a0                nunchuk
- .text          0x0000031c      0x680 wii_controller.o
-                0x0000043c                get_value
-                0x00000560                mode
-                0x0000031c                wait
-                0x0000089c                battery_check
-                0x00000776                controller_select
-                0x000003bc                set_controller
-                0x0000092e                battery_states
-                0x00000354                error
-                0x00000386                setup
-                0x0000057a                make_key
-                0x000003a8                set_adc
- .text          0x0000099c      0x252 uart.o
-                0x00000b3c                uart_buf_putchar
-                0x000009b4                RingPut
-                0x0000099c                RingInit
-                0x00000a00                RingGet
-                0x00000afe                uart_getchar
-                0x00000b6e                __vector_19
-                0x00000a5a                uart_init
-                0x00000a52                isRingEmpty
-                0x00000ad6                uart_setbuffer
-                0x00000b1e                uart_putchar
- .text          0x00000bee      0x232 nunchuk.o
-                0x00000bee                MakeNunchukRCData
-                0x00000c7e                get_nunchuk_analog
- .text          0x00000e20      0x45c mu2.o
-                0x00000f16                MU2_Response
-                0x000011d6                MU2_SendDataBus
-                0x000010e4                MU2_SetChannel
-                0x00000e40                MU2_RxChar
-                0x00000e20                MU2_SetTxHandler
-                0x00001166                MU2_SetEquipmentID
-                0x00000e34                MU2_TxChar
-                0x0000112e                MU2_SetGroupID
-                0x00001036                MU2_ReceiveData
-                0x0000119e                MU2_SetDestinationID
-                0x00000e84                MU2_CheckCommand
-                0x00000e2a                MU2_SetRxHandler
-                0x00000ea8                MU2_Command
-                0x00000f9c                MU2_SendData
- .text          0x0000127c      0x3e4 classic.o
-                0x00001444                get_classic_analog
-                0x0000127c                MakeClassicRCData
- .text          0x00001660        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_udivmodhi4.o)
- .text          0x00001660        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_udivmodsi4.o)
- .text          0x00001660        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_exit.o)
- .text          0x00001660        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_copy_data.o)
- .text          0x00001660        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_clear_bss.o)
-                0x00001660                . = ALIGN (0x2)
+ .text          0x0000012a      0x1ba main.o
+                0x0000012a                main
+ .text          0x000002e4       0x7c nunchuk_main.o
+                0x000002e4                nunchuk
+ .text          0x00000360      0x63e wii_controller.o
+                0x00000464                get_value
+                0x00000562                mode
+                0x00000360                wait
+                0x0000089e                battery_check
+                0x00000778                controller_select
+                0x000003e4                set_controller
+                0x00000930                battery_states
+                0x00000398                error
+                0x000003ae                setup
+                0x0000057c                make_key
+                0x000003d0                set_adc
+ .text          0x0000099e      0x252 uart.o
+                0x00000b3e                uart_buf_putchar
+                0x000009b6                RingPut
+                0x0000099e                RingInit
+                0x00000a02                RingGet
+                0x00000b00                uart_getchar
+                0x00000b70                __vector_19
+                0x00000a5c                uart_init
+                0x00000a54                isRingEmpty
+                0x00000ad8                uart_setbuffer
+                0x00000b20                uart_putchar
+ .text          0x00000bf0      0x232 nunchuk.o
+                0x00000bf0                MakeNunchukRCData
+                0x00000c80                get_nunchuk_analog
+ .text          0x00000e22      0x45c mu2.o
+                0x00000f18                MU2_Response
+                0x000011d8                MU2_SendDataBus
+                0x000010e6                MU2_SetChannel
+                0x00000e42                MU2_RxChar
+                0x00000e22                MU2_SetTxHandler
+                0x00001168                MU2_SetEquipmentID
+                0x00000e36                MU2_TxChar
+                0x00001130                MU2_SetGroupID
+                0x00001038                MU2_ReceiveData
+                0x000011a0                MU2_SetDestinationID
+                0x00000e86                MU2_CheckCommand
+                0x00000e2c                MU2_SetRxHandler
+                0x00000eaa                MU2_Command
+                0x00000f9e                MU2_SendData
+ .text          0x0000127e      0x3e4 classic.o
+                0x00001446                get_classic_analog
+                0x0000127e                MakeClassicRCData
+ .text          0x00001662        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_udivmodhi4.o)
+ .text          0x00001662        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_udivmodsi4.o)
+ .text          0x00001662        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_exit.o)
+ .text          0x00001662        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_copy_data.o)
+ .text          0x00001662        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_clear_bss.o)
+                0x00001662                . = ALIGN (0x2)
  *(.text.*)
- .text.libgcc   0x00001660       0x28 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_udivmodhi4.o)
-                0x00001660                __udivmodhi4
- .text.libgcc   0x00001688       0x44 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_udivmodsi4.o)
-                0x00001688                __udivmodsi4
- .text.libgcc   0x000016cc        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_exit.o)
- .text.libgcc   0x000016cc        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_copy_data.o)
- .text.libgcc   0x000016cc        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_clear_bss.o)
-                0x000016cc                . = ALIGN (0x2)
+ .text.libgcc   0x00001662       0x28 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_udivmodhi4.o)
+                0x00001662                __udivmodhi4
+ .text.libgcc   0x0000168a       0x44 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_udivmodsi4.o)
+                0x0000168a                __udivmodsi4
+ .text.libgcc   0x000016ce        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_exit.o)
+ .text.libgcc   0x000016ce        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_copy_data.o)
+ .text.libgcc   0x000016ce        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_clear_bss.o)
+                0x000016ce                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x000016cc        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_exit.o)
-                0x000016cc                exit
-                0x000016cc                _exit
+ .fini9         0x000016ce        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_exit.o)
+                0x000016ce                exit
+                0x000016ce                _exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -304,11 +304,11 @@ LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x000016cc        0x4 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_exit.o)
+ .fini0         0x000016ce        0x4 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_exit.o)
  *(.fini0)
-                0x000016d0                _etext = .
+                0x000016d2                _etext = .
 
-.data           0x00800100       0x20 load address 0x000016d0
+.data           0x00800100       0x20 load address 0x000016d2
                 0x00800100                PROVIDE (__data_start, .)
  *(.data)
  .data          0x00800100        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr4/crtm88.o
@@ -359,8 +359,8 @@ LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a
                 0x008001af                __mu2_prefix
                 0x008001b2                __mu2_rx_char
                 0x008001b4                PROVIDE (__bss_end, .)
-                0x000016d0                __data_load_start = LOADADDR (.data)
-                0x000016f0                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x000016d2                __data_load_start = LOADADDR (.data)
+                0x000016f2                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x008001b4        0x0
                 0x008001b4                PROVIDE (__noinit_start, .)
@@ -457,16 +457,16 @@ LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a
  .debug_pubnames
                 0x00000357       0x3f classic.o
 
-.debug_info     0x00000000     0x1d75
+.debug_info     0x00000000     0x1d90
  *(.debug_info)
- .debug_info    0x00000000      0x47c classic_main.o
- .debug_info    0x0000047c      0x142 main.o
- .debug_info    0x000005be      0x299 nunchuk_main.o
- .debug_info    0x00000857      0x23a wii_controller.o
- .debug_info    0x00000a91      0x35b uart.o
- .debug_info    0x00000dec      0x35a nunchuk.o
- .debug_info    0x00001146      0x6e3 mu2.o
- .debug_info    0x00001829      0x54c classic.o
+ .debug_info    0x00000000      0x497 classic_main.o
+ .debug_info    0x00000497      0x142 main.o
+ .debug_info    0x000005d9      0x299 nunchuk_main.o
+ .debug_info    0x00000872      0x23a wii_controller.o
+ .debug_info    0x00000aac      0x35b uart.o
+ .debug_info    0x00000e07      0x35a nunchuk.o
+ .debug_info    0x00001161      0x6e3 mu2.o
+ .debug_info    0x00001844      0x54c classic.o
  *(.gnu.linkonce.wi.*)
 
 .debug_abbrev   0x00000000      0x944
@@ -480,16 +480,16 @@ LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a
  .debug_abbrev  0x0000064c      0x1cc mu2.o
  .debug_abbrev  0x00000818      0x12c classic.o
 
-.debug_line     0x00000000     0x163f
+.debug_line     0x00000000     0x1649
  *(.debug_line)
- .debug_line    0x00000000      0x10c classic_main.o
- .debug_line    0x0000010c      0x1f7 main.o
- .debug_line    0x00000303       0xdb nunchuk_main.o
- .debug_line    0x000003de      0x71e wii_controller.o
- .debug_line    0x00000afc      0x26a uart.o
- .debug_line    0x00000d66      0x285 nunchuk.o
- .debug_line    0x00000feb      0x325 mu2.o
- .debug_line    0x00001310      0x32f classic.o
+ .debug_line    0x00000000      0x136 classic_main.o
+ .debug_line    0x00000136      0x1f7 main.o
+ .debug_line    0x0000032d       0xdb nunchuk_main.o
+ .debug_line    0x00000408      0x6fe wii_controller.o
+ .debug_line    0x00000b06      0x26a uart.o
+ .debug_line    0x00000d70      0x285 nunchuk.o
+ .debug_line    0x00000ff5      0x325 mu2.o
+ .debug_line    0x0000131a      0x32f classic.o
 
 .debug_frame    0x00000000      0x330
  *(.debug_frame)
@@ -502,35 +502,35 @@ LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a
  .debug_frame   0x00000200      0x100 mu2.o
  .debug_frame   0x00000300       0x30 classic.o
 
-.debug_str      0x00000000      0x5dd
+.debug_str      0x00000000      0x5e2
  *(.debug_str)
- .debug_str     0x00000000      0x177 classic_main.o
-                                0x1cb (size before relaxing)
- .debug_str     0x00000177       0x2f main.o
+ .debug_str     0x00000000      0x17c classic_main.o
+                                0x1d6 (size before relaxing)
+ .debug_str     0x0000017c       0x2f main.o
                                 0x126 (size before relaxing)
- .debug_str     0x000001a6       0x3f nunchuk_main.o
+ .debug_str     0x000001ab       0x3f nunchuk_main.o
                                 0x14b (size before relaxing)
- .debug_str     0x000001e5       0xa6 wii_controller.o
+ .debug_str     0x000001ea       0xa6 wii_controller.o
                                 0x16d (size before relaxing)
- .debug_str     0x0000028b       0xcd uart.o
+ .debug_str     0x00000290       0xcd uart.o
                                 0x195 (size before relaxing)
- .debug_str     0x00000358       0x87 nunchuk.o
+ .debug_str     0x0000035d       0x87 nunchuk.o
                                 0x167 (size before relaxing)
- .debug_str     0x000003df      0x162 mu2.o
+ .debug_str     0x000003e4      0x162 mu2.o
                                 0x1e9 (size before relaxing)
- .debug_str     0x00000541       0x9c classic.o
+ .debug_str     0x00000546       0x9c classic.o
                                 0x206 (size before relaxing)
 
-.debug_loc      0x00000000      0x7ea
+.debug_loc      0x00000000      0x7da
  *(.debug_loc)
- .debug_loc     0x00000000       0x50 classic_main.o
- .debug_loc     0x00000050       0x74 main.o
- .debug_loc     0x000000c4       0x50 nunchuk_main.o
- .debug_loc     0x00000114       0x68 wii_controller.o
- .debug_loc     0x0000017c      0x1fc uart.o
- .debug_loc     0x00000378       0xa0 nunchuk.o
- .debug_loc     0x00000418      0x332 mu2.o
- .debug_loc     0x0000074a       0xa0 classic.o
+ .debug_loc     0x00000000       0x40 classic_main.o
+ .debug_loc     0x00000040       0x74 main.o
+ .debug_loc     0x000000b4       0x50 nunchuk_main.o
+ .debug_loc     0x00000104       0x68 wii_controller.o
+ .debug_loc     0x0000016c      0x1fc uart.o
+ .debug_loc     0x00000368       0xa0 nunchuk.o
+ .debug_loc     0x00000408      0x332 mu2.o
+ .debug_loc     0x0000073a       0xa0 classic.o
 
 .debug_macinfo
  *(.debug_macinfo)

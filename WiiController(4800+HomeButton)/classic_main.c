@@ -15,26 +15,34 @@ void battery_check();
 int classic(int mode,unsigned char *analog_data)
 {
 	union wii_classic data;										//receive data for wii classic
-	union classic_data rcdata;									//send data for MU2
-	uint8_t i;
+	union classic_data rcdata,prev;									//send data for MU2
+	uint8_t i,count;
 
-	set_controller();										//init controller
+	
  	while(1){
-		
-		get_value(data.buf);									//get data for controller
-		get_classic_analog(&data,analog_data);					//get data for analog stick
-		MakeClassicRCData(&rcdata,&data,analog_data);
+		for(count=0;count<5;count++) {
+				set_controller();										//init controller
+				get_value(data.buf);									//get data for controller
+				get_classic_analog(&data,analog_data);					//get data for analog stick
+				MakeClassicRCData(&rcdata,&data,analog_data);
 
-		if(mode==0)	{
-				for(i=0;i<2;i++){
-				MU2_SendData(rcdata.buf,CLASSIC_DATA_LENGTH);//Send Data for MU2
-				}
+				for(i=0;i<CLASSIC_DATA_LENGTH;i++) {
+						if(prev.buf[i] != rcdata.buf[i]){
+								MU2_SendData(rcdata.buf,CLASSIC_DATA_LENGTH);
+								count = 0;
+								for(i=0;i<CLASSIC_DATA_LENGTH;i++) {
+										prev.buf[i] = rcdata.buf[i];
+									}
+								break;
+							}
+					}
+				wait(45);
 			}
-		if(mode==1)	MU2_SendDataBus(rcdata.buf,CLASSIC_DATA_LENGTH);//Send Data for Serial
+		MU2_SendData(rcdata.buf,CLASSIC_DATA_LENGTH);
+		for(i=0;i<CLASSIC_DATA_LENGTH;i++) {
+				prev.buf[i] = rcdata.buf[i];
+			}
 
-//		wait(150);											//wait(45ms)
-
-		if(rcdata.detail.Button.START&&rcdata.detail.Button.SELECT) battery_check();//battery check
 	}
     return 0;
 }
