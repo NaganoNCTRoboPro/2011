@@ -13,7 +13,7 @@ void m3_d2(bool x){if(x) sbi(PORTB,PB0);else cbi(PORTB,PB0);}
 void(*d1)(bool);
 void(*d2)(bool);
 
-void m_act(uint8_t act,int target)
+void m_act(uint8_t act,uint8_t target)
 {
 	switch(target){
 		case 0:	d1=m0_d1;d2=m0_d2;break;
