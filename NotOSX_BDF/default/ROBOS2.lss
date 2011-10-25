@@ -17,11 +17,11 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
   6 .debug_abbrev 000009b1  00000000  00000000  00003c62  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_line   000015dc  00000000  00000000  00004613  2**0
+  7 .debug_line   00001620  00000000  00000000  00004613  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_frame  00000360  00000000  00000000  00005bf0  2**2
+  8 .debug_frame  00000360  00000000  00000000  00005c34  2**2
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_str    000005d2  00000000  00000000  00005f50  2**0
+  9 .debug_str    000005e3  00000000  00000000  00005f94  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -1161,13 +1161,12 @@ int main(void)
      82c:	01 c0       	rjmp	.+2      	; 0x830 <main+0x762>
 		else e_flag=E_KEEP;	
      82e:	1b 82       	std	Y+3, r1	; 0x03
-		i2cStatus = true;
-     830:	81 e0       	ldi	r24, 0x01	; 1
-     832:	89 83       	std	Y+1, r24	; 0x01
 #endif
 
 /*I2C Writeing And Check*/
-
+		i2cStatus = true;
+     830:	81 e0       	ldi	r24, 0x01	; 1
+     832:	89 83       	std	Y+1, r24	; 0x01
 		i2cStatus &= i2cWrite(&Motor); wait_us(4);  
      834:	89 81       	ldd	r24, Y+1	; 0x01
      836:	08 2f       	mov	r16, r24
@@ -2789,6 +2788,10 @@ ISR(USART1_RX_vect)
     12b8:	18 95       	reti
 
 000012ba <RingInit>:
+#include "ringbuffer.h"
+
+__inline__ void RingInit(RingBuffer *ring, unsigned char *buf, unsigned int size)
+{
     12ba:	df 93       	push	r29
     12bc:	cf 93       	push	r28
     12be:	00 d0       	rcall	.+0      	; 0x12c0 <RingInit+0x6>
@@ -2802,30 +2805,36 @@ ISR(USART1_RX_vect)
     12ce:	6b 83       	std	Y+3, r22	; 0x03
     12d0:	5e 83       	std	Y+6, r21	; 0x06
     12d2:	4d 83       	std	Y+5, r20	; 0x05
+	ring->buf = buf;
     12d4:	e9 81       	ldd	r30, Y+1	; 0x01
     12d6:	fa 81       	ldd	r31, Y+2	; 0x02
     12d8:	8b 81       	ldd	r24, Y+3	; 0x03
     12da:	9c 81       	ldd	r25, Y+4	; 0x04
     12dc:	91 83       	std	Z+1, r25	; 0x01
     12de:	80 83       	st	Z, r24
+	ring->size = size;
     12e0:	e9 81       	ldd	r30, Y+1	; 0x01
     12e2:	fa 81       	ldd	r31, Y+2	; 0x02
     12e4:	8d 81       	ldd	r24, Y+5	; 0x05
     12e6:	9e 81       	ldd	r25, Y+6	; 0x06
     12e8:	97 83       	std	Z+7, r25	; 0x07
     12ea:	86 83       	std	Z+6, r24	; 0x06
+	ring->rp = 0;
     12ec:	e9 81       	ldd	r30, Y+1	; 0x01
     12ee:	fa 81       	ldd	r31, Y+2	; 0x02
     12f0:	13 82       	std	Z+3, r1	; 0x03
     12f2:	12 82       	std	Z+2, r1	; 0x02
+	ring->wp = 0;
     12f4:	e9 81       	ldd	r30, Y+1	; 0x01
     12f6:	fa 81       	ldd	r31, Y+2	; 0x02
     12f8:	15 82       	std	Z+5, r1	; 0x05
     12fa:	14 82       	std	Z+4, r1	; 0x04
+	ring->empty = TRUE;
     12fc:	e9 81       	ldd	r30, Y+1	; 0x01
     12fe:	fa 81       	ldd	r31, Y+2	; 0x02
     1300:	81 e0       	ldi	r24, 0x01	; 1
     1302:	80 87       	std	Z+8, r24	; 0x08
+}
     1304:	26 96       	adiw	r28, 0x06	; 6
     1306:	0f b6       	in	r0, 0x3f	; 63
     1308:	f8 94       	cli
@@ -2837,6 +2846,9 @@ ISR(USART1_RX_vect)
     1314:	08 95       	ret
 
 00001316 <RingPut>:
+
+__inline__ int RingPut(RingBuffer *ring, unsigned char value)
+{
     1316:	df 93       	push	r29
     1318:	cf 93       	push	r28
     131a:	00 d0       	rcall	.+0      	; 0x131c <RingPut+0x6>
@@ -2847,6 +2859,7 @@ ISR(USART1_RX_vect)
     1324:	9a 83       	std	Y+2, r25	; 0x02
     1326:	89 83       	std	Y+1, r24	; 0x01
     1328:	6b 83       	std	Y+3, r22	; 0x03
+	if( !ring->empty && ring->rp == ring->wp ){
     132a:	e9 81       	ldd	r30, Y+1	; 0x01
     132c:	fa 81       	ldd	r31, Y+2	; 0x02
     132e:	80 85       	ldd	r24, Z+8	; 0x08
@@ -2863,9 +2876,12 @@ ISR(USART1_RX_vect)
     1344:	28 17       	cp	r18, r24
     1346:	39 07       	cpc	r19, r25
     1348:	19 f4       	brne	.+6      	; 0x1350 <RingPut+0x3a>
+		return FALSE;
     134a:	1d 82       	std	Y+5, r1	; 0x05
     134c:	1c 82       	std	Y+4, r1	; 0x04
     134e:	2c c0       	rjmp	.+88     	; 0x13a8 <RingPut+0x92>
+	}
+	ring->buf[ring->wp] = value;
     1350:	e9 81       	ldd	r30, Y+1	; 0x01
     1352:	fa 81       	ldd	r31, Y+2	; 0x02
     1354:	20 81       	ld	r18, Z
@@ -2879,6 +2895,7 @@ ISR(USART1_RX_vect)
     1364:	f9 1f       	adc	r31, r25
     1366:	8b 81       	ldd	r24, Y+3	; 0x03
     1368:	80 83       	st	Z, r24
+	ring->wp++;
     136a:	e9 81       	ldd	r30, Y+1	; 0x01
     136c:	fa 81       	ldd	r31, Y+2	; 0x02
     136e:	84 81       	ldd	r24, Z+4	; 0x04
@@ -2888,6 +2905,7 @@ ISR(USART1_RX_vect)
     1376:	fa 81       	ldd	r31, Y+2	; 0x02
     1378:	95 83       	std	Z+5, r25	; 0x05
     137a:	84 83       	std	Z+4, r24	; 0x04
+	if( ring->wp == ring->size ) ring->wp = 0;
     137c:	e9 81       	ldd	r30, Y+1	; 0x01
     137e:	fa 81       	ldd	r31, Y+2	; 0x02
     1380:	24 81       	ldd	r18, Z+4	; 0x04
@@ -2903,15 +2921,20 @@ ISR(USART1_RX_vect)
     1394:	fa 81       	ldd	r31, Y+2	; 0x02
     1396:	15 82       	std	Z+5, r1	; 0x05
     1398:	14 82       	std	Z+4, r1	; 0x04
+
+	ring->empty = FALSE;
     139a:	e9 81       	ldd	r30, Y+1	; 0x01
     139c:	fa 81       	ldd	r31, Y+2	; 0x02
     139e:	10 86       	std	Z+8, r1	; 0x08
+	
+	return TRUE;
     13a0:	81 e0       	ldi	r24, 0x01	; 1
     13a2:	90 e0       	ldi	r25, 0x00	; 0
     13a4:	9d 83       	std	Y+5, r25	; 0x05
     13a6:	8c 83       	std	Y+4, r24	; 0x04
     13a8:	8c 81       	ldd	r24, Y+4	; 0x04
     13aa:	9d 81       	ldd	r25, Y+5	; 0x05
+}
     13ac:	0f 90       	pop	r0
     13ae:	0f 90       	pop	r0
     13b0:	0f 90       	pop	r0
@@ -2922,6 +2945,9 @@ ISR(USART1_RX_vect)
     13ba:	08 95       	ret
 
 000013bc <RingGet>:
+
+__inline__ int RingGet(RingBuffer *ring, unsigned char *value)
+{
     13bc:	df 93       	push	r29
     13be:	cf 93       	push	r28
     13c0:	00 d0       	rcall	.+0      	; 0x13c2 <RingGet+0x6>
@@ -2933,11 +2959,13 @@ ISR(USART1_RX_vect)
     13cc:	89 83       	std	Y+1, r24	; 0x01
     13ce:	7c 83       	std	Y+4, r23	; 0x04
     13d0:	6b 83       	std	Y+3, r22	; 0x03
+	if( !ring->empty ){
     13d2:	e9 81       	ldd	r30, Y+1	; 0x01
     13d4:	fa 81       	ldd	r31, Y+2	; 0x02
     13d6:	80 85       	ldd	r24, Z+8	; 0x08
     13d8:	88 23       	and	r24, r24
     13da:	d9 f5       	brne	.+118    	; 0x1452 <RingGet+0x96>
+		*value = ring->buf[ring->rp];
     13dc:	e9 81       	ldd	r30, Y+1	; 0x01
     13de:	fa 81       	ldd	r31, Y+2	; 0x02
     13e0:	20 81       	ld	r18, Z
@@ -2953,6 +2981,7 @@ ISR(USART1_RX_vect)
     13f4:	eb 81       	ldd	r30, Y+3	; 0x03
     13f6:	fc 81       	ldd	r31, Y+4	; 0x04
     13f8:	80 83       	st	Z, r24
+		ring->rp++;
     13fa:	e9 81       	ldd	r30, Y+1	; 0x01
     13fc:	fa 81       	ldd	r31, Y+2	; 0x02
     13fe:	82 81       	ldd	r24, Z+2	; 0x02
@@ -2962,6 +2991,7 @@ ISR(USART1_RX_vect)
     1406:	fa 81       	ldd	r31, Y+2	; 0x02
     1408:	93 83       	std	Z+3, r25	; 0x03
     140a:	82 83       	std	Z+2, r24	; 0x02
+		if( ring->rp == ring->size ) ring->rp = 0;
     140c:	e9 81       	ldd	r30, Y+1	; 0x01
     140e:	fa 81       	ldd	r31, Y+2	; 0x02
     1410:	22 81       	ldd	r18, Z+2	; 0x02
@@ -2977,6 +3007,7 @@ ISR(USART1_RX_vect)
     1424:	fa 81       	ldd	r31, Y+2	; 0x02
     1426:	13 82       	std	Z+3, r1	; 0x03
     1428:	12 82       	std	Z+2, r1	; 0x02
+		if( ring->rp == ring->wp )	ring->empty = TRUE;
     142a:	e9 81       	ldd	r30, Y+1	; 0x01
     142c:	fa 81       	ldd	r31, Y+2	; 0x02
     142e:	22 81       	ldd	r18, Z+2	; 0x02
@@ -2992,18 +3023,25 @@ ISR(USART1_RX_vect)
     1442:	fa 81       	ldd	r31, Y+2	; 0x02
     1444:	81 e0       	ldi	r24, 0x01	; 1
     1446:	80 87       	std	Z+8, r24	; 0x08
+
+		return TRUE;
     1448:	81 e0       	ldi	r24, 0x01	; 1
     144a:	90 e0       	ldi	r25, 0x00	; 0
     144c:	9e 83       	std	Y+6, r25	; 0x06
     144e:	8d 83       	std	Y+5, r24	; 0x05
     1450:	05 c0       	rjmp	.+10     	; 0x145c <RingGet+0xa0>
+	}else{			// リングバッファが空のとき
+		*value = 0;
     1452:	eb 81       	ldd	r30, Y+3	; 0x03
     1454:	fc 81       	ldd	r31, Y+4	; 0x04
     1456:	10 82       	st	Z, r1
+		return FALSE;
     1458:	1e 82       	std	Y+6, r1	; 0x06
     145a:	1d 82       	std	Y+5, r1	; 0x05
     145c:	8d 81       	ldd	r24, Y+5	; 0x05
     145e:	9e 81       	ldd	r25, Y+6	; 0x06
+	}
+}
     1460:	26 96       	adiw	r28, 0x06	; 6
     1462:	0f b6       	in	r0, 0x3f	; 63
     1464:	f8 94       	cli
@@ -3015,6 +3053,9 @@ ISR(USART1_RX_vect)
     1470:	08 95       	ret
 
 00001472 <isRingEmpty>:
+
+__inline__ int isRingEmpty(RingBuffer *ring)
+{
     1472:	df 93       	push	r29
     1474:	cf 93       	push	r28
     1476:	00 d0       	rcall	.+0      	; 0x1478 <isRingEmpty+0x6>
@@ -3022,11 +3063,13 @@ ISR(USART1_RX_vect)
     147a:	de b7       	in	r29, 0x3e	; 62
     147c:	9a 83       	std	Y+2, r25	; 0x02
     147e:	89 83       	std	Y+1, r24	; 0x01
+   return ring->empty;
     1480:	e9 81       	ldd	r30, Y+1	; 0x01
     1482:	fa 81       	ldd	r31, Y+2	; 0x02
     1484:	80 85       	ldd	r24, Z+8	; 0x08
     1486:	88 2f       	mov	r24, r24
     1488:	90 e0       	ldi	r25, 0x00	; 0
+}
     148a:	0f 90       	pop	r0
     148c:	0f 90       	pop	r0
     148e:	cf 91       	pop	r28
@@ -3938,6 +3981,8 @@ void LEDInit(void)
     199c:	08 95       	ret
 
 0000199e <wait_ms>:
+#include <avr/io.h>
+void wait_ms(uint16_t t){
     199e:	df 93       	push	r29
     19a0:	cf 93       	push	r28
     19a2:	00 d0       	rcall	.+0      	; 0x19a4 <wait_ms+0x6>
@@ -3947,20 +3992,28 @@ void LEDInit(void)
     19aa:	de b7       	in	r29, 0x3e	; 62
     19ac:	9b 83       	std	Y+3, r25	; 0x03
     19ae:	8a 83       	std	Y+2, r24	; 0x02
+	uint8_t tt;
+	TCCR2A = 0;
     19b0:	e0 eb       	ldi	r30, 0xB0	; 176
     19b2:	f0 e0       	ldi	r31, 0x00	; 0
     19b4:	10 82       	st	Z, r1
+	TCCR2B = 1;
     19b6:	e1 eb       	ldi	r30, 0xB1	; 177
     19b8:	f0 e0       	ldi	r31, 0x00	; 0
     19ba:	81 e0       	ldi	r24, 0x01	; 1
     19bc:	80 83       	st	Z, r24
+	OCR2A = 200;
     19be:	e3 eb       	ldi	r30, 0xB3	; 179
     19c0:	f0 e0       	ldi	r31, 0x00	; 0
     19c2:	88 ec       	ldi	r24, 0xC8	; 200
     19c4:	80 83       	st	Z, r24
+
+	for(tt=100;t--;){
     19c6:	84 e6       	ldi	r24, 0x64	; 100
     19c8:	89 83       	std	Y+1, r24	; 0x01
     19ca:	20 c0       	rjmp	.+64     	; 0x1a0c <wait_ms+0x6e>
+		while(tt--){
+			for(TCNT2=0;!(TIFR2&0x02););
     19cc:	e2 eb       	ldi	r30, 0xB2	; 178
     19ce:	f0 e0       	ldi	r31, 0x00	; 0
     19d0:	10 82       	st	Z, r1
@@ -3973,6 +4026,7 @@ void LEDInit(void)
     19de:	90 70       	andi	r25, 0x00	; 0
     19e0:	00 97       	sbiw	r24, 0x00	; 0
     19e2:	b9 f3       	breq	.-18     	; 0x19d2 <wait_ms+0x34>
+			TIFR2 |= 0x02;
     19e4:	a7 e3       	ldi	r26, 0x37	; 55
     19e6:	b0 e0       	ldi	r27, 0x00	; 0
     19e8:	e7 e3       	ldi	r30, 0x37	; 55
@@ -3980,6 +4034,12 @@ void LEDInit(void)
     19ec:	80 81       	ld	r24, Z
     19ee:	82 60       	ori	r24, 0x02	; 2
     19f0:	8c 93       	st	X, r24
+	TCCR2A = 0;
+	TCCR2B = 1;
+	OCR2A = 200;
+
+	for(tt=100;t--;){
+		while(tt--){
     19f2:	89 81       	ldd	r24, Y+1	; 0x01
     19f4:	8d 83       	std	Y+5, r24	; 0x05
     19f6:	8d 81       	ldd	r24, Y+5	; 0x05
@@ -3993,6 +4053,12 @@ void LEDInit(void)
     1a06:	99 83       	std	Y+1, r25	; 0x01
     1a08:	88 23       	and	r24, r24
     1a0a:	01 f7       	brne	.-64     	; 0x19cc <wait_ms+0x2e>
+	uint8_t tt;
+	TCCR2A = 0;
+	TCCR2B = 1;
+	OCR2A = 200;
+
+	for(tt=100;t--;){
     1a0c:	1c 82       	std	Y+4, r1	; 0x04
     1a0e:	8a 81       	ldd	r24, Y+2	; 0x02
     1a10:	9b 81       	ldd	r25, Y+3	; 0x03
@@ -4008,6 +4074,12 @@ void LEDInit(void)
     1a24:	8c 81       	ldd	r24, Y+4	; 0x04
     1a26:	88 23       	and	r24, r24
     1a28:	21 f7       	brne	.-56     	; 0x19f2 <wait_ms+0x54>
+		while(tt--){
+			for(TCNT2=0;!(TIFR2&0x02););
+			TIFR2 |= 0x02;
+		}
+	}
+}
     1a2a:	0f 90       	pop	r0
     1a2c:	0f 90       	pop	r0
     1a2e:	0f 90       	pop	r0
@@ -4018,6 +4090,7 @@ void LEDInit(void)
     1a38:	08 95       	ret
 
 00001a3a <wait_us>:
+void wait_us(uint16_t t){
     1a3a:	df 93       	push	r29
     1a3c:	cf 93       	push	r28
     1a3e:	00 d0       	rcall	.+0      	; 0x1a40 <wait_us+0x6>
@@ -4026,18 +4099,23 @@ void LEDInit(void)
     1a44:	de b7       	in	r29, 0x3e	; 62
     1a46:	9a 83       	std	Y+2, r25	; 0x02
     1a48:	89 83       	std	Y+1, r24	; 0x01
+	TCCR2A = 0;
     1a4a:	e0 eb       	ldi	r30, 0xB0	; 176
     1a4c:	f0 e0       	ldi	r31, 0x00	; 0
     1a4e:	10 82       	st	Z, r1
+	TCCR2B = 1;
     1a50:	e1 eb       	ldi	r30, 0xB1	; 177
     1a52:	f0 e0       	ldi	r31, 0x00	; 0
     1a54:	81 e0       	ldi	r24, 0x01	; 1
     1a56:	80 83       	st	Z, r24
+	OCR2A = 20;
     1a58:	e3 eb       	ldi	r30, 0xB3	; 179
     1a5a:	f0 e0       	ldi	r31, 0x00	; 0
     1a5c:	84 e1       	ldi	r24, 0x14	; 20
     1a5e:	80 83       	st	Z, r24
     1a60:	13 c0       	rjmp	.+38     	; 0x1a88 <wait_us+0x4e>
+	while(t--){
+		for(TCNT2=0;!(TIFR2&0x02););
     1a62:	e2 eb       	ldi	r30, 0xB2	; 178
     1a64:	f0 e0       	ldi	r31, 0x00	; 0
     1a66:	10 82       	st	Z, r1
@@ -4050,6 +4128,7 @@ void LEDInit(void)
     1a74:	90 70       	andi	r25, 0x00	; 0
     1a76:	00 97       	sbiw	r24, 0x00	; 0
     1a78:	b9 f3       	breq	.-18     	; 0x1a68 <wait_us+0x2e>
+		TIFR2 |= 0x02;
     1a7a:	a7 e3       	ldi	r26, 0x37	; 55
     1a7c:	b0 e0       	ldi	r27, 0x00	; 0
     1a7e:	e7 e3       	ldi	r30, 0x37	; 55
@@ -4057,6 +4136,12 @@ void LEDInit(void)
     1a82:	80 81       	ld	r24, Z
     1a84:	82 60       	ori	r24, 0x02	; 2
     1a86:	8c 93       	st	X, r24
+}
+void wait_us(uint16_t t){
+	TCCR2A = 0;
+	TCCR2B = 1;
+	OCR2A = 20;
+	while(t--){
     1a88:	1b 82       	std	Y+3, r1	; 0x03
     1a8a:	89 81       	ldd	r24, Y+1	; 0x01
     1a8c:	9a 81       	ldd	r25, Y+2	; 0x02
@@ -4072,6 +4157,10 @@ void LEDInit(void)
     1aa0:	8b 81       	ldd	r24, Y+3	; 0x03
     1aa2:	88 23       	and	r24, r24
     1aa4:	f1 f6       	brne	.-68     	; 0x1a62 <wait_us+0x28>
+		for(TCNT2=0;!(TIFR2&0x02););
+		TIFR2 |= 0x02;
+	}
+}
     1aa6:	0f 90       	pop	r0
     1aa8:	0f 90       	pop	r0
     1aaa:	0f 90       	pop	r0

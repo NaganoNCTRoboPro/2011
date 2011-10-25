@@ -198,11 +198,10 @@ int8_t z_tire_table[15][15] = {
 		/*•œŠˆ!!!!!!!*/
 		else if(controller->detail.Button.HOME) e_flag=E_OFF;
 		else e_flag=E_KEEP;	
-		i2cStatus = true;
 #endif
 
 /*I2C Writeing And Check*/
-
+		i2cStatus = true;
 		i2cStatus &= i2cWrite(&Motor); wait_us(4);  
 #if SUPPLY_WATCHING
 		i2cStatus &= Emergency(&EStop,e_flag);	

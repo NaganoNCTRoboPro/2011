@@ -9,12 +9,12 @@ emergency.o: ../PERIPHERAL/EMERGENCY/emergency.c \
   c:/winavr-20100110/lib/gcc/../../avr/include/avr/version.h \
   c:/winavr-20100110/lib/gcc/../../avr/include/avr/fuse.h \
   c:/winavr-20100110/lib/gcc/../../avr/include/avr/lock.h \
-  C:\Users\iwate\Desktop\NotOSX_BDF\PERIPHERAL\EMERGENCY/emergency.h \
+  C:\Users\BillGates\Desktop\natinal\2011\NotOSX_BDF\PERIPHERAL\EMERGENCY/emergency.h \
   c:\winavr-20100110\bin\../lib/gcc/avr/4.3.3/include/stdbool.h \
-  C:\Users\iwate\Desktop\NotOSX_BDF\ROBOS\I2C/i2c.h \
-  C:\Users\iwate\Desktop\NotOSX_BDF\PERIPHERAL\BEEP/beep.h \
+  C:\Users\BillGates\Desktop\natinal\2011\NotOSX_BDF\ROBOS\I2C/i2c.h \
+  C:\Users\BillGates\Desktop\natinal\2011\NotOSX_BDF\PERIPHERAL\BEEP/beep.h \
   c:/winavr-20100110/lib/gcc/../../avr/include/avr/wdt.h \
-  C:\Users\iwate\Desktop\NotOSX_BDF\ROBOS\COMMON/wait.h
+  C:\Users\BillGates\Desktop\natinal\2011\NotOSX_BDF\ROBOS\COMMON/wait.h
 
 c:/winavr-20100110/lib/gcc/../../avr/include/avr/io.h:
 
@@ -36,14 +36,14 @@ c:/winavr-20100110/lib/gcc/../../avr/include/avr/fuse.h:
 
 c:/winavr-20100110/lib/gcc/../../avr/include/avr/lock.h:
 
-C:\Users\iwate\Desktop\NotOSX_BDF\PERIPHERAL\EMERGENCY/emergency.h:
+C:\Users\BillGates\Desktop\natinal\2011\NotOSX_BDF\PERIPHERAL\EMERGENCY/emergency.h:
 
 c:\winavr-20100110\bin\../lib/gcc/avr/4.3.3/include/stdbool.h:
 
-C:\Users\iwate\Desktop\NotOSX_BDF\ROBOS\I2C/i2c.h:
+C:\Users\BillGates\Desktop\natinal\2011\NotOSX_BDF\ROBOS\I2C/i2c.h:
 
-C:\Users\iwate\Desktop\NotOSX_BDF\PERIPHERAL\BEEP/beep.h:
+C:\Users\BillGates\Desktop\natinal\2011\NotOSX_BDF\PERIPHERAL\BEEP/beep.h:
 
 c:/winavr-20100110/lib/gcc/../../avr/include/avr/wdt.h:
 
-C:\Users\iwate\Desktop\NotOSX_BDF\ROBOS\COMMON/wait.h:
+C:\Users\BillGates\Desktop\natinal\2011\NotOSX_BDF\ROBOS\COMMON/wait.h:
