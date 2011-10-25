@@ -126,7 +126,6 @@ int main(void)
 		/*復活!!!!!!!*/
 		else if(controller->detail.Button.HOME) e_flag=E_OFF;
 		else e_flag=E_KEEP;	
-		i2cStatus = true;
 #endif	
 		aDrive(&Throw,port,act);
 /*歩行*/		
@@ -134,13 +133,14 @@ int main(void)
 		if(controller->detail.Button.A) action=CW;
 		else if(controller->detail.Button.B) action=CCW;
 		else action=BRAKE;
+/*低速モード*/
+		if(controller->detail.Button.X){duty=70;action=CW;}
+		else if(controller->detail.Button.Y){duty=35;action=CW;}
+/*I2Cデータの生成*/
 		for(i=0;i<2;i++) mDrive(&Motor,action,duty,i);			
 
-
-
-
 /*I2C Writeing And Check*/
-
+		i2cStatus = true;
 		i2cStatus &= i2cWrite(&Motor); wait_us(4);  
 #if SUPPLY_WATCHING
 		i2cStatus &= Emergency(&EStop,e_flag);	
