@@ -619,7 +619,7 @@ int main(void)
      47c:	8d 7f       	andi	r24, 0xFD	; 253
      47e:	8b 87       	std	Y+11, r24	; 0x0b
 	/*ˆêuƒGƒAON(6ms)*/
-			if(controller->detail.Button.ZL) port|=0x10;
+			if(controller->detail.Button.ZL) port|= 0x10;
      480:	ec 85       	ldd	r30, Y+12	; 0x0c
      482:	fd 85       	ldd	r31, Y+13	; 0x0d
      484:	81 81       	ldd	r24, Z+1	; 0x01
@@ -630,11 +630,11 @@ int main(void)
      48e:	80 61       	ori	r24, 0x10	; 16
      490:	8b 87       	std	Y+11, r24	; 0x0b
      492:	03 c0       	rjmp	.+6      	; 0x49a <main+0x3cc>
-			else port&=~0x10;
+			else							 port&=~0x10;
      494:	8b 85       	ldd	r24, Y+11	; 0x0b
      496:	8f 7e       	andi	r24, 0xEF	; 239
      498:	8b 87       	std	Y+11, r24	; 0x0b
-			if(controller->detail.Button.ZR) port|=0x20;
+			if(controller->detail.Button.ZR) port|= 0x20;
      49a:	ec 85       	ldd	r30, Y+12	; 0x0c
      49c:	fd 85       	ldd	r31, Y+13	; 0x0d
      49e:	81 81       	ldd	r24, Z+1	; 0x01
@@ -645,7 +645,7 @@ int main(void)
      4a8:	80 62       	ori	r24, 0x20	; 32
      4aa:	8b 87       	std	Y+11, r24	; 0x0b
      4ac:	03 c0       	rjmp	.+6      	; 0x4b4 <main+0x3e6>
-			else port&=~0x20;
+			else							 port&=~0x20;
      4ae:	8b 85       	ldd	r24, Y+11	; 0x0b
      4b0:	8f 7d       	andi	r24, 0xDF	; 223
      4b2:	8b 87       	std	Y+11, r24	; 0x0b
@@ -709,7 +709,7 @@ int main(void)
      50c:	8f 7c       	andi	r24, 0xCF	; 207
      50e:	8b 87       	std	Y+11, r24	; 0x0b
      510:	0a c0       	rjmp	.+20     	; 0x526 <main+0x458>
-		}
+			}
 		/*•œŠˆ!!!!!!!*/
 		else if(controller->detail.Button.HOME) e_flag=E_OFF;
      512:	ec 85       	ldd	r30, Y+12	; 0x0c

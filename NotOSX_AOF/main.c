@@ -99,10 +99,10 @@ int main(void)
 			if(controller->detail.Button.R) port|=0x02;
 			else port&=~0x02;
 	/*ˆêuƒGƒAON(6ms)*/
-			if(controller->detail.Button.ZL) port|=0x10;
-			else port&=~0x10;
-			if(controller->detail.Button.ZR) port|=0x20;
-			else port&=~0x20;
+			if(controller->detail.Button.ZL) port|= 0x10;
+			else							 port&=~0x10;
+			if(controller->detail.Button.ZR) port|= 0x20;
+			else							 port&=~0x20;
 			}
 	/*Å‰‚É•Ð•û‚¾‚¯‚ ‚°‚½‚Ü‚Ü‚É‚·‚é&–ß‚·*/
 		if(controller->detail.Button.UP)  {port=0x02;a_flag=0;}
@@ -117,7 +117,7 @@ int main(void)
 		if(controller->detail.Button.SELECT&&controller->detail.Button.START){
 			e_flag=E_ON;
 			port&=0xCF;
-		}
+			}
 		/*•œŠˆ!!!!!!!*/
 		else if(controller->detail.Button.HOME) e_flag=E_OFF;
 		else e_flag=E_KEEP;	
