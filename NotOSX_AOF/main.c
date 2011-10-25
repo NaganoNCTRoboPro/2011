@@ -26,23 +26,18 @@ static uint8_t buf[36];
 
 int main(void)
 {
-	uint8_t _group=0,_channel=0; 
-
 	union controller_data *controller;
 
-	int8_t slaveBuf[16]={0},m_size=2;
-	bool a_flag=true;
-	signed char duty=0;
-	uint8_t port;
+	uint8_t port,_group=0,_channel=0,action,i; 
+	int8_t slaveBuf[16]={0},m_size=2,duty=0;
+	bool a_flag=true,act=false,i2cStatus;
+
 	Slave Motor = {MOTOR,{(int8_t*)&slaveBuf[0],m_size},{(int8_t*)&slaveBuf[m_size],m_size}};
 	Slave Throw = {THROW,{(int8_t*)&slaveBuf[10],1},{(int8_t*)&slaveBuf[11],1}};
 #if SUPPLY_WATCHING
 	Slave EStop = {ESTOP,{(int8_t*)&slaveBuf[12],1},{(int8_t*)&slaveBuf[13],1}};		
 	uint8_t e_flag=0;
 #endif
-	int i;
-	uint8_t action;
-	bool act=false,i2cStatus;
 
 /*---------------------------------------------------------------*/
 // 						èëÇ´Ç©Ç¶ÇøÇ·É_ÉÅÇÊÅI
