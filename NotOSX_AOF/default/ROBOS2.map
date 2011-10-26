@@ -546,7 +546,7 @@ LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a
  .debug_frame   0x000002f0       0x40 beep.o
  .debug_frame   0x00000330       0x30 emergency.o
 
-.debug_str      0x00000000      0x59c
+.debug_str      0x00000000      0x572
  *(.debug_str)
  .debug_str     0x00000000      0x183 main.o
                                 0x1d6 (size before relaxing)
@@ -556,21 +556,21 @@ LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a
                                 0x101 (size before relaxing)
  .debug_str     0x00000274       0xf4 uart.o
                                 0x1d0 (size before relaxing)
- .debug_str     0x00000368       0x77 ringbuffer.o
-                                 0xb4 (size before relaxing)
- .debug_str     0x000003df       0x51 i2c.o
+ .debug_str     0x00000368       0x4d ringbuffer.o
+                                 0xc5 (size before relaxing)
+ .debug_str     0x000003b5       0x51 i2c.o
                                 0x13b (size before relaxing)
- .debug_str     0x00000430       0x27 led.o
+ .debug_str     0x00000406       0x27 led.o
                                  0xe2 (size before relaxing)
- .debug_str     0x00000457       0x30 wait.o
-                                 0xd5 (size before relaxing)
- .debug_str     0x00000487       0x53 actuater.o
+ .debug_str     0x0000042d       0x30 wait.o
+                                 0xe6 (size before relaxing)
+ .debug_str     0x0000045d       0x53 actuater.o
                                  0xf9 (size before relaxing)
- .debug_str     0x000004da       0x3e switch.o
+ .debug_str     0x000004b0       0x3e switch.o
                                 0x100 (size before relaxing)
- .debug_str     0x00000518       0x36 beep.o
+ .debug_str     0x000004ee       0x36 beep.o
                                  0xef (size before relaxing)
- .debug_str     0x0000054e       0x4e emergency.o
+ .debug_str     0x00000524       0x4e emergency.o
                                 0x12a (size before relaxing)
 
 .debug_loc

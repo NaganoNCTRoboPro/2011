@@ -128,10 +128,10 @@ int main(void)
 		if(controller->detail.Button.A) action=CW;
 		else if(controller->detail.Button.B) action=CCW;
 		else action=BRAKE;
-/*低速モード*/
-		if(controller->detail.Button.X){duty=70;action=CW;}
+	/*低速モード*/
+		if(controller->detail.Button.X)		{duty=70;action=CW;}
 		else if(controller->detail.Button.Y){duty=35;action=CW;}
-/*I2Cデータの生成*/
+	/*I2Cデータの生成*/
 		for(i=0;i<2;i++) mDrive(&Motor,action,duty,i);			
 
 /*I2C Writeing And Check*/
