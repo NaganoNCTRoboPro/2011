@@ -502,24 +502,24 @@ LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a
  .debug_frame   0x00000200      0x100 mu2.o
  .debug_frame   0x00000300       0x30 classic.o
 
-.debug_str      0x00000000      0x5e2
+.debug_str      0x00000000      0x5e7
  *(.debug_str)
- .debug_str     0x00000000      0x17c classic_main.o
-                                0x1d6 (size before relaxing)
- .debug_str     0x0000017c       0x2f main.o
-                                0x126 (size before relaxing)
- .debug_str     0x000001ab       0x3f nunchuk_main.o
-                                0x14b (size before relaxing)
- .debug_str     0x000001ea       0xa6 wii_controller.o
-                                0x16d (size before relaxing)
- .debug_str     0x00000290       0xcd uart.o
-                                0x195 (size before relaxing)
- .debug_str     0x0000035d       0x87 nunchuk.o
-                                0x167 (size before relaxing)
- .debug_str     0x000003e4      0x162 mu2.o
-                                0x1e9 (size before relaxing)
- .debug_str     0x00000546       0x9c classic.o
-                                0x206 (size before relaxing)
+ .debug_str     0x00000000      0x181 classic_main.o
+                                0x1db (size before relaxing)
+ .debug_str     0x00000181       0x2f main.o
+                                0x12b (size before relaxing)
+ .debug_str     0x000001b0       0x3f nunchuk_main.o
+                                0x150 (size before relaxing)
+ .debug_str     0x000001ef       0xa6 wii_controller.o
+                                0x172 (size before relaxing)
+ .debug_str     0x00000295       0xcd uart.o
+                                0x19a (size before relaxing)
+ .debug_str     0x00000362       0x87 nunchuk.o
+                                0x16c (size before relaxing)
+ .debug_str     0x000003e9      0x162 mu2.o
+                                0x1ee (size before relaxing)
+ .debug_str     0x0000054b       0x9c classic.o
+                                0x20b (size before relaxing)
 
 .debug_loc      0x00000000      0x7da
  *(.debug_loc)

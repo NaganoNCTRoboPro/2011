@@ -21,9 +21,9 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
   8 .debug_frame  00000330  00000000  00000000  0000593c  2**2
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_str    000005e2  00000000  00000000  00005c6c  2**0
+  9 .debug_str    000005e7  00000000  00000000  00005c6c  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_loc    000007da  00000000  00000000  0000624e  2**0
+ 10 .debug_loc    000007da  00000000  00000000  00006253  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -339,8 +339,8 @@ int main(void)
      194:	08 94       	sec
      196:	e1 1c       	adc	r14, r1
      198:	f1 1c       	adc	r15, r1
-	unsigned char DI[4] = {0x01,0x02,0x04,0x08};
-	unsigned char EI[4] = {0x10,0x20,0x40,0x80};
+	unsigned char DI[4] = {0x01,0x02,0x04,0x08}; //ID
+	unsigned char EI[4] = {0x10,0x20,0x40,0x80}; //ID
 
 	uint8_t _group,_channel;
 
@@ -453,8 +453,8 @@ int main(void)
 								   {0x2A,0x2B,0x2C,0x2D}};*/
 	unsigned char Group[4] 	= {0x01,0x02,0x03,0x04};	//GroupID List
 	unsigned char Channel[4] ={0x08,0x08,0x2E,0x2E};//Channel List
-	unsigned char DI[4] = {0x01,0x02,0x04,0x08};
-	unsigned char EI[4] = {0x10,0x20,0x40,0x80};
+	unsigned char DI[4] = {0x01,0x02,0x04,0x08}; //ID
+	unsigned char EI[4] = {0x10,0x20,0x40,0x80}; //ID
      20c:	80 e1       	ldi	r24, 0x10	; 16
      20e:	8d 87       	std	Y+13, r24	; 0x0d
      210:	80 e2       	ldi	r24, 0x20	; 32
@@ -479,7 +479,7 @@ int main(void)
 								   {0x2A,0x2B,0x2C,0x2D}};*/
 	unsigned char Group[4] 	= {0x01,0x02,0x03,0x04};	//GroupID List
 	unsigned char Channel[4] ={0x08,0x08,0x2E,0x2E};//Channel List
-	unsigned char DI[4] = {0x01,0x02,0x04,0x08};
+	unsigned char DI[4] = {0x01,0x02,0x04,0x08}; //ID
      226:	c9 86       	std	Y+9, r12	; 0x09
      228:	da 86       	std	Y+10, r13	; 0x0a
      22a:	eb 86       	std	Y+11, r14	; 0x0b
