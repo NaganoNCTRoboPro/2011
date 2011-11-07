@@ -12,22 +12,22 @@ void mDrive(Slave *motor,unsigned char in, signed char duty,unsigned char no)
 	else if(in==FREE) w_data = 0; 
 	else if(in==BRAKE) w_data = 0x7f;
 	else w_data = duty;
-	motor->write.buf[no] = w_data;
+	motor->write.buffer[no] = w_data;
 }
 
 void mAngle(Slave *motor,int angle,bool act)
 {
 	if(act){
 		angle/=6;
-		motor->write.buf[2] = 0x40|(angle&0x1f);
+		motor->write.buffer[2] = 0x40|(angle&0x1f);
 		}
-	else motor->write.buf[2] = 0x00;
+	else motor->write.buffer[2] = 0x00;
 }
 
 void aDrive(Slave *cylinder,unsigned char port,bool act)
 {
-	if(act) *(cylinder->write.buf) = port;
-	else 	*(cylinder->write.buf) = 0x00;
+	if(act) *(cylinder->write.buffer) = port;
+	else 	*(cylinder->write.buffer) = 0x00;
 }
 
 /*

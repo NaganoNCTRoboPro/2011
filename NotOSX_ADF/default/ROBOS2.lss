@@ -2959,7 +2959,7 @@ bool i2cWrite(Slave *slave)
 
 		wdt_enable(WDT_RESET_TIME);
 
-#endif
+	#endif
 		TWCR = (1<<TWINT)|(1<<TWSTA) |(1<<TWEN);
     1368:	ec eb       	ldi	r30, 0xBC	; 188
     136a:	f0 e0       	ldi	r31, 0x00	; 0
@@ -2971,11 +2971,11 @@ bool i2cWrite(Slave *slave)
     1374:	80 81       	ld	r24, Z
     1376:	88 23       	and	r24, r24
     1378:	dc f7       	brge	.-10     	; 0x1370 <i2cWrite+0x1a>
-#if WDT_RESET_IN_I2C
+	#if WDT_RESET_IN_I2C
 
 		wdt_reset();
 
-#endif
+	#endif
 		if((TWSR&0xF8)!=0x08) goto ERROR;
     137a:	e9 eb       	ldi	r30, 0xB9	; 185
     137c:	f0 e0       	ldi	r31, 0x00	; 0
@@ -3008,11 +3008,11 @@ bool i2cWrite(Slave *slave)
     13aa:	80 81       	ld	r24, Z
     13ac:	88 23       	and	r24, r24
     13ae:	dc f7       	brge	.-10     	; 0x13a6 <i2cWrite+0x50>
-#if WDT_RESET_IN_I2C
+	#if WDT_RESET_IN_I2C
 
 		wdt_reset();
 
-#endif
+	#endif
 		if((TWSR&0xF8)!=0x18) goto ERROR;
     13b0:	e9 eb       	ldi	r30, 0xB9	; 185
     13b2:	f0 e0       	ldi	r31, 0x00	; 0
@@ -3055,11 +3055,11 @@ bool i2cWrite(Slave *slave)
     13f6:	80 81       	ld	r24, Z
     13f8:	88 23       	and	r24, r24
     13fa:	dc f7       	brge	.-10     	; 0x13f2 <i2cWrite+0x9c>
-#if WDT_RESET_IN_I2C
+	#if WDT_RESET_IN_I2C
 
 		wdt_reset();
 
-#endif
+	#endif
 			if((TWSR&0xF8)!=0x28) goto ERROR;
     13fc:	e9 eb       	ldi	r30, 0xB9	; 185
     13fe:	f0 e0       	ldi	r31, 0x00	; 0
@@ -3073,7 +3073,7 @@ bool i2cWrite(Slave *slave)
     140e:	c1 f4       	brne	.+48     	; 0x1440 <i2cWrite+0xea>
 		wdt_reset();
 
-#endif
+	#endif
 		if((TWSR&0xF8)!=0x18) goto ERROR;
 
 		for(i=0;i<slave->write.size;i++){
@@ -3092,7 +3092,7 @@ bool i2cWrite(Slave *slave)
     142e:	70 f2       	brcs	.-100    	; 0x13cc <i2cWrite+0x76>
 		wdt_reset();
 
-#endif
+	#endif
 			if((TWSR&0xF8)!=0x28) goto ERROR;
 			}
 		TWCR=(1<<TWINT)|(1<<TWSTO) |(1<<TWEN);
@@ -3103,7 +3103,7 @@ bool i2cWrite(Slave *slave)
 
 		wdt_disable();
 
-#endif
+	#endif
 
 		sei();
     1438:	78 94       	sei
@@ -3119,11 +3119,11 @@ bool i2cWrite(Slave *slave)
     1446:	80 83       	st	Z, r24
 		sei();
     1448:	78 94       	sei
-#if WDT_RESET_IN_I2C
+	#if WDT_RESET_IN_I2C
 
 		wdt_disable();
 
-#endif
+	#endif
 		return false;
     144a:	1b 82       	std	Y+3, r1	; 0x03
     144c:	8b 81       	ldd	r24, Y+3	; 0x03
@@ -3159,7 +3159,7 @@ bool i2cRead(Slave *slave)
 
 		wdt_enable(WDT_RESET_TIME);
 
-#endif
+	#endif
 		while(!(TWCR&(1<<TWINT)));
     1474:	ec eb       	ldi	r30, 0xBC	; 188
     1476:	f0 e0       	ldi	r31, 0x00	; 0
@@ -3202,11 +3202,11 @@ bool i2cRead(Slave *slave)
     14b6:	80 81       	ld	r24, Z
     14b8:	88 23       	and	r24, r24
     14ba:	dc f7       	brge	.-10     	; 0x14b2 <i2cRead+0x58>
-#if WDT_RESET_IN_I2C
+	#if WDT_RESET_IN_I2C
 
 		wdt_reset();
 
-#endif
+	#endif
 		if((TWSR&0xF8)!=0x40) goto ERROR;
     14bc:	e9 eb       	ldi	r30, 0xB9	; 185
     14be:	f0 e0       	ldi	r31, 0x00	; 0
@@ -3234,11 +3234,11 @@ bool i2cRead(Slave *slave)
     14e4:	80 81       	ld	r24, Z
     14e6:	88 23       	and	r24, r24
     14e8:	dc f7       	brge	.-10     	; 0x14e0 <i2cRead+0x86>
-#if WDT_RESET_IN_I2C
+	#if WDT_RESET_IN_I2C
 
 			wdt_reset();
 
-#endif
+	#endif
 			if((TWSR&0xF8)!=0x50) goto ERROR;
     14ea:	e9 eb       	ldi	r30, 0xB9	; 185
     14ec:	f0 e0       	ldi	r31, 0x00	; 0
@@ -3268,7 +3268,7 @@ bool i2cRead(Slave *slave)
     151c:	8c 93       	st	X, r24
 		wdt_reset();
 
-#endif
+	#endif
 		if((TWSR&0xF8)!=0x40) goto ERROR;
 
 		for(i=0;i<slave->read.size-1;i++){
@@ -3287,7 +3287,7 @@ bool i2cRead(Slave *slave)
     153c:	39 07       	cpc	r19, r25
     153e:	60 f2       	brcs	.-104    	; 0x14d8 <i2cRead+0x7e>
 
-#endif
+	#endif
 			if((TWSR&0xF8)!=0x50) goto ERROR;
 			slave->read.buf[i] = TWDR;
 			}
@@ -3302,11 +3302,11 @@ bool i2cRead(Slave *slave)
     154c:	80 81       	ld	r24, Z
     154e:	88 23       	and	r24, r24
     1550:	dc f7       	brge	.-10     	; 0x1548 <i2cRead+0xee>
-#if WDT_RESET_IN_I2C
+	#if WDT_RESET_IN_I2C
 
 		wdt_reset();
 
-#endif
+	#endif
 		if((TWSR&0xF8)!=0x58) goto ERROR;
     1552:	e9 eb       	ldi	r30, 0xB9	; 185
     1554:	f0 e0       	ldi	r31, 0x00	; 0
@@ -3341,11 +3341,11 @@ bool i2cRead(Slave *slave)
     158a:	80 83       	st	Z, r24
 		sei();
     158c:	78 94       	sei
-#if WDT_RESET_IN_I2C
+	#if WDT_RESET_IN_I2C
 
 		wdt_disable();
 
-#endif
+	#endif
 		return true;
     158e:	81 e0       	ldi	r24, 0x01	; 1
     1590:	8b 83       	std	Y+3, r24	; 0x03
@@ -3358,11 +3358,11 @@ bool i2cRead(Slave *slave)
     159a:	80 83       	st	Z, r24
 		sei();
     159c:	78 94       	sei
-#if WDT_RESET_IN_I2C
+	#if WDT_RESET_IN_I2C
 
 		wdt_disable();
 
-#endif
+	#endif
 		return false;
     159e:	1b 82       	std	Y+3, r1	; 0x03
     15a0:	8b 81       	ldd	r24, Y+3	; 0x03
@@ -3387,7 +3387,7 @@ bool i2cReadWithCommand(Slave *slave, unsigned char command)
     15ba:	9a 83       	std	Y+2, r25	; 0x02
     15bc:	89 83       	std	Y+1, r24	; 0x01
     15be:	6b 83       	std	Y+3, r22	; 0x03
-//		cli();
+
 
 		TWCR = (1<<TWINT)|(1<<TWSTA) |(1<<TWEN);
     15c0:	ec eb       	ldi	r30, 0xBC	; 188
@@ -3398,7 +3398,7 @@ bool i2cReadWithCommand(Slave *slave, unsigned char command)
 
 		wdt_enable(WDT_RESET_TIME);
 
-#endif
+	#endif
 		while(!(TWCR&(1<<TWINT)));
     15c8:	ec eb       	ldi	r30, 0xBC	; 188
     15ca:	f0 e0       	ldi	r31, 0x00	; 0
@@ -3407,7 +3407,7 @@ bool i2cReadWithCommand(Slave *slave, unsigned char command)
     15d0:	dc f7       	brge	.-10     	; 0x15c8 <i2cReadWithCommand+0x1a>
 		wdt_reset();
 
-#endif
+	#endif
 //		if((TWSR&0xF8)!=0x08) goto ERROR;
 
 		TWDR = (slave->addr<<1);
@@ -3429,11 +3429,11 @@ bool i2cReadWithCommand(Slave *slave, unsigned char command)
     15ec:	80 81       	ld	r24, Z
     15ee:	88 23       	and	r24, r24
     15f0:	dc f7       	brge	.-10     	; 0x15e8 <i2cReadWithCommand+0x3a>
-#if WDT_RESET_IN_I2C
+	#if WDT_RESET_IN_I2C
 
 		wdt_reset();
 
-#endif
+	#endif
 		if((TWSR&0xF8)!=0x40) goto ERROR;
     15f2:	e9 eb       	ldi	r30, 0xB9	; 185
     15f4:	f0 e0       	ldi	r31, 0x00	; 0
@@ -3463,11 +3463,11 @@ bool i2cReadWithCommand(Slave *slave, unsigned char command)
     161c:	80 81       	ld	r24, Z
     161e:	88 23       	and	r24, r24
     1620:	dc f7       	brge	.-10     	; 0x1618 <i2cReadWithCommand+0x6a>
-#if WDT_RESET_IN_I2C
+	#if WDT_RESET_IN_I2C
 
 		wdt_reset();
 
-#endif
+	#endif
 		if((TWSR&0xF8)!=0x28) goto ERROR;
     1622:	e9 eb       	ldi	r30, 0xB9	; 185
     1624:	f0 e0       	ldi	r31, 0x00	; 0
@@ -3492,11 +3492,11 @@ bool i2cReadWithCommand(Slave *slave, unsigned char command)
     1644:	80 81       	ld	r24, Z
     1646:	88 23       	and	r24, r24
     1648:	dc f7       	brge	.-10     	; 0x1640 <i2cReadWithCommand+0x92>
-#if WDT_RESET_IN_I2C
+	#if WDT_RESET_IN_I2C
 
 		wdt_reset();
 
-#endif
+	#endif
 		if((TWSR&0xF8)!=0x10) goto ERROR;
     164a:	e9 eb       	ldi	r30, 0xB9	; 185
     164c:	f0 e0       	ldi	r31, 0x00	; 0
@@ -3535,7 +3535,7 @@ bool i2cReadWithCommand(Slave *slave, unsigned char command)
     1686:	dc f7       	brge	.-10     	; 0x167e <i2cReadWithCommand+0xd0>
 		wdt_reset();
 
-#endif
+	#endif
 //		if((TWSR&0xF8)!=0x40) goto ERROR;
 
 		for(i=0;i<slave->read.size-1;i++){
@@ -3552,11 +3552,11 @@ bool i2cReadWithCommand(Slave *slave, unsigned char command)
     169a:	80 81       	ld	r24, Z
     169c:	88 23       	and	r24, r24
     169e:	dc f7       	brge	.-10     	; 0x1696 <i2cReadWithCommand+0xe8>
-#if WDT_RESET_IN_I2C
+	#if WDT_RESET_IN_I2C
 
 			wdt_reset();
 
-#endif
+	#endif
 			if((TWSR&0xF8)!=0x50) goto ERROR;
     16a0:	e9 eb       	ldi	r30, 0xB9	; 185
     16a2:	f0 e0       	ldi	r31, 0x00	; 0
@@ -3586,7 +3586,7 @@ bool i2cReadWithCommand(Slave *slave, unsigned char command)
     16d2:	8c 93       	st	X, r24
 		wdt_reset();
 
-#endif
+	#endif
 //		if((TWSR&0xF8)!=0x40) goto ERROR;
 
 		for(i=0;i<slave->read.size-1;i++){
@@ -3605,7 +3605,7 @@ bool i2cReadWithCommand(Slave *slave, unsigned char command)
     16f2:	39 07       	cpc	r19, r25
     16f4:	60 f2       	brcs	.-104    	; 0x168e <i2cReadWithCommand+0xe0>
 
-#endif
+	#endif
 			if((TWSR&0xF8)!=0x50) goto ERROR;
 			slave->read.buf[i] = TWDR;
 			}
@@ -3620,11 +3620,11 @@ bool i2cReadWithCommand(Slave *slave, unsigned char command)
     1702:	80 81       	ld	r24, Z
     1704:	88 23       	and	r24, r24
     1706:	dc f7       	brge	.-10     	; 0x16fe <i2cReadWithCommand+0x150>
-#if WDT_RESET_IN_I2C
+	#if WDT_RESET_IN_I2C
 
 		wdt_reset();
 
-#endif
+	#endif
 		if((TWSR&0xF8)!=0x58) goto ERROR;
     1708:	e9 eb       	ldi	r30, 0xB9	; 185
     170a:	f0 e0       	ldi	r31, 0x00	; 0
@@ -3657,11 +3657,11 @@ bool i2cReadWithCommand(Slave *slave, unsigned char command)
     173c:	f0 e0       	ldi	r31, 0x00	; 0
     173e:	84 e9       	ldi	r24, 0x94	; 148
     1740:	80 83       	st	Z, r24
-#if WDT_RESET_IN_I2C
+	#if WDT_RESET_IN_I2C
 
 		wdt_disable();
 
-#endif
+	#endif
 		return true;
     1742:	81 e0       	ldi	r24, 0x01	; 1
     1744:	8c 83       	std	Y+4, r24	; 0x04
@@ -3672,11 +3672,11 @@ bool i2cReadWithCommand(Slave *slave, unsigned char command)
     174a:	f0 e0       	ldi	r31, 0x00	; 0
     174c:	84 e9       	ldi	r24, 0x94	; 148
     174e:	80 83       	st	Z, r24
-#if WDT_RESET_IN_I2C
+	#if WDT_RESET_IN_I2C
 
 		wdt_disable();
 
-#endif
+	#endif
 		return false;
     1750:	1c 82       	std	Y+4, r1	; 0x04
     1752:	8c 81       	ldd	r24, Y+4	; 0x04

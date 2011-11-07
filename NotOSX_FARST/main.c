@@ -12,10 +12,19 @@
 #include <beep.h>
 #include <emergency.h>
 
-static uint8_t buf[36];
-
 
 #define SUPPLY_WATCHING (1)
+
+void initSlaveSupply(void)
+{
+	DDRC |= 0x04;
+	PORTC = 0x04;
+}
+void supplySalve(void)
+{
+	
+	PORTC &= 0xFB;
+} 
 
 int main(void)
 {
@@ -29,40 +38,40 @@ int main(void)
 	SwitchInit();
 	BeepInit();
 	initCtrlData();
-	DDRC |= 0x04;
-	PORTC = 0x04;
+	initSlaveSupply();
 	initI2CMaster(100);
+
+	setMU2PutFunc(uart0Put);
+	setMU2GetFunc(uart0Get);
 
 	wdt_reset();
 	wdt_enable(WDTO_500MS);
 	
-	uart_init(1,UART_TE,BR_115200);
-	uart_setbuffer(0,buf,36);
 	wait_ms(100);
-	uart_init(0,UART_RE|UART_TE,BR_19200);
-	mu2_command("GI","01");
-	mu2_command("CH","08");
-	mu2_command("EI","01");
-	mu2_command("DI","10");
-	mu2_command("BR","19");
-	uart_init(0,UART_RE|UART_RXCIE,BR_19200);
+	initUART(0,
+			 StopBitIs1Bit|NonParity,
+			 ReceiveEnable|TransmitEnable,
+			 19200);
+	mu2Command("GI","01");
+	mu2Command("CH","08");
+	mu2Command("EI","01");
+	mu2Command("DI","10");
+	mu2Command("BR","48");
+	initUART(0,
+			 StopBitIs1Bit|NonParity,
+			 ReceiveEnable|TransmitEnable|ReceiveCompleteInteruptEnable,
+			 4800);
 	LED(0,false);LED(1,false);LED(2,false);
 	sei();
-	wait_ms(100);
-	PORTC &= 0xFB;
+	wait_ms(1500);
+	supplySalve();
 	wait_ms(25);
 
-	TCCR1A = 0;
-	TCCR1B = 5;
-	TIMSK1 = 1;
-	TCNT1 = 0;
 
 	while(1){	
 		controller = Toggle_RC_Rx_Buffer();
 		
-		LED(2,controller->detail.Button.A);
-/********‚±‚êˆÈ~‚ğ‘‚«Š·‚¦‚é‚±‚Æ‚Í„§‚³‚ê‚È‚¢‚æ!!!********/
-		wait_ms(25);
+		wait_ms(15);
 	}
 	return 0;
 }

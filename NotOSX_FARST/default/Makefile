@@ -37,10 +37,10 @@ HEX_EEPROM_FLAGS += --change-section-lma .eeprom=0 --no-change-warnings
 
 
 ## Include Directories
-INCLUDES = -I"C:\Users\iwate\Desktop\NotOSX_FARST\." -I"C:\Users\iwate\Desktop\NotOSX_FARST\APPLICATION" -I"C:\Users\iwate\Desktop\NotOSX_FARST\PERIPHERAL" -I"C:\Users\iwate\Desktop\NotOSX_FARST\PERIPHERAL\LED" -I"C:\Users\iwate\Desktop\NotOSX_FARST\PERIPHERAL\MU2" -I"C:\Users\iwate\Desktop\NotOSX_FARST\PERIPHERAL\REMOTE_CONTROL" -I"C:\Users\iwate\Desktop\NotOSX_FARST\ROBOS\COMMON" -I"C:\Users\iwate\Desktop\NotOSX_FARST\ROBOS\I2C" -I"C:\Users\iwate\Desktop\NotOSX_FARST\ROBOS\KERNEL" -I"C:\Users\iwate\Desktop\NotOSX_FARST\ROBOS\SERIAL" -I"C:\Users\iwate\Desktop\NotOSX_FARST\PERIPHERAL\ACTUATER" -I"C:\Users\iwate\Desktop\NotOSX_FARST\PERIPHERAL\SWITCH" -I"C:\Users\iwate\Desktop\NotOSX_FARST\PERIPHERAL\BEEP" -I"C:\Users\iwate\Desktop\NotOSX_FARST\PERIPHERAL\EMERGENCY" 
+INCLUDES = -I"C:\Users\iwate\Desktop\github\2011\NotOSX_FARST\." -I"C:\Users\iwate\Desktop\github\2011\NotOSX_FARST\APPLICATION" -I"C:\Users\iwate\Desktop\github\2011\NotOSX_FARST\PERIPHERAL" -I"C:\Users\iwate\Desktop\github\2011\NotOSX_FARST\PERIPHERAL\LED" -I"C:\Users\iwate\Desktop\github\2011\NotOSX_FARST\PERIPHERAL\MU2" -I"C:\Users\iwate\Desktop\github\2011\NotOSX_FARST\PERIPHERAL\REMOTE_CONTROL" -I"C:\Users\iwate\Desktop\github\2011\NotOSX_FARST\ROBOS\COMMON" -I"C:\Users\iwate\Desktop\github\2011\NotOSX_FARST\ROBOS\I2C" -I"C:\Users\iwate\Desktop\github\2011\NotOSX_FARST\ROBOS\KERNEL" -I"C:\Users\iwate\Desktop\github\2011\NotOSX_FARST\ROBOS\SERIAL" -I"C:\Users\iwate\Desktop\github\2011\NotOSX_FARST\PERIPHERAL\ACTUATER" -I"C:\Users\iwate\Desktop\github\2011\NotOSX_FARST\PERIPHERAL\SWITCH" -I"C:\Users\iwate\Desktop\github\2011\NotOSX_FARST\PERIPHERAL\BEEP" -I"C:\Users\iwate\Desktop\github\2011\NotOSX_FARST\PERIPHERAL\EMERGENCY" 
 
 ## Objects that must be built in order to link
-OBJECTS = main.o remote_control_rx.o mu2.o uart.o ringbuffer.o i2c.o led.o wait.o actuater.o switch.o beep.o emergency.o 
+OBJECTS = main.o remote_control_rx.o mu2.o uart.o i2c.o led.o wait.o actuater.o switch.o beep.o emergency.o 
 
 ## Objects explicitly added by the user
 LINKONLYOBJECTS = 
@@ -59,9 +59,6 @@ mu2.o: ../PERIPHERAL/MU2/mu2.c
 	$(CC) $(INCLUDES) $(CFLAGS) -c  $<
 
 uart.o: ../ROBOS/SERIAL/uart.c
-	$(CC) $(INCLUDES) $(CFLAGS) -c  $<
-
-ringbuffer.o: ../ROBOS/SERIAL/ringbuffer.c
 	$(CC) $(INCLUDES) $(CFLAGS) -c  $<
 
 i2c.o: ../ROBOS/I2C/i2c.c

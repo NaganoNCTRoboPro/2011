@@ -18,10 +18,10 @@
 #include <avr/io.h>
 #include <stdbool.h>
 
-#define SHOW_RC_RX_DATA		(0)
 
-extern void RC_Rx_Init(void);
-extern union controller_data *Toggle_RC_Rx_Buffer(void);
-extern void initCtrlData(void);
+void RC_Rx_Init(void);
+union controller_data *Toggle_RC_Rx_Buffer(void);
+void initCtrlData(void);
+void initCommunicateIntervalCounter(void);
 
 #endif

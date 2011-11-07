@@ -1,212 +1,188 @@
-#include <avr/io.h>
-#include <avr/interrupt.h>
-#include <avr/wdt.h>
-#include <common.h>
-#include "ringbuffer.h"
-#include "uart.h"
-#include <led.h>
-#include <wait.h>
-
-RingBuffer __uartbuf[UART_NUM];
-static char _uart_interrupt_status;
-
-#define start_uart0tx_interrupt()	sbi(UCSR0B,UDRIE0)
-#define stop_uart0tx_interrupt()	cbi(UCSR0B,UDRIE0)
-#define start_uart1tx_interrupt()	sbi(UCSR1B,UDRIE1)
-#define stop_uart1tx_interrupt()	cbi(UCSR1B,UDRIE1)
-
-int uart_init(int uart_no,unsigned char option,unsigned int baud)
+ #include <avr/io.h>
+ #include <avr/interrupt.h>
+ #include "uart.h"
+ #include "uart_private.h"
+ 
+/**
+ * UARTレジスタの初期化 （8bit パリティなし）
+ * @param {no:UARTNumber} UARTの番号
+ * @param {mode:uint8_t} UARTのモード設定値（ストップビット，パリティビット）
+ * @param {act:uint8_t} UARTの動作の設定値（送信，受信，割り込みなど）
+ * @param {speed:uint32} UARTの通信速度
+ */
+void initUART(enum UARTNumber no, uint8_t mode, uint8_t act,uint32_t speed )
 {
-	int i;
-	switch( uart_no ){
-		case 0:
-			UCSR0B = 0x00;
-			UCSR0C |= 0x06;
-			for(i=0; i<5000; i++);		// Wait
-			UCSR0B = option;					
-			UBRR0H = (unsigned char)(baud>>8);
-	 		UBRR0L = (unsigned char)baud;		
-			UCSR0A;						// DummyRead
-			UCSR0A &= 0xe3;				// Clear Error Flag
-			UDR0 = 0;
-			break;
-		case 1:
-			UBRR1H = (unsigned char)(baud>>8);
-	 		UBRR1L = (unsigned char)baud;	 
-			for(i=0; i<5000; i++);		// Wait
-			UCSR1B |= option;
-			UCSR1A;						// DummyRead
-			UCSR1A &= 0xe3;				// Clear Error Flag
-			UDR1 = 0;
-			break;
-		default:
-			return -1;
-	}
-	return 0;
+	uint32_t baud = ( ( ( FREQ * 1000000 ) >> 4 ) / speed ) - 1;
+	
+	switch ( no )
+		{
+			case UART0:
+				UCSR0C = mode | OneFrameIs8Bit;
+				UCSR0B = act;
+				UBRR0H = (uint8_t)(baud>>8);
+		 		UBRR0L = (uint8_t)baud;
+				break;
+			case UART1:
+				UCSR1C = mode | OneFrameIs8Bit;
+				UCSR1B = act;
+				UBRR1H = (uint8_t)(baud>>8);
+		 		UBRR1L = (uint8_t)baud;
+				break;
+			default:
+				break;
+		}
 }
-
-void uart_setbuffer(int uart_no, unsigned char *buf, int size)
+ 
+/**
+ * 1Byte送信する
+ * @param {value:uint8_t} 送信するデータ
+ */
+void uart0Put(uint8_t value)
 {
-	if( uart_no<0 || uart_no>=UART_NUM )	return;
-	RingInit(&(__uartbuf[uart_no]), buf, size);
+	while ( UART0_TRANSMITTING );
+	UDR0 = value;
 }
-
-unsigned char uart0_getchar(void)
+void uart1Put(uint8_t value)
 {
-	while( !bit_is_set(UCSR0A,RXC0) );
-	cbi(UCSR0A,RXC0);
+	while ( UART1_TRANSMITTING );
+	UDR1 = value;
+} 
+ 
+/**
+ * 1Byte受信する
+ * @return {uint8_t} 受信したデータ
+ */
+uint8_t uart0Get(void)
+{
+	while ( UART0_RECEIVING );
 	return UDR0;
 }
-
-int uart0_putchar(char c)
+uint8_t uart1Get(void)
 {
-/*
-#if (UART0_LINE_FEED == CR_CODE | LF_CODE)		// CRLF
-	if( c == '\n' ){
-		while( !bit_is_set(UCSR0A,UDRE0) );
-		UDR0 = '\r';
-		cbi(UCSR0A,UDRE0);
-	}
-#elif (UART0_LINE_FEED == CR_CODE)				// CR
-	if( c == '\n' )		c = '\r';
-#elif (UART0_LINE_FEED == LF_CODE)
-#else
-#endif*/
-	while( !bit_is_set(UCSR0A,UDRE0) );
-	UDR0 = c;
-	cbi(UCSR0A,UDRE0);
-	
-	return 0;
+	while ( UART1_RECEIVING );
+	return UDR1;
 }
 
-int uart1_putchar(char c)
+/**
+ * 複数Byte送信する
+ * @param {values:uint8_t*} 送るデータ群
+ * @param {size:uint8_t} 送るデータサイズ
+ */
+void uart0Puts(uint8_t* values, uint8_t size)
 {
-#if (UART1_LINE_FEED == CR_CODE | LF_CODE)		// CRLF
-	if( c == '\n' ){
-		while( !bit_is_set(UCSR1A,UDRE1) );
-		UDR1 = '\r';
-		cbi(UCSR1A,UDRE1);
-	}
-#elif (UART1_LINE_FEED == CR_CODE)				// CR
-	if( c == '\n' )		c = '\r';
-#elif (UART1_LINE_FEED == LF_CODE)
-#endif
-	while( !bit_is_set(UCSR1A,UDRE1) );
-	UDR1 = c;
-	cbi(UCSR1A,UDRE1);
-
-	return 0;
-}
-
-int uart0_buf_putchar(char c)
-{
-	int ret;
-	
-	ret = 0;
-	_uart_interrupt_status = SREG;
-	cli();
-	
-#if (UART0_LINE_FEED == CR_CODE | LF_CODE)		// CRLF
-	if( c == '\n' ){
-		if( !RingPut(&__uartbuf[0], '\r') ){
-			ret = -1;	// Buffer Full
-			goto _exit_uart0_buf_putchar;	
+	for ( ; size != 0; size-- )
+		{
+			uart0Put(*values++);
 		}
-	}
-#elif (UART0_LINE_FEED == CR_CODE)				// CR
-	if( c == '\n' )		c = '\r';
-#elif (UART0_LINE_FEED == LF_CODE)
-#endif
-
-	if( !RingPut(&__uartbuf[0], c) ){
-		ret = -1;	// Buffer Full
-	}
-	start_uart0tx_interrupt();
-	
-#if (UART0_LINE_FEED == CR_CODE | LF_CODE)		// CRLF
-_exit_uart0_buf_putchar:
-#endif
-	SREG = _uart_interrupt_status;
-
-	return ret;
 }
 
-int uart1_buf_putchar(char c)
+void uart1Puts(uint8_t* values, uint8_t size)
 {
-	int ret;
-	
-	ret = 0;
-	_uart_interrupt_status = SREG;
-	cli();
-	
-#if (UART1_LINE_FEED == CR_CODE | LF_CODE)		// CRLF
-	if( c == '\n' ){
-		if( !RingPut(&__uartbuf[1], '\r') ){
-			ret = -1;	// Buffer Full
-			goto _exit_uart1_buf_putchar;	
+	for ( ; size != 0; size-- )
+		{
+			uart1Put(*values++);
 		}
-	}
-#elif (UART1_LINE_FEED == CR_CODE)				// CR
-	if( c == '\n' )		c = '\r';
-#elif (UART1_LINE_FEED == LF_CODE)
-#endif
-	if( !RingPut(&__uartbuf[1], c) ){
-		ret = -1;	// Buffer Full
-	}
-	start_uart1tx_interrupt();
+}
+/**
+ * 複数Byte受信する
+ */
 
-	
-#if (UART1_LINE_FEED == CR_CODE | LF_CODE)		// CRLF
-_exit_uart1_buf_putchar:
-#endif
-	SREG = _uart_interrupt_status;
 
-	return ret;
+/**
+ * 送信完了割り込み動作委譲用関数ポインタ
+ * @type {void(*)(void)}
+ */
+ static volatile void (*transComplete0)(void);
+ static volatile void (*transComplete1)(void);
+
+/**
+ * 送信完了割り込み動作委譲用関数ポインタセッター関数
+ * @param {no:UARTNumber} UARTの番号
+ * @param {f:void(*)(void)} 関数ポインタ
+ */
+void setTransmitCompleteInterruptFunc(enum UARTNumber no, volatile void (*f)(void))
+{
+	if ( no == UART0 )
+		transComplete0 = f;
+	else if ( no == UART1 )
+		transComplete1 = f;
 }
 
-
-ISR(USART0_UDRE_vect)
+/**
+ * 送信データレジスタ空き割り込み動作委譲用関数ポインタ
+ * @type {void(*)(void)}
+ */
+static volatile void (*dataRegisterEmpty0)(void);
+static volatile void (*dataRegisterEmpty1)(void);
+/**
+ * 送信データレジスタ空き割り込み動作委譲用関数ポインタセッター関数
+ * @param {no:UARTNumber} UARTの番号
+ * @param {f:void(*)(void)} 関数ポインタ
+ */
+void setDataRegisterEmptyFunc(enum UARTNumber no, volatile void (*f)(void))
 {
-	unsigned char c;
-
-	if( RingGet(&__uartbuf[0], &c) ){
-		UDR0 = c;
-		cbi(UCSR0A,UDRE0);			// UDREクリア
-	}else{
-		stop_uart0tx_interrupt();
-		cbi(UCSR0A,UDRE0);
-	}
+	if ( no == UART0 )
+		dataRegisterEmpty0 = f;
+	else if ( no == UART1 )
+		dataRegisterEmpty1 = f;
 }
 
-ISR(USART1_UDRE_vect)
-{
-	unsigned char c;
-	
-	if( RingGet(&__uartbuf[1], &c) ){
-		UDR1 = c;
-		cbi(UCSR1A,UDRE1);			// UDREクリア
-	}else{
-		stop_uart1tx_interrupt();
-		cbi(UCSR1A,UDRE1);
-	}
-}
-/*
-ISR(USART0_RX_vect)
-{
-	uint8_t value = UDR0;
-	if( __uartbuf[0].empty || __uartbuf[0].rp != __uartbuf[0].wp ){
-		
-		__uartbuf[0].buf[__uartbuf[0].wp] = value;
-		__uartbuf[0].wp++;
-		if( __uartbuf[0].wp == __uartbuf[0].size ) __uartbuf[0].wp = 0;
+/**
+ * 受信完了割り込み動作委譲用関数ポインタ
+ * @type {void(*)(void)}
+ */
+ static volatile void (*receiveComplete0)(void);
+ static volatile void (*receiveComplete1)(void);
 
-		__uartbuf[0].empty = FALSE;
+/**
+ * 受信完了割り込み動作委譲用関数ポインタセッター関数
+ * @param {no:UARTNumber} UARTの番号
+ * @param {f:void(*)(void)} 関数ポインタ
+ */
+ void setReceiveCompleteInterruptFunc(enum UARTNumber no, volatile void (*f)(void))
+ {
+ 	if ( no == UART0 )
+		receiveComplete0 = f;
+	else if ( no == UART1 )
+		receiveComplete1 = f;
+ }
 
-		LED(0,true);
-	}
-}
-*/
-ISR(USART1_RX_vect)
+/**
+ * 送信完了割り込み
+ */
+ISR (USART0_TX_vect)
 {
-	RingPut(&(__uartbuf[1]), UDR1);
+	transComplete0();
+}
+
+ISR (USART1_TX_vect)
+{
+	transComplete1();
+}
+ 
+/**
+ * 送信データレジスタ空き割り込み
+ */
+ISR (USART0_UDRE_vect)
+{
+	dataRegisterEmpty0();
+}
+
+ISR (USART1_UDRE_vect)
+{
+	dataRegisterEmpty1();
+}
+
+/**
+ * 受信完了割り込み
+ */
+ /*
+ISR (USART0_RX_vect)
+{
+	receiveComplete0();
+}*/
+
+ISR (USART1_RX_vect)
+{
+	receiveComplete1();
 }

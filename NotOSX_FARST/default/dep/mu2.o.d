@@ -9,10 +9,8 @@ mu2.o: ../PERIPHERAL/MU2/mu2.c \
   c:/winavr-20100110/lib/gcc/../../avr/include/avr/version.h \
   c:/winavr-20100110/lib/gcc/../../avr/include/avr/fuse.h \
   c:/winavr-20100110/lib/gcc/../../avr/include/avr/lock.h \
-  ../PERIPHERAL/MU2/mu2.h \
-  C:\Users\iwate\Desktop\NotOSX_BDF\ROBOS\SERIAL/uart.h \
-  C:\Users\iwate\Desktop\NotOSX_BDF\ROBOS\COMMON/common.h \
-  C:\Users\iwate\Desktop\NotOSX_BDF\ROBOS\SERIAL/ringbuffer.h
+  c:\winavr-20100110\bin\../lib/gcc/avr/4.3.3/include/stdbool.h \
+  ../PERIPHERAL/MU2/mu2.h
 
 c:/winavr-20100110/lib/gcc/../../avr/include/avr/io.h:
 
@@ -34,10 +32,6 @@ c:/winavr-20100110/lib/gcc/../../avr/include/avr/fuse.h:
 
 c:/winavr-20100110/lib/gcc/../../avr/include/avr/lock.h:
 
+c:\winavr-20100110\bin\../lib/gcc/avr/4.3.3/include/stdbool.h:
+
 ../PERIPHERAL/MU2/mu2.h:
-
-C:\Users\iwate\Desktop\NotOSX_BDF\ROBOS\SERIAL/uart.h:
-
-C:\Users\iwate\Desktop\NotOSX_BDF\ROBOS\COMMON/common.h:
-
-C:\Users\iwate\Desktop\NotOSX_BDF\ROBOS\SERIAL/ringbuffer.h:

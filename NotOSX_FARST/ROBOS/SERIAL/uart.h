@@ -1,51 +1,37 @@
-#ifndef __SCI_H__
-#define __SCI_H__
+#ifndef UART_H
+#define UART_H
 
-#include <common.h>
-#include <ringbuffer.h>
+#define FREQ 8 //(MHz)
 
-// UART 設定用マクロ
-#define	UART_TXCIE		0x40	// トランスミットエンドインタラプトイネーブル
-#define UART_UDRE		0x20	// トランスミットインタラプトイネーブル
-#define UART_RXCIE		0x80	// レシーブインタラプトイネーブル
+enum UARTNumber {
+	UART0,
+	UART1
+};
+enum UARTMode {
+	StopBitIs1Bit = 0x00,
+	StopBitIs2Bit = 0x08,
+	NonParity = 0x00,
+	EvenParity = 0x20,
+	OddParity = 0x30
+};
 
-#define	UART_RE			0x10	// 受信許可
-#define UART_TE			0x08	// 送信許可
+enum UARTAction {
+	ReceiveCompleteInteruptEnable = 0x80,
+	TransmitCompleteInteruptEnable = 0x40,
+	DataRegisterEmptyInteruptEnable = 0x20,
+	ReceiveEnable = 0x10,
+	TransmitEnable = 0x08
+};
 
-//baud rate(20MHz)
-#define BR_1200	1041
-#define BR_2400  520
-#define BR_4800  259
-#define BR_9600	 129
-#define BR_14400  86
-#define BR_19200  64
-#define BR_28800  42
-#define BR_38400  32
-#define BR_57600  21
-#define BR_76800  15
-#define BR_115200 10
-#define BR_230400  4
-#define BR_250000  4
-#define BR_500000  1
-#define BR_1000000 0	
+void initUART(enum UARTNumber no, uint8_t mode, uint8_t act,uint32_t speed );
+void uart0Put(uint8_t value);
+void uart1Put(uint8_t value);
+uint8_t uart0Get(void);
+uint8_t uart1Get(void);
+void uart0Puts(uint8_t* values, uint8_t size);
+void uart1Puts(uint8_t* values, uint8_t size);
+void setTransmitCompleteInterruptFunc(enum UARTNumber no, volatile void (*f)(void));
+void setDataRegisterEmptyFunc(enum UARTNumber no, volatile void (*f)(void));
+ void setReceiveCompleteInterruptFunc(enum UARTNumber no, volatile void (*f)(void));
 
-extern int uart_init(int uart_no, unsigned char option, unsigned int baud);
-
-extern void uart_setbuffer(int uart_no, unsigned char *buf, int size);
-extern int uart0_putchar(char c);
-unsigned char uart0_getchar(void);
-extern int uart1_putchar(char c);
-extern int uart0_buf_putchar(char c);
-extern int uart1_buf_putchar(char c);
-//extern void int_uart0_tx(void) __attribute__ ((interrupt_handler));
-//extern void int_uart1_tx(void) __attribute__ ((interrupt_handler));
-
-#define LF_CODE		(1)
-#define CR_CODE		(2)
-
-#define UART0_LINE_FEED	(0)
-#define UART1_LINE_FEED	(CR_CODE)
-
-extern RingBuffer __uartbuf[UART_NUM];
-
-#endif
+#endif //UART_H

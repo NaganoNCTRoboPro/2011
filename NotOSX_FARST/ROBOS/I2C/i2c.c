@@ -1,287 +1,289 @@
-/*
- * i2c.c
- *
- *  Created on: 2011/7/25
- *      Author: iwate
- */
-
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <stdbool.h>
-#include <led.h>
-#include <beep.h>
-#include <wait.h>
-#include "i2c.h"
-
-#if WDT_RESET_IN_I2C
-	#include <avr/wdt.h>
-#endif
+#include "i2c.h"
+#include "i2c_private.h"
 
 #if MASTER_COMPILE
-	volatile static unsigned char i;
-#endif
 
-#if SLAVE_COMPILE
-	static Slave* own;
-	volatile static uint8_t count = 0;
-	volatile bool emergency = false;
-	volatile bool i2cComFlag = false;
-#endif
-
-#if MASTER_COMPILE
-void initI2CMaster(unsigned char speed)
-    {
-		TWBR = (((CLOCK_FREQ*1000)/speed)-16)/2;
+/**
+ * TWIをマスターとして初期化する
+ * @example
+ *     initI2CMaster(100); //100kbpsでマスター動作に初期化
+ *
+ * @param {speed:uint16_t} I2Cのバススピード
+ */
+void initI2CMaster(uint16_t speed) 
+{
+	// ボーレートを設定し，TWI動作を許可する
+		TWBR = ( ( ( FREQ * 1000 ) / speed ) - 16 ) / 2;
 		TWSR = 0;
-		TWCR = I2CEN;
-    }
-#endif
+		TWCR = EnableI2C;
+}
 
-#if SLAVE_COMPILE
-void initI2CSlave(Slave *_own)
-	{
-		own = _own;
-		TWAR = (own->addr)>>=1;
-		TWAR |= 1;
-		TWCR = 0x45;
-	#if WDT_RESET_IN_I2C
-		wdt_reset();
-		wdt_enable(WDT_RESET_TIME);
-	#endif
-	}
-#endif
-
-#if MASTER_COMPILE
-bool i2cWrite(Slave *slave)
-    {
-//			cli();
-
-#if WDT_RESET_IN_I2C
-		wdt_reset();
-		wdt_enable(WDT_RESET_TIME);
-#endif
-		TWCR = (1<<TWINT)|(1<<TWSTA) |(1<<TWEN);
-		while(!(TWCR&(1<<TWINT)));
-#if WDT_RESET_IN_I2C
-		wdt_reset();
-#endif
-		if((TWSR&0xF8)!=0x08) goto ERROR;
-
-		TWDR = (slave->addr<<1);
-		TWCR = (1<<TWINT)|(1<<TWEN);
-		while(!(TWCR&(1<<TWINT)));
-#if WDT_RESET_IN_I2C
-		wdt_reset();
-#endif
-		if((TWSR&0xF8)!=0x18) goto ERROR;
-
-		for(i=0;i<slave->write.size;i++){
-			TWDR=slave->write.buf[i];
-			TWCR=(1<<TWINT)|(1<<TWEN);
-			while(!(TWCR&(1<<TWINT)));
-#if WDT_RESET_IN_I2C
-		wdt_reset();
-#endif
-			if((TWSR&0xF8)!=0x28) goto ERROR;
-			}
-		TWCR=(1<<TWINT)|(1<<TWSTO) |(1<<TWEN);
-#if WDT_RESET_IN_I2C
-		wdt_disable();
-#endif
-//		sei();
-		return true;
-	ERROR:
-		TWCR=(1<<TWINT)|(1<<TWSTO) |(1<<TWEN);
-//		sei();
-#if WDT_RESET_IN_I2C
-		wdt_disable();
-#endif
-		return false;
-    }
-
-bool i2cRead(Slave *slave)
-    {
-//		cli();
-
-		TWCR = (1<<TWINT)|(1<<TWSTA) |(1<<TWEN);
-#if WDT_RESET_IN_I2C
-		wdt_reset();
-		wdt_enable(WDT_RESET_TIME);
-#endif
-		while(!(TWCR&(1<<TWINT)));
-		if((TWSR&0xF8)!=0x08) goto ERROR;
-
-		TWDR = (slave->addr<<1)|0x01;
-		TWCR = (1<<TWINT)|(1<<TWEN);
-		while(!(TWCR&(1<<TWINT)));
-#if WDT_RESET_IN_I2C
-		wdt_reset();
-#endif
-		if((TWSR&0xF8)!=0x40) goto ERROR;
-
-		for(i=0;i<slave->read.size-1;i++){
-			TWCR = (1<<TWINT)|(1<<TWEA)|(1<<TWEN);
-			while(!(TWCR&(1<<TWINT)));
-#if WDT_RESET_IN_I2C
-			wdt_reset();
-#endif
-			if((TWSR&0xF8)!=0x50) goto ERROR;
-			slave->read.buf[i] = TWDR;
-			}
-		TWCR = (1<<TWINT)|(1<<TWEN);
-		while(!(TWCR&(1<<TWINT)));
-#if WDT_RESET_IN_I2C
-		wdt_reset();
-#endif
-		if((TWSR&0xF8)!=0x58) goto ERROR;
-		slave->read.buf[i] = TWDR;
-
-		TWCR=(1<<TWINT)|(1<<TWSTO) |(1<<TWEN);
-//		sei();
-#if WDT_RESET_IN_I2C
-		wdt_disable();
-#endif
-		return true;
-	ERROR:
-		TWCR=(1<<TWINT)|(1<<TWSTO) |(1<<TWEN);
-//		sei();
-#if WDT_RESET_IN_I2C
-		wdt_disable();
-#endif
-		return false;
-    }
-
-bool i2cReadWithCommand(Slave *slave, unsigned char command)
-    {
-//		cli();
-
-		TWCR = (1<<TWINT)|(1<<TWSTA) |(1<<TWEN);
-#if WDT_RESET_IN_I2C
-		wdt_reset();
-		wdt_enable(WDT_RESET_TIME);
-#endif
-		while(!(TWCR&(1<<TWINT)));
-#if WDT_RESET_IN_I2C
-		wdt_reset();
-#endif
-//		if((TWSR&0xF8)!=0x08) goto ERROR;
-
-		TWDR = (slave->addr<<1);
-		TWCR = (1<<TWINT)|(1<<TWEN);
-		while(!(TWCR&(1<<TWINT)));
-#if WDT_RESET_IN_I2C
-		wdt_reset();
-#endif
-		if((TWSR&0xF8)!=0x40) goto ERROR;
-
-		TWDR=command;
-		TWCR=(1<<TWINT)|(1<<TWEN);
-		while(!(TWCR&(1<<TWINT)));
-#if WDT_RESET_IN_I2C
-		wdt_reset();
-#endif
-		if((TWSR&0xF8)!=0x28) goto ERROR;
-
-		TWCR = (1<<TWINT)|(1<<TWSTA) |(1<<TWEN);
-		while(!(TWCR&(1<<TWINT)));
-#if WDT_RESET_IN_I2C
-		wdt_reset();
-#endif
-		if((TWSR&0xF8)!=0x10) goto ERROR;
-
-		TWDR = (slave->addr<<1)|0x01;
-		TWCR = (1<<TWINT)|(1<<TWEN);
-		while(!(TWCR&(1<<TWINT)));
-#if WDT_RESET_IN_I2C
-		wdt_reset();
-#endif
-//		if((TWSR&0xF8)!=0x40) goto ERROR;
-
-		for(i=0;i<slave->read.size-1;i++){
-			TWCR = (1<<TWINT)|(1<<TWEA)|(1<<TWEN);
-			while(!(TWCR&(1<<TWINT)));
-#if WDT_RESET_IN_I2C
-			wdt_reset();
-#endif
-			if((TWSR&0xF8)!=0x50) goto ERROR;
-			slave->read.buf[i] = TWDR;
-			}
-		TWCR = (1<<TWINT)|(1<<TWEN);
-		while(!(TWCR&(1<<TWINT)));
-#if WDT_RESET_IN_I2C
-		wdt_reset();
-#endif
-		if((TWSR&0xF8)!=0x58) goto ERROR;
-		slave->read.buf[i] = TWDR;
-
-		TWCR=(1<<TWINT)|(1<<TWSTO) |(1<<TWEN);
-//		sei();
-#if WDT_RESET_IN_I2C
-		wdt_disable();
-#endif
-		return true;
-	ERROR:
-		TWCR=(1<<TWINT)|(1<<TWSTO) |(1<<TWEN);
-//		sei();
-#if WDT_RESET_IN_I2C
-		wdt_disable();
-#endif
-		return false;
-    }
-#endif
-
-
-
-#if SLAVE_COMPILE
-
-ISR (TWI_vect)
-	{
-	    switch(TWSR)                            
+/**
+ * マスターがスレーブにwriteする
+ * @example
+ *     uint8_t transBuf = 0, recvBuf = 0;
+ *     Slave slave = { 0x01, { &transBuf, 1 }, { &recvBuf, 1 } };
+ *     transBuf = 0xff;
+ *     i2cWrite(&slave);   // アドレスが0x01のスレーブに0xffが書かれる
+ *
+ * @param {slave:Slave*} 送信先のスレーブインスタンスのポインタ
+ */
+bool i2cWrite(Slave* slave)
+{
+		uint8_t i, size;
+	// 開始条件の生成
+		TWCR = SendStartConditionBit;
+		while ( I2C_DOING );
+		if ( I2C_STATUS != SentStartConditionBit ) goto ERROR;
+		
+	// アドレス転送，ACK確認		
+		TWDR = ( slave->address << 1 ) | WRITE;
+		TWCR = ContinueI2C;
+		while ( I2C_DOING );
+		if ( I2C_STATUS != SentSlaveAddressWithWriteBitAndACK ) goto ERROR;
+		
+	// データバイト転送，ACK確認の一連をデータサイズ分行う
+		for ( i = 0, size = slave->write.size; i < size; i++ )
 			{
-				case 0x60:						
-					count = 0;
-					TWCR |= 0x80;	
-					i2cComFlag = true;
-					#if WDT_RESET_IN_I2C
-						wdt_reset();
-					#endif
-					break;
-	            case 0x90:
-	                emergency = true;
-				case 0x80:                      
-					*(own->write.buf+count) = TWDR;	   
-					count++;
-					TWCR |= 0x80;		
-					break;
-				case 0xA0:
-					TWCR |= 0x80;
-					break;				
-	            case 0xA8:
-					i2cComFlag = true;
-					count = 0;
-					TWDR = *own->read.buf;				
-					count++;					
-					TWCR |= 0x80;
-					#if WDT_RESET_IN_I2C
-						wdt_reset();
-					#endif				
-					break;
-				case 0xB8:						
-					TWDR = *(own->read.buf + count);	
-					count++;					
-					TWCR |= 0x80;				
-					break;
-			    case 0x70:                      
-	                *own->read.buf = 0;
-				case 0xC0:   
-					TWCR |= 0x80;
-					i2cComFlag = false;
-					break;					
-				default:
-					TWCR |= 0x80;
-					i2cComFlag = false;				
-					break;
+				TWDR = slave->write.buffer[i];
+				TWCR = ContinueI2C;
+				while ( I2C_DOING );
+				if ( I2C_STATUS != SentDataByteAndACKAtMaster ) goto ERROR;
 			}
-	}
-#endif
+		
+	// 終了条件の生成
+		TWCR = SendStopConditionBit;
+		
+	// 正常終了
+		return false;
+		
+	// エラーケース
+ERROR:
+		TWCR = SendStopConditionBit;
+		return true;
+}
 
+/**
+ * マスターがスレーブにreadする
+ * @example
+ *     uint8_t transBuf = 0, recvBuf = 0;
+ *     Slave slave = { 0x01, { &transBuf, 1 }, { &recvBuf, 1 } };
+ *     i2cRead(&slave);   // アドレスが0x01のスレーブから値を1byte読む
+ *
+ * @param {slave:Slave*} 受信先のスレーブインスタンスのポインタ
+ */
+bool i2cRead(Slave* slave)
+{
+		uint8_t i, size;
+	// 開始条件の生成
+		TWCR = SendStartConditionBit;
+		while ( I2C_DOING );
+		if ( I2C_STATUS != SentStartConditionBit ) goto ERROR;
+		
+	// アドレス転送，ACK確認
+		TWDR = ( slave->address << 1 ) | READ;
+		TWCR = ContinueI2C;
+		while ( I2C_DOING );
+		if ( I2C_STATUS != SentSlaveAddressWithReadBitAndACK ) goto ERROR;
+		
+	// データ受信，ACK発行
+		for ( i = 0, size = slave->read.size - 1; i < size; i++ )
+			{
+				TWCR = ContinueAndResponseI2C;
+				while( I2C_DOING );
+				if ( I2C_STATUS != ReceivedDataByteAndACKAtMaster ) goto ERROR;
+				slave->read.buffer[i] = TWDR;
+			}
+			
+	// 最終データ受信，NACK発行
+		TWCR = ContinueI2C;
+		while ( I2C_DOING );
+		if ( I2C_STATUS != ReceivedDataByteAndNACK ) goto ERROR;
+		slave->read.buffer[size] = TWDR;
+		
+	// 終了条件の生成
+		TWCR = SendStopConditionBit;
+		
+	// 正常終了
+		return false;
+		
+	// エラーケース
+ERROR:
+		TWCR = SendStopConditionBit;
+		return true;
+}
+
+/**
+ * マスターがスレーブにコマンドを送ってからreadする
+ * @example
+ *     uint8_t transBuf = 0, recvBuf = 0;
+ *     Slave slave = { 0x01, { &transBuf, 1 }, { &recvBuf, 1 } };
+ *     i2cReadWithCommand(&slave,cmd);   // アドレスが0x01のスレーブにcmdを送り，つづけて値を1byte読む
+ *
+ * @param {slave:Slave*} 送受信先のスレーブインスタンスのポインタ
+ * @param {command:uint8_t} 送信コマンド
+ */
+bool i2cReadWithCommand(Slave* slave, uint8_t command)
+{
+		uint8_t i, size;
+	// 開始条件の生成
+		TWCR = SendStartConditionBit;
+		while ( I2C_DOING );
+		if ( I2C_STATUS != SentStartConditionBit ) goto ERROR;
+    
+	// アドレス転送
+		TWDR = ( slave->address << 1 ) | READ;
+		TWCR = ContinueI2C;
+		while ( I2C_DOING );
+		if ( I2C_STATUS != SentSlaveAddressWithReadBitAndACK ) goto ERROR;
+    
+	// コマンド転送，ACK確認
+		TWDR = command;
+		TWCR = ContinueI2C;
+		while ( I2C_DOING );
+		if ( I2C_STATUS != SentDataByteAndACKAtMaster ) goto ERROR;
+    
+	// データバイト受信，ACK発行の一連をデータサイズ-1分行う
+		for ( i = 0, size = slave->read.size - 1; i < size; i++ )
+		{
+		    TWCR = ContinueAndResponseI2C;
+		    while( I2C_DOING );
+		    if ( I2C_STATUS != ReceivedDataByteAndACKAtMaster ) goto ERROR;
+		    slave->read.buffer[i] = TWDR;
+		}
+    
+	// 最終データバイト受信，NACK発行
+		TWCR = ContinueI2C;
+		while ( I2C_DOING );
+		if ( I2C_STATUS != ReceivedDataByteAndNACK ) goto ERROR;
+		slave->read.buffer[size] = TWDR;
+    
+	// 終了条件の生成
+		TWCR = SendStopConditionBit;
+    
+	// 正常終了
+		return false;
+    
+	// エラーケース
+ERROR:
+		TWCR = SendStopConditionBit;
+		return true;
+}
+#endif // MASTER_COMPILE
+
+
+#if SLAVE_COMPILE
+
+/**
+ * スレーブで割り込み時に使うグローバル変数の宣言
+ */
+static volatile Slave* own;
+static volatile uint8_t byteCount;
+static volatile bool emergency = false;
+static volatile bool i2cComFlag = false;	
+
+/**
+ * TWIをスレーブとして初期化する
+ * @example
+ *     uint8_t recvBuf = 0, transBuf = 0;
+ *     //マスター視点のwrite，readなのでスレーブだとwriteは受信，readは送信扱いになる
+ *     Slave own = { 0x01, { &recvBuf, 1 }, { &transBuf, 1 } };
+ *     initI2CSlave(&own);   // アドレスが0x01のスレーブに自身がセットされる
+ *     sei();
+ *
+ * @param {_own:Slave*} 自分自身のスレーブインスタンスのポインタ
+ */
+void initI2CSlave(Slave* _own) 
+{
+	// 自アドレスを設定し，TWI，ACK，割り込み，一斉呼出しを許可する
+    own = _own;
+    TWAR = own->address << 1;
+    TWAR |= GCRE_BIT;		
+    TWCR = ACKEnableI2C | EnableI2C | InterruptEnableI2C;
+}
+
+/**
+ * 非常事態検査関数
+ * @return {bool} 非常時か否か
+ */
+
+bool isEmergency(void)
+{
+	return emergency;
+}
+
+
+/**
+ * 通信中検査関数
+ * @return {bool} 通信中か否か
+ */
+bool isCommunicatingViaI2C(void)
+{
+	return i2cComFlag;
+}
+
+
+/**
+ * スレーブ動作の時の割り込み処理
+ */
+ISR (TWI_vect)
+{
+    switch (TWSR)
+        {
+            // 一斉呼出受信，非常時と認定，breakなし
+                case ReceivedGeneralCallRecognitionAndACK:
+                    emergency = true;
+                
+            // 自アドレス+W受信，TWINTを下ろす
+                case ReceivedOwnAddressWithWriteBitAndACK:
+                    byteCount = 0;
+                    i2cComFlag = true;
+                    TWCR |= ContinueI2C;
+                    break;
+                
+            // 一斉呼出データバイト受信，サポートしない
+                case ReceivedGeneralCallRecognitionDataByteAndACK:
+                    TWCR |= ContinueI2C;
+                    break;
+                
+            // データバイト受信，バッファに移してTWINTを下ろす
+                case ReceivedDataByteAndACKAtSlave:
+                    own->write.buffer[byteCount++] = TWDR;
+                    break;
+                
+            // 終了条件の受信，TWINTを下ろす
+                case ReceivedStopConditionBit:
+                    TWCR |= ContinueI2C;
+                    break;
+                
+            // 自アドレス+R受信，1バイト目のデータバイトの送信を行い，TWINTを下ろす
+                case ReceivedOwnAddressWithReadBitAndACK:
+                    byteCount = 0;
+                    i2cComFlag = true;
+                    TWDR = own->read.buffer[byteCount++];				
+                    TWCR |= ContinueI2C;
+                    break;
+                
+            // ACK受信，データバイトの送信を行い，TWINTを下ろす
+                case SentDataByteAndACKAtSlave:
+                    TWDR = own->read.buffer[byteCount++];
+                    TWCR |= ContinueI2C;
+                    break;
+                
+            // NACKの受信，TWINTを下ろす
+                case SentDataByteAndNACKAtSlave:
+                    TWCR |= ContinueI2C;
+                    i2cComFlag = false;
+                    break;
+                
+            // 他，TWCRの初期化
+                default:
+                    TWCR = ACKEnableI2C | EnableI2C | InterruptEnableI2C;
+                    i2cComFlag = false;
+                    break;
+        }
+}
+#endif // SLAVE_COMPILE

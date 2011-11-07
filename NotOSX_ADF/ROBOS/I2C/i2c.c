@@ -41,7 +41,7 @@ void initI2CMaster(unsigned char speed)
 void initI2CSlave(Slave *_own)
 	{
 		own = _own;
-		TWAR = (own->addr)>>=1;
+		TWAR = (own->addr)<<1;
 		TWAR |= 1;
 		TWCR = 0x45;
 	#if WDT_RESET_IN_I2C
@@ -56,46 +56,46 @@ bool i2cWrite(Slave *slave)
     {
 			cli();
 
-#if WDT_RESET_IN_I2C
+	#if WDT_RESET_IN_I2C
 		wdt_reset();
 		wdt_enable(WDT_RESET_TIME);
-#endif
+	#endif
 		TWCR = (1<<TWINT)|(1<<TWSTA) |(1<<TWEN);
 		while(!(TWCR&(1<<TWINT)));
-#if WDT_RESET_IN_I2C
+	#if WDT_RESET_IN_I2C
 		wdt_reset();
-#endif
+	#endif
 		if((TWSR&0xF8)!=0x08) goto ERROR;
 
 		TWDR = (slave->addr<<1);
 		TWCR = (1<<TWINT)|(1<<TWEN);
 		while(!(TWCR&(1<<TWINT)));
-#if WDT_RESET_IN_I2C
+	#if WDT_RESET_IN_I2C
 		wdt_reset();
-#endif
+	#endif
 		if((TWSR&0xF8)!=0x18) goto ERROR;
 
 		for(i=0;i<slave->write.size;i++){
 			TWDR=slave->write.buf[i];
 			TWCR=(1<<TWINT)|(1<<TWEN);
 			while(!(TWCR&(1<<TWINT)));
-#if WDT_RESET_IN_I2C
+	#if WDT_RESET_IN_I2C
 		wdt_reset();
-#endif
+	#endif
 			if((TWSR&0xF8)!=0x28) goto ERROR;
 			}
 		TWCR=(1<<TWINT)|(1<<TWSTO) |(1<<TWEN);
-#if WDT_RESET_IN_I2C
+	#if WDT_RESET_IN_I2C
 		wdt_disable();
-#endif
+	#endif
 		sei();
 		return true;
 	ERROR:
 		TWCR=(1<<TWINT)|(1<<TWSTO) |(1<<TWEN);
 		sei();
-#if WDT_RESET_IN_I2C
+	#if WDT_RESET_IN_I2C
 		wdt_disable();
-#endif
+	#endif
 		return false;
     }
 
@@ -104,128 +104,128 @@ bool i2cRead(Slave *slave)
 		cli();
 
 		TWCR = (1<<TWINT)|(1<<TWSTA) |(1<<TWEN);
-#if WDT_RESET_IN_I2C
+	#if WDT_RESET_IN_I2C
 		wdt_reset();
 		wdt_enable(WDT_RESET_TIME);
-#endif
+	#endif
 		while(!(TWCR&(1<<TWINT)));
 		if((TWSR&0xF8)!=0x08) goto ERROR;
 
 		TWDR = (slave->addr<<1)|0x01;
 		TWCR = (1<<TWINT)|(1<<TWEN);
 		while(!(TWCR&(1<<TWINT)));
-#if WDT_RESET_IN_I2C
+	#if WDT_RESET_IN_I2C
 		wdt_reset();
-#endif
+	#endif
 		if((TWSR&0xF8)!=0x40) goto ERROR;
 
 		for(i=0;i<slave->read.size-1;i++){
 			TWCR = (1<<TWINT)|(1<<TWEA)|(1<<TWEN);
 			while(!(TWCR&(1<<TWINT)));
-#if WDT_RESET_IN_I2C
+	#if WDT_RESET_IN_I2C
 			wdt_reset();
-#endif
+	#endif
 			if((TWSR&0xF8)!=0x50) goto ERROR;
 			slave->read.buf[i] = TWDR;
 			}
 		TWCR = (1<<TWINT)|(1<<TWEN);
 		while(!(TWCR&(1<<TWINT)));
-#if WDT_RESET_IN_I2C
+	#if WDT_RESET_IN_I2C
 		wdt_reset();
-#endif
+	#endif
 		if((TWSR&0xF8)!=0x58) goto ERROR;
 		slave->read.buf[i] = TWDR;
 
 		TWCR=(1<<TWINT)|(1<<TWSTO) |(1<<TWEN);
 		sei();
-#if WDT_RESET_IN_I2C
+	#if WDT_RESET_IN_I2C
 		wdt_disable();
-#endif
+	#endif
 		return true;
 	ERROR:
 		TWCR=(1<<TWINT)|(1<<TWSTO) |(1<<TWEN);
 		sei();
-#if WDT_RESET_IN_I2C
+	#if WDT_RESET_IN_I2C
 		wdt_disable();
-#endif
+	#endif
 		return false;
     }
 
 bool i2cReadWithCommand(Slave *slave, unsigned char command)
     {
-//		cli();
+
 
 		TWCR = (1<<TWINT)|(1<<TWSTA) |(1<<TWEN);
-#if WDT_RESET_IN_I2C
+	#if WDT_RESET_IN_I2C
 		wdt_reset();
 		wdt_enable(WDT_RESET_TIME);
-#endif
+	#endif
 		while(!(TWCR&(1<<TWINT)));
-#if WDT_RESET_IN_I2C
+	#if WDT_RESET_IN_I2C
 		wdt_reset();
-#endif
+	#endif
 //		if((TWSR&0xF8)!=0x08) goto ERROR;
 
 		TWDR = (slave->addr<<1);
 		TWCR = (1<<TWINT)|(1<<TWEN);
 		while(!(TWCR&(1<<TWINT)));
-#if WDT_RESET_IN_I2C
+	#if WDT_RESET_IN_I2C
 		wdt_reset();
-#endif
+	#endif
 		if((TWSR&0xF8)!=0x40) goto ERROR;
 
 		TWDR=command;
 		TWCR=(1<<TWINT)|(1<<TWEN);
 		while(!(TWCR&(1<<TWINT)));
-#if WDT_RESET_IN_I2C
+	#if WDT_RESET_IN_I2C
 		wdt_reset();
-#endif
+	#endif
 		if((TWSR&0xF8)!=0x28) goto ERROR;
 
 		TWCR = (1<<TWINT)|(1<<TWSTA) |(1<<TWEN);
 		while(!(TWCR&(1<<TWINT)));
-#if WDT_RESET_IN_I2C
+	#if WDT_RESET_IN_I2C
 		wdt_reset();
-#endif
+	#endif
 		if((TWSR&0xF8)!=0x10) goto ERROR;
 
 		TWDR = (slave->addr<<1)|0x01;
 		TWCR = (1<<TWINT)|(1<<TWEN);
 		while(!(TWCR&(1<<TWINT)));
-#if WDT_RESET_IN_I2C
+	#if WDT_RESET_IN_I2C
 		wdt_reset();
-#endif
+	#endif
 //		if((TWSR&0xF8)!=0x40) goto ERROR;
 
 		for(i=0;i<slave->read.size-1;i++){
 			TWCR = (1<<TWINT)|(1<<TWEA)|(1<<TWEN);
 			while(!(TWCR&(1<<TWINT)));
-#if WDT_RESET_IN_I2C
+	#if WDT_RESET_IN_I2C
 			wdt_reset();
-#endif
+	#endif
 			if((TWSR&0xF8)!=0x50) goto ERROR;
 			slave->read.buf[i] = TWDR;
 			}
 		TWCR = (1<<TWINT)|(1<<TWEN);
 		while(!(TWCR&(1<<TWINT)));
-#if WDT_RESET_IN_I2C
+	#if WDT_RESET_IN_I2C
 		wdt_reset();
-#endif
+	#endif
 		if((TWSR&0xF8)!=0x58) goto ERROR;
 		slave->read.buf[i] = TWDR;
 
 		TWCR=(1<<TWINT)|(1<<TWSTO) |(1<<TWEN);
-//		sei();
-#if WDT_RESET_IN_I2C
+
+	#if WDT_RESET_IN_I2C
 		wdt_disable();
-#endif
+	#endif
 		return true;
 	ERROR:
 		TWCR=(1<<TWINT)|(1<<TWSTO) |(1<<TWEN);
-//		sei();
-#if WDT_RESET_IN_I2C
+
+	#if WDT_RESET_IN_I2C
 		wdt_disable();
-#endif
+	#endif
 		return false;
     }
 #endif
@@ -278,7 +278,7 @@ ISR (TWI_vect)
 					i2cComFlag = false;
 					break;					
 				default:
-					TWCR |= 0x80;
+					TWCR |= 0x90;
 					i2cComFlag = false;				
 					break;
 			}

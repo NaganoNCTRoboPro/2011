@@ -12,20 +12,15 @@
 #include <avr/wdt.h>
 #include <stdbool.h>
 #include <common.h>
-//#include <kernel.h>
-//#include <kernel_setting.h>
 #include <uart.h>
-//#include <ringbuffer.h>
 #include <mu2.h>
 #include <led.h>
 #include <beep.h>
 #include <emergency.h>
 
 static union controller_data ctrlData,keepCtrlData;
-static uint8_t defaultCtrlData[RC_DATA_LENGTH] = RC_DEFAULT_DATA;  
+static const uint8_t defaultCtrlData[RC_DATA_LENGTH] = RC_DEFAULT_DATA;  
 
-//static uint8_t rxBuf[RC_DATA_LENGTH+MU2_OFFSET];
-//static RingBuffer *ring = &__uartbuf[0];
 static volatile uint8_t packet[24];
 static uint8_t val;
 static volatile uint8_t i=0,cnt=0;
@@ -33,71 +28,13 @@ static volatile bool phase = false;
 static volatile char check[] = "DR=";
 static volatile uint8_t ovf_cnt = 0;
 
+__inline__ void resetCommunicateIntervalCounter(void);
+
 void initCtrlData(void){
 	for(i=0;i<RC_DATA_LENGTH;i++){
 			ctrlData.buf[i] = defaultCtrlData[i];
 		}
 }
-/*
-
-TCB remoteCrtl;
-Stack remoteCrtlStack[DEFAULT_STACK_SIZE];
-
-void decodeCtrlData(void);
-
-void RC_Rx_Init(void)
-{
-	uint8_t i;
-	for(i=0;i<RC_DATA_LENGTH;i++){
-		ctrlData.buf[i] = defaultCtrlData[i];
-	}
-	remoteCrtl.NextTask = NULL;
-	remoteCrtl.Status = READY;
-	remoteCrtl.Priority = 1;
-	remoteCrtl.pTask = &decodeCtrlData;
-	remoteCrtl.pStack = remoteCrtlStack + DEFAULT_STACK_SIZE;
-	remoteCrtl.StackSize = DEFAULT_STACK_SIZE;
-	remoteCrtl.ID = 1;
-
-	RingInit(ring,rxBuf,RC_DATA_LENGTH+MU2_OFFSET);
-
-	AddTaskList(&remoteCrtl);
-}
-
-void decodeCtrlData(void)
-{
-	while(1){
-		while(RingGet(&(__uartbuf[0]),&val)){
-			//uart1_putchar(val);
-			if(phase){
-				packet[cnt] = val;
-				uart1_putchar(packet[cnt]);
-				if(cnt<2){
-					if(val != check[cnt]){
-						phase = false;
-						uart1_putchar('@');
-					}
-				}else if(cnt==10){
-					ctrlData.buf[0] = packet[5];
-					ctrlData.buf[1] = packet[6];
-					ctrlData.buf[2] = packet[7];
-					ctrlData.buf[3] = packet[8];
-					phase = false;
-				}
-				cnt++;
-			}else{
-				if(val=='*'){
-				cnt = 0;
-				phase = true;
-				}
-			}
-
-		}
-		LED(0,false);
-		Sleep(5);
-	}
-}
-*/
 union controller_data *Toggle_RC_Rx_Buffer(void)
 {
 	cli();
@@ -115,11 +52,9 @@ ISR(USART0_RX_vect)
 
 	if(phase){
 		packet[cnt] = val;
-//		uart1_putchar(packet[cnt]);
 		if(cnt<2){
 			if(val != check[cnt]){
 				phase = false;
-//				uart1_putchar('@');
 				LED(0,false);
 				beep(1);
 			}
@@ -132,22 +67,34 @@ ISR(USART0_RX_vect)
 			wdt_reset();
 			LED(0,true);
 			if(EmergencyStatus()) beep(0);
-			ovf_cnt = 0;
-			TCNT1 = 0;
+			resetCommunicateIntervalCounter();
 		}
 		cnt++;
 	}else{
 		if(val=='*'){
-		cnt = 0;
-		phase = true;
+			cnt = 0;
+			phase = true;
 		}
 	}
 
 }
 
+void resetCommunicateIntervalCounter(void)
+{
+	ovf_cnt = 0;
+	TCNT1 = 0;
+}
+
+__inline__ void initCommunicateIntervalCounter(void)
+{
+	TCCR1A = 0;
+	TCCR1B = 5;
+	TIMSK1 = 1;
+	TCNT1 = 0;
+}
+
 ISR (TIMER1_OVF_vect){
-	ovf_cnt++;
-	if(ovf_cnt>150){
+	if(++ovf_cnt>150){
 		ovf_cnt = 0;
 		for(i=0;i<RC_DATA_LENGTH;i++){
 			ctrlData.buf[i] = defaultCtrlData[i];

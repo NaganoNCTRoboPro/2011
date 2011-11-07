@@ -1,59 +1,143 @@
 #include <avr/io.h>
+#include <stdbool.h>
 #include "mu2.h"
-#include <uart.h>
 
+/**
+ * シリアル送信関数用ポインタ
+ * @type {void(*)(void)} 
+ */
+static void (*put)(uint8_t c);
+/**
+ * シリアル受信用関数ポインタ
+ * @type {uint8_t(*)(void)}
+ */
+static uint8_t (*get)(void);
 
-static uint8_t i,tmp[10];
-static char ascii[16] = "0123456789ABCDEF";
-
-/// <summary>
-/// バイト（0x00～0xFF）の数を2桁の文字列に変換
-/// </summary>
-/// <param name="num">変換対象の数字</param>
-/// <param name="str">変換後の文字列を格納する領域</param>
-void Byte2Str(unsigned char num, char *str)
+/**
+ * シリアル送信関数用ポインタセッター関数
+ * @param {f:void(*)(void)}
+ */
+void setMU2PutFunc(void(*f)(uint8_t c))
 {
-	str[0] = ascii[(num >> 4) & 0x0F];
-	str[1] = ascii[num&0x0F];
-	str[2] = '\0';
+	put = f;
+}
+/**
+ * シリアル受信関数用ポインタセッター関数
+ * @param {f:uint8_t(*)(void)}
+ */
+void setMU2GetFunc(uint8_t(*f)(void))
+{
+	get = f;
 }
 
-unsigned char mu2_command(const char *cmd, char *val){
-	uart0_putchar('@');
-	uart0_putchar(cmd[0]);
-	uart0_putchar(cmd[1]);
-	while(*val!='\0'){
-		uart0_putchar(*val);
-		val++;
-	}
-	uart0_putchar(0x0d);
-	uart0_putchar(0x0a);
-	for(i=0;i<10;i++){
-		tmp[i] = uart0_getchar();
-		uart1_putchar(tmp[i]);
-		if(i>0&&tmp[i-1] == 0x0d && tmp[i] == 0x0a) break;
-	} 
-	if(tmp[1]=='E'&&tmp[2]=='R'){return 1;}
-	return 0;
+/**
+ * 16新変換用テーブル
+ * @type {const char}
+ */
+static const char ascii[16] = "0123456789ABCDEF";
+
+/**
+ * 1Byte->16進文字列変換関数
+ * @param {byte:uint8_t} 変換対象データ
+ * @param {string:char*} 変換後文字列格納先ポインタ
+ */
+void byteToString(uint8_t byte, char* string)
+{
+	string[0] = ascii[ ( byte >> 4 ) & 0x0F ];
+	string[1] = ascii[ byte & 0x0F ];
+	string[2] = '\0';
 }
 
-unsigned char mu2_command_eeprom(const char *cmd, char *val){
-	uart0_putchar('@');
-	uart0_putchar(cmd[0]);
-	uart0_putchar(cmd[1]);
-	while(*val!='\0'){
-		uart0_putchar(*val);
-		val++;
-	}
-	uart0_putchar('/');
-	uart0_putchar('W');
-	uart0_putchar(0x0d);
-	uart0_putchar(0x0a);
-	for(i=0;i<10;i++){
-		tmp[i] = uart0_getchar();
-		uart1_putchar(tmp[i]);
-		if(i>0&&tmp[i-1] == 0x0d && tmp[i] == 0x0a) break;
-	} 
-	if(tmp[1]=='E'&&tmp[2]=='R'){return 1;}
-	return 0;
+/**
+ * MU2にコマンドを送信する関数
+ * @param {command:const char*} MU2に送信するコマンド
+ * @param {values:uint8_t*} コマンドに付加するデータ
+ */
+bool mu2Command(const char* command, const char* values)
+{
+	uint8_t i, recv[10];
+	
+	put('@');
+	put(command[0]);
+	put(command[1]);
+	for ( ; *values != '\0'; values++ )
+		{
+			put(*values);
+		}
+	put(0x0d);
+	put(0x0a);
+	
+	for ( i = 0; i < 10; i++ )
+		{
+			recv[i] = get();
+			if( i > 0 && recv[i-1] == 0x0d && recv[i] == 0x0a )
+				{
+					break;
+				}
+		}
+	if ( recv[1] == 'E' && recv[2] == 'R' )
+		{
+			return true;
+		}
+	
+	return false;
+}
+/**
+ * MU2にコマンドを送信し，MU2のEEPROMに書きこむ関数
+ * @param {command:const char*} MU2に送信するコマンド
+ * @param {values:uint8_t*} コマンドに付加するデータ
+ */
+bool mu2CommandToEEPROM(const char* command, const char* values)
+{
+	uint8_t i, recv[10];
+	
+	put('@');
+	put(command[0]);
+	put(command[1]);
+	for ( ; *values != '\0'; values++ )
+		{
+			put(*values);
+		}
+	put('/');
+	put('W');
+	put(0x0d);
+	put(0x0a);
+	
+	for ( i = 0; i < 10; i++ )
+		{
+			recv[i] = get();
+			if( i > 0 && recv[i-1] == 0x0d && recv[i] == 0x0a )
+				{
+					break;
+				}
+		}
+	if ( recv[1] == 'E' && recv[2] == 'R' )
+		{
+			return true;
+		}
+	
+	return false;
+}
+
+/**
+ * MU2でデータを送信する関数
+ * @param {command:const char*} MU2に送信するコマンド
+ * @param {values:uint8_t*} コマンドに付加するデータ
+ */
+void mu2TransmitData(uint8_t* values, uint8_t size)
+{
+	uint8_t i;
+	char strSize[3];
+	byteToString(size,strSize);
+	put('@');
+	put('D');
+	put('T');
+	put(strSize[0]);
+	put(strSize[1]);
+	for ( i = 0; i < size; i++ )
+		{
+			put(values[i]);
+		}
+	put(0x0d);
+	put(0x0a);
 }
