@@ -33,8 +33,8 @@ int main(void)
 
 	int8_t slaveBuf[16]={0},m_size;
 
-	_group=3;
-	_channel=3;
+	_group=0;
+	_channel=0;
 
 	m_size = 4;
 	int8_t L_duty=0,Z_duty=0,Z_action,L_action;
