@@ -22,5 +22,6 @@
 
 extern void RC_Rx_Init(void);
 extern union controller_data *Toggle_RC_Rx_Buffer(void);
+void initCtrlData(void);
 
 #endif

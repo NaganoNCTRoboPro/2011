@@ -11,12 +11,12 @@ uart.o: ../ROBOS/SERIAL/uart.c \
   c:/winavr-20100110/lib/gcc/../../avr/include/avr/lock.h \
   c:/winavr-20100110/lib/gcc/../../avr/include/avr/interrupt.h \
   c:/winavr-20100110/lib/gcc/../../avr/include/avr/wdt.h \
-  C:\Users\iwate\Desktop\NotOSX_AOF\ROBOS\COMMON/common.h \
+  D:\tmp\2011\NotOSX_AOF\ROBOS\COMMON/common.h \
   ../ROBOS/SERIAL/ringbuffer.h ../ROBOS/SERIAL/uart.h \
-  C:\Users\iwate\Desktop\NotOSX_AOF\ROBOS\SERIAL/ringbuffer.h \
-  C:\Users\iwate\Desktop\NotOSX_AOF\PERIPHERAL\LED/led.h \
+  D:\tmp\2011\NotOSX_AOF\ROBOS\SERIAL/ringbuffer.h \
+  D:\tmp\2011\NotOSX_AOF\PERIPHERAL\LED/led.h \
   c:\winavr-20100110\bin\../lib/gcc/avr/4.3.3/include/stdbool.h \
-  C:\Users\iwate\Desktop\NotOSX_AOF\ROBOS\COMMON/wait.h
+  D:\tmp\2011\NotOSX_AOF\ROBOS\COMMON/wait.h
 
 c:/winavr-20100110/lib/gcc/../../avr/include/avr/io.h:
 
@@ -42,16 +42,16 @@ c:/winavr-20100110/lib/gcc/../../avr/include/avr/interrupt.h:
 
 c:/winavr-20100110/lib/gcc/../../avr/include/avr/wdt.h:
 
-C:\Users\iwate\Desktop\NotOSX_AOF\ROBOS\COMMON/common.h:
+D:\tmp\2011\NotOSX_AOF\ROBOS\COMMON/common.h:
 
 ../ROBOS/SERIAL/ringbuffer.h:
 
 ../ROBOS/SERIAL/uart.h:
 
-C:\Users\iwate\Desktop\NotOSX_AOF\ROBOS\SERIAL/ringbuffer.h:
+D:\tmp\2011\NotOSX_AOF\ROBOS\SERIAL/ringbuffer.h:
 
-C:\Users\iwate\Desktop\NotOSX_AOF\PERIPHERAL\LED/led.h:
+D:\tmp\2011\NotOSX_AOF\PERIPHERAL\LED/led.h:
 
 c:\winavr-20100110\bin\../lib/gcc/avr/4.3.3/include/stdbool.h:
 
-C:\Users\iwate\Desktop\NotOSX_AOF\ROBOS\COMMON/wait.h:
+D:\tmp\2011\NotOSX_AOF\ROBOS\COMMON/wait.h:

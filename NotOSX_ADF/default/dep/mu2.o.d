@@ -10,9 +10,9 @@ mu2.o: ../PERIPHERAL/MU2/mu2.c \
   c:/winavr-20100110/lib/gcc/../../avr/include/avr/fuse.h \
   c:/winavr-20100110/lib/gcc/../../avr/include/avr/lock.h \
   ../PERIPHERAL/MU2/mu2.h \
-  C:\Users\iwate\Desktop\github\2011\NotOSX_ADF\ROBOS\SERIAL/uart.h \
-  C:\Users\iwate\Desktop\github\2011\NotOSX_ADF\ROBOS\COMMON/common.h \
-  C:\Users\iwate\Desktop\github\2011\NotOSX_ADF\ROBOS\SERIAL/ringbuffer.h
+  D:\Tools\github\2011\NotOSX_ADF\ROBOS\SERIAL/uart.h \
+  D:\Tools\github\2011\NotOSX_ADF\ROBOS\COMMON/common.h \
+  D:\Tools\github\2011\NotOSX_ADF\ROBOS\SERIAL/ringbuffer.h
 
 c:/winavr-20100110/lib/gcc/../../avr/include/avr/io.h:
 
@@ -36,8 +36,8 @@ c:/winavr-20100110/lib/gcc/../../avr/include/avr/lock.h:
 
 ../PERIPHERAL/MU2/mu2.h:
 
-C:\Users\iwate\Desktop\github\2011\NotOSX_ADF\ROBOS\SERIAL/uart.h:
+D:\Tools\github\2011\NotOSX_ADF\ROBOS\SERIAL/uart.h:
 
-C:\Users\iwate\Desktop\github\2011\NotOSX_ADF\ROBOS\COMMON/common.h:
+D:\Tools\github\2011\NotOSX_ADF\ROBOS\COMMON/common.h:
 
-C:\Users\iwate\Desktop\github\2011\NotOSX_ADF\ROBOS\SERIAL/ringbuffer.h:
+D:\Tools\github\2011\NotOSX_ADF\ROBOS\SERIAL/ringbuffer.h:

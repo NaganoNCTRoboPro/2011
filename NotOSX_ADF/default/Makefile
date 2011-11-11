@@ -37,7 +37,7 @@ HEX_EEPROM_FLAGS += --change-section-lma .eeprom=0 --no-change-warnings
 
 
 ## Include Directories
-INCLUDES = -I"C:\Users\iwate\Desktop\github\2011\NotOSX_ADF\." -I"C:\Users\iwate\Desktop\github\2011\NotOSX_ADF\APPLICATION" -I"C:\Users\iwate\Desktop\github\2011\NotOSX_ADF\PERIPHERAL" -I"C:\Users\iwate\Desktop\github\2011\NotOSX_ADF\PERIPHERAL\LED" -I"C:\Users\iwate\Desktop\github\2011\NotOSX_ADF\PERIPHERAL\MU2" -I"C:\Users\iwate\Desktop\github\2011\NotOSX_ADF\PERIPHERAL\REMOTE_CONTROL" -I"C:\Users\iwate\Desktop\github\2011\NotOSX_ADF\ROBOS\COMMON" -I"C:\Users\iwate\Desktop\github\2011\NotOSX_ADF\ROBOS\I2C" -I"C:\Users\iwate\Desktop\github\2011\NotOSX_ADF\ROBOS\KERNEL" -I"C:\Users\iwate\Desktop\github\2011\NotOSX_ADF\ROBOS\SERIAL" -I"C:\Users\iwate\Desktop\github\2011\NotOSX_ADF\PERIPHERAL\ACTUATER" -I"C:\Users\iwate\Desktop\github\2011\NotOSX_ADF\PERIPHERAL\SWITCH" -I"C:\Users\iwate\Desktop\github\2011\NotOSX_ADF\PERIPHERAL\BEEP" -I"C:\Users\iwate\Desktop\github\2011\NotOSX_ADF\PERIPHERAL\EMERGENCY" 
+INCLUDES = -I"D:\tmp\2011\NotOSX_ADF\." -I"D:\tmp\2011\NotOSX_ADF\APPLICATION" -I"D:\tmp\2011\NotOSX_ADF\PERIPHERAL" -I"D:\tmp\2011\NotOSX_ADF\PERIPHERAL\LED" -I"D:\tmp\2011\NotOSX_ADF\PERIPHERAL\MU2" -I"D:\tmp\2011\NotOSX_ADF\PERIPHERAL\REMOTE_CONTROL" -I"D:\tmp\2011\NotOSX_ADF\ROBOS\COMMON" -I"D:\tmp\2011\NotOSX_ADF\ROBOS\I2C" -I"D:\tmp\2011\NotOSX_ADF\ROBOS\KERNEL" -I"D:\tmp\2011\NotOSX_ADF\ROBOS\SERIAL" -I"D:\tmp\2011\NotOSX_ADF\PERIPHERAL\ACTUATER" -I"D:\tmp\2011\NotOSX_ADF\PERIPHERAL\SWITCH" -I"D:\tmp\2011\NotOSX_ADF\PERIPHERAL\BEEP" -I"D:\tmp\2011\NotOSX_ADF\PERIPHERAL\EMERGENCY" 
 
 ## Objects that must be built in order to link
 OBJECTS = main.o remote_control_rx.o mu2.o uart.o ringbuffer.o i2c.o led.o wait.o actuater.o switch.o beep.o emergency.o 
@@ -109,5 +109,5 @@ clean:
 
 
 ## Other dependencies
--include $(shell mkdir dep 2>NUL) $(wildcard dep/*)
+-include $(shell mkdir dep 2>/dev/null) $(wildcard dep/*)
 

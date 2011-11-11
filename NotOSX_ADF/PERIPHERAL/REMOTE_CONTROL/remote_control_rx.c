@@ -22,7 +22,7 @@
 #include <emergency.h>
 
 static union controller_data ctrlData,keepCtrlData;
-//static uint8_t defaultCtrlData[RC_DATA_LENGTH] = RC_DEFAULT_DATA;  
+static uint8_t defaultCtrlData[RC_DATA_LENGTH] = RC_DEFAULT_DATA;  
 
 //static uint8_t rxBuf[RC_DATA_LENGTH+MU2_OFFSET];
 //static RingBuffer *ring = &__uartbuf[0];
@@ -31,6 +31,13 @@ static uint8_t val;
 static volatile uint8_t i=0,cnt=0;
 static volatile bool phase = false;
 static volatile char check[] = "DR=";
+static volatile uint8_t ovf_cnt = 0;
+
+void initCtrlData(void){
+	for(i=0;i<RC_DATA_LENGTH;i++){
+			ctrlData.buf[i] = defaultCtrlData[i];
+		}
+}
 /*
 
 TCB remoteCrtl;
@@ -108,15 +115,15 @@ ISR(USART0_RX_vect)
 
 	if(phase){
 		packet[cnt] = val;
-		uart1_putchar(packet[cnt]);
+//		uart1_putchar(packet[cnt]);
 		if(cnt<2){
 			if(val != check[cnt]){
 				phase = false;
-				uart1_putchar('@');
+//				uart1_putchar('@');
 				LED(0,false);
 				beep(1);
 			}
-		}else if(cnt==10){
+		}else if(cnt==8){
 			ctrlData.buf[0] = packet[5];
 			ctrlData.buf[1] = packet[6];
 			ctrlData.buf[2] = packet[7];
@@ -125,6 +132,8 @@ ISR(USART0_RX_vect)
 			wdt_reset();
 			LED(0,true);
 			if(EmergencyStatus()) beep(0);
+			ovf_cnt = 0;
+			TCNT1 = 0;
 		}
 		cnt++;
 	}else{
@@ -134,4 +143,14 @@ ISR(USART0_RX_vect)
 		}
 	}
 
+}
+
+ISR (TIMER1_OVF_vect){
+	ovf_cnt++;
+	if(ovf_cnt>150){
+		ovf_cnt = 0;
+		for(i=0;i<RC_DATA_LENGTH;i++){
+			ctrlData.buf[i] = defaultCtrlData[i];
+		}
+	}
 }

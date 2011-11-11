@@ -11,8 +11,7 @@ beep.o: ../PERIPHERAL/BEEP/beep.c \
   c:/winavr-20100110/lib/gcc/../../avr/include/avr/lock.h \
   c:/winavr-20100110/lib/gcc/../../avr/include/avr/interrupt.h \
   c:\winavr-20100110\bin\../lib/gcc/avr/4.3.3/include/stdbool.h \
-  C:\Users\iwate\Desktop\NotOSX_AOF\PERIPHERAL\LED/led.h \
-  ../PERIPHERAL/BEEP/beep.h
+  D:\tmp\2011\NotOSX_AOF\PERIPHERAL\LED/led.h ../PERIPHERAL/BEEP/beep.h
 
 c:/winavr-20100110/lib/gcc/../../avr/include/avr/io.h:
 
@@ -38,6 +37,6 @@ c:/winavr-20100110/lib/gcc/../../avr/include/avr/interrupt.h:
 
 c:\winavr-20100110\bin\../lib/gcc/avr/4.3.3/include/stdbool.h:
 
-C:\Users\iwate\Desktop\NotOSX_AOF\PERIPHERAL\LED/led.h:
+D:\tmp\2011\NotOSX_AOF\PERIPHERAL\LED/led.h:
 
 ../PERIPHERAL/BEEP/beep.h:

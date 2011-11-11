@@ -31,8 +31,12 @@ int main(void)
 	union controller_data *controller;
 
 	int8_t slaveBuf[16]={0},m_size=2;
-	bool a_flag=true;
-	signed char duty=0;
+	int8_t velocity;
+	bool lAirAction, rAirAction;
+	bool zlPushed, zrPushed, rightPushed, leftPushed;
+	uint8_t lAirTimeCount, rAirTimeCount;
+	bool i2cStatus;
+
 	uint8_t port;
 	Slave Motor = {MOTOR,{(int8_t*)&slaveBuf[0],m_size},{(int8_t*)&slaveBuf[m_size],m_size}};
 	Slave Throw = {THROW,{(int8_t*)&slaveBuf[10],1},{(int8_t*)&slaveBuf[11],1}};
@@ -40,9 +44,6 @@ int main(void)
 	Slave EStop = {ESTOP,{(int8_t*)&slaveBuf[12],1},{(int8_t*)&slaveBuf[13],1}};	
 	uint8_t e_flag=0;
 #endif
-	int i;
-	uint8_t action;
-	bool act=false,i2cStatus;
 
 /*---------------------------------------------------------------*/
 // 						èëÇ´Ç©Ç¶ÇøÇ·É_ÉÅÇÊÅI
@@ -235,6 +236,8 @@ int main(void)
 				rAirTimeCount--;
 			}
 		// AirDrive()
+		port = ( ( rAirAction << 3 ) | ( lAirAction << 2 ) | ( rAirAction << 1 ) | lAirAction );
+		aDrive(&Throw,port, ( rAirAction | lAirAction ) );
 
 //
 ///*AIR*/

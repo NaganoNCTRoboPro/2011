@@ -9,7 +9,7 @@ switch.o: ../PERIPHERAL/SWITCH/switch.c ../PERIPHERAL/SWITCH/switch.h \
   c:/winavr-20100110/lib/gcc/../../avr/include/avr/version.h \
   c:/winavr-20100110/lib/gcc/../../avr/include/avr/fuse.h \
   c:/winavr-20100110/lib/gcc/../../avr/include/avr/lock.h \
-  C:\Users\iwate\Desktop\NotOSX_AOF\ROBOS\COMMON/common.h \
+  D:\tmp\2011\NotOSX_AOF\ROBOS\COMMON/common.h \
   c:\winavr-20100110\bin\../lib/gcc/avr/4.3.3/include/stdbool.h
 
 ../PERIPHERAL/SWITCH/switch.h:
@@ -34,6 +34,6 @@ c:/winavr-20100110/lib/gcc/../../avr/include/avr/fuse.h:
 
 c:/winavr-20100110/lib/gcc/../../avr/include/avr/lock.h:
 
-C:\Users\iwate\Desktop\NotOSX_AOF\ROBOS\COMMON/common.h:
+D:\tmp\2011\NotOSX_AOF\ROBOS\COMMON/common.h:
 
 c:\winavr-20100110\bin\../lib/gcc/avr/4.3.3/include/stdbool.h:
