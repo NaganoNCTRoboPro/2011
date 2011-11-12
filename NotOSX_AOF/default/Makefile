@@ -37,7 +37,11 @@ HEX_EEPROM_FLAGS += --change-section-lma .eeprom=0 --no-change-warnings
 
 
 ## Include Directories
+<<<<<<< HEAD
 INCLUDES = -I"D:\tmp\2011\NotOSX_AOF\." -I"D:\tmp\2011\NotOSX_AOF\APPLICATION" -I"D:\tmp\2011\NotOSX_AOF\PERIPHERAL" -I"D:\tmp\2011\NotOSX_AOF\PERIPHERAL\LED" -I"D:\tmp\2011\NotOSX_AOF\PERIPHERAL\MU2" -I"D:\tmp\2011\NotOSX_AOF\PERIPHERAL\REMOTE_CONTROL" -I"D:\tmp\2011\NotOSX_AOF\ROBOS\COMMON" -I"D:\tmp\2011\NotOSX_AOF\ROBOS\I2C" -I"D:\tmp\2011\NotOSX_AOF\ROBOS\KERNEL" -I"D:\tmp\2011\NotOSX_AOF\ROBOS\SERIAL" -I"D:\tmp\2011\NotOSX_AOF\PERIPHERAL\ACTUATER" -I"D:\tmp\2011\NotOSX_AOF\PERIPHERAL\SWITCH" -I"D:\tmp\2011\NotOSX_AOF\PERIPHERAL\BEEP" -I"D:\tmp\2011\NotOSX_AOF\PERIPHERAL\EMERGENCY" 
+=======
+INCLUDES = -I"C:\Users\BillGates\Desktop\natinal\2011\NotOSX_AOF\." -I"C:\Users\BillGates\Desktop\natinal\2011\NotOSX_AOF\APPLICATION" -I"C:\Users\BillGates\Desktop\natinal\2011\NotOSX_AOF\PERIPHERAL" -I"C:\Users\BillGates\Desktop\natinal\2011\NotOSX_AOF\PERIPHERAL\LED" -I"C:\Users\BillGates\Desktop\natinal\2011\NotOSX_AOF\PERIPHERAL\MU2" -I"C:\Users\BillGates\Desktop\natinal\2011\NotOSX_AOF\PERIPHERAL\REMOTE_CONTROL" -I"C:\Users\BillGates\Desktop\natinal\2011\NotOSX_AOF\ROBOS\COMMON" -I"C:\Users\BillGates\Desktop\natinal\2011\NotOSX_AOF\ROBOS\I2C" -I"C:\Users\BillGates\Desktop\natinal\2011\NotOSX_AOF\ROBOS\KERNEL" -I"C:\Users\BillGates\Desktop\natinal\2011\NotOSX_AOF\ROBOS\SERIAL" -I"C:\Users\BillGates\Desktop\natinal\2011\NotOSX_AOF\PERIPHERAL\ACTUATER" -I"C:\Users\BillGates\Desktop\natinal\2011\NotOSX_AOF\PERIPHERAL\SWITCH" -I"C:\Users\BillGates\Desktop\natinal\2011\NotOSX_AOF\PERIPHERAL\BEEP" -I"C:\Users\BillGates\Desktop\natinal\2011\NotOSX_AOF\PERIPHERAL\EMERGENCY" 
+>>>>>>> 317eb8aadb7b758495f27da2e2f8e6f397e1e755
 
 ## Objects that must be built in order to link
 OBJECTS = main.o remote_control_rx.o mu2.o uart.o ringbuffer.o i2c.o led.o wait.o actuater.o switch.o beep.o emergency.o 

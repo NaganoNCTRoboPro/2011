@@ -9,7 +9,11 @@ led.o: ../PERIPHERAL/LED/led.c \
   c:/winavr-20100110/lib/gcc/../../avr/include/avr/version.h \
   c:/winavr-20100110/lib/gcc/../../avr/include/avr/fuse.h \
   c:/winavr-20100110/lib/gcc/../../avr/include/avr/lock.h \
+<<<<<<< HEAD
   D:\tmp\2011\NotOSX_AOF\ROBOS\COMMON/common.h \
+=======
+  C:\Users\BillGates\Desktop\natinal\2011\NotOSX_AOF\ROBOS\COMMON/common.h \
+>>>>>>> 317eb8aadb7b758495f27da2e2f8e6f397e1e755
   c:\winavr-20100110\bin\../lib/gcc/avr/4.3.3/include/stdbool.h \
   ../PERIPHERAL/LED/led.h
 
@@ -33,7 +37,11 @@ c:/winavr-20100110/lib/gcc/../../avr/include/avr/fuse.h:
 
 c:/winavr-20100110/lib/gcc/../../avr/include/avr/lock.h:
 
+<<<<<<< HEAD
 D:\tmp\2011\NotOSX_AOF\ROBOS\COMMON/common.h:
+=======
+C:\Users\BillGates\Desktop\natinal\2011\NotOSX_AOF\ROBOS\COMMON/common.h:
+>>>>>>> 317eb8aadb7b758495f27da2e2f8e6f397e1e755
 
 c:\winavr-20100110\bin\../lib/gcc/avr/4.3.3/include/stdbool.h:
 

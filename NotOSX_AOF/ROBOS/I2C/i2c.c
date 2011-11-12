@@ -41,7 +41,7 @@ void initI2CMaster(unsigned char speed)
 void initI2CSlave(Slave *_own)
 	{
 		own = _own;
-		TWAR = (own->addr)>>=1;
+		TWAR = (own->addr)<<1;
 		TWAR |= 1;
 		TWCR = 0x45;
 	#if WDT_RESET_IN_I2C

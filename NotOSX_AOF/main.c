@@ -26,10 +26,9 @@ static uint8_t buf[36];
 
 int main(void)
 {
-	uint8_t _group=0,_channel=0; 
-
 	union controller_data *controller;
 
+<<<<<<< HEAD
 	int8_t slaveBuf[16]={0},m_size=2;
 	int8_t velocity;
 	bool lAirAction, rAirAction;
@@ -38,6 +37,12 @@ int main(void)
 	bool i2cStatus;
 
 	uint8_t port;
+=======
+	uint8_t port,_group=0,_channel=0,action,i; 
+	int8_t slaveBuf[16]={0},m_size=2,duty=0;
+	bool a_flag=true,act=false,i2cStatus;
+
+>>>>>>> 317eb8aadb7b758495f27da2e2f8e6f397e1e755
 	Slave Motor = {MOTOR,{(int8_t*)&slaveBuf[0],m_size},{(int8_t*)&slaveBuf[m_size],m_size}};
 	Slave Throw = {THROW,{(int8_t*)&slaveBuf[10],1},{(int8_t*)&slaveBuf[11],1}};
 #if SUPPLY_WATCHING
@@ -198,6 +203,7 @@ int main(void)
 			}
 		// AirDrive()
 
+<<<<<<< HEAD
 		// もしRボタンが押下なら
 			// rAirAction = ON
 		if( controller->detail.Button.R && ! rPushed )
@@ -280,6 +286,28 @@ int main(void)
 //		else act=0;
 //		LED(2,act);
 //		aDrive(&Throw,port,act);
+=======
+/*AIR*/
+		if(a_flag){
+	/*AIR ON*/
+			port=0x00;
+			if(controller->detail.Button.L) port|=0x01;
+			else port&=~0x01;
+			if(controller->detail.Button.R) port|=0x02;
+			else port&=~0x02;
+	/*一瞬エアON(6ms)*/
+			if(controller->detail.Button.ZL) port|= 0x10;
+			else							 port&=~0x10;
+			if(controller->detail.Button.ZR) port|= 0x20;
+			else							 port&=~0x20;
+			}
+	/*最初に片方だけあげたままにする&戻す*/
+		if(controller->detail.Button.UP)  {port=0x02;a_flag=0;}
+		if(controller->detail.Button.DOWN){port=0x00;a_flag=1;}
+		if(port) act=1;
+		else act=0;
+		LED(2,act);
+>>>>>>> 317eb8aadb7b758495f27da2e2f8e6f397e1e755
 		
 #if SUPPLY_WATCHING
 /*バルスモード*/
@@ -287,15 +315,30 @@ int main(void)
 		if(controller->detail.Button.SELECT&&controller->detail.Button.START){
 			e_flag=E_ON;
 			port&=0xCF;
-		}
+			}
 		/*復活!!!!!!!*/
 		else if(controller->detail.Button.HOME) e_flag=E_OFF;
 		else e_flag=E_KEEP;	
+<<<<<<< HEAD
 		i2cStatus = true;
 #endif
+=======
+#endif	
+		aDrive(&Throw,port,act);
+/*歩行*/		
+		duty=100;
+		if(controller->detail.Button.A) action=CW;
+		else if(controller->detail.Button.B) action=CCW;
+		else action=BRAKE;
+	/*低速モード*/
+		if(controller->detail.Button.X)		{duty=70;action=CW;}
+		else if(controller->detail.Button.Y){duty=35;action=CW;}
+	/*I2Cデータの生成*/
+		for(i=0;i<2;i++) mDrive(&Motor,action,duty,i);			
+>>>>>>> 317eb8aadb7b758495f27da2e2f8e6f397e1e755
 
 /*I2C Writeing And Check*/
-
+		i2cStatus = true;
 		i2cStatus &= i2cWrite(&Motor); wait_us(4);  
 #if SUPPLY_WATCHING
 		i2cStatus &= Emergency(&EStop,e_flag);	

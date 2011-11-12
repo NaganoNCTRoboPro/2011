@@ -25,6 +25,7 @@ int main(void)
 {
 	union controller_data *controller;
 	int8_t slaveBuf[12]={0};
+<<<<<<< HEAD
 	bool carveEnable;
 	int16_t carveEnableCount;
 	int16_t timeCount;
@@ -43,6 +44,11 @@ int main(void)
 	int16_t orangeDuty;
 	int16_t count = 0;
 */
+=======
+	unsigned char action,uAction,dAction,e_flag, AirPort;
+	int8_t uDuty;
+	int16_t dDuty,count=0;
+>>>>>>> 317eb8aadb7b758495f27da2e2f8e6f397e1e755
 
 	Slave Motor = {MOTOR,{(int8_t*)&slaveBuf[0],4},{(int8_t*)&slaveBuf[4],4}};
 	Slave Air	= {AIR,{(int8_t*)&slaveBuf[8],1},{(int8_t*)&slaveBuf[9],1}};
@@ -89,6 +95,7 @@ int main(void)
 	TCCR1B = 5;
 	TIMSK1 = 1;
 	TCNT1 = 0;
+<<<<<<< HEAD
 
 // Entry
 // 	carveEnable = false
@@ -97,6 +104,8 @@ int main(void)
 	carveEnableCount = 0;
 //	timeCount = 0
 	timeCount = 0;
+=======
+>>>>>>> 317eb8aadb7b758495f27da2e2f8e6f397e1e755
 
 	while(1){	
 		controller = Toggle_RC_Rx_Buffer();
@@ -113,6 +122,7 @@ int main(void)
 				uart_init(0,UART_RE|UART_RXCIE,BR_4800);
 			}
 /*-------------------------------------------------------------------------*/
+<<<<<<< HEAD
 		/*ここにプログラムを記述するとよろしいのではないのかと思われます*/
 /* 新式 */
 
@@ -223,12 +233,38 @@ int main(void)
 			dDuty = 100;
 			count++;
 			if(count>27) dDuty =  -65-count;
+=======
+		if(controller->detail.Button.X&&count<110){
+			uDuty = 100;
+			dDuty = 100;
+			count++;
+			if(count>35) dDuty =  -60-count;
 			if(dDuty<-100) dDuty = -100;
 			mDrive(&Motor,CCW,uDuty,0);	//BLUE
 			Motor.write.buf[1] = Motor.write.buf[0];
 			mDrive(&Motor,CW,(int8_t)dDuty,2);	//ORANGE
 			mDrive(&Motor,CW,(int8_t)dDuty,3);	//ORANGE
 		}else{
+/*		if(controller->detail.Button.X&&count<85){
+			uDuty = 100;
+			dDuty = 100;
+			count++;
+			if(count>43) dDuty =  -65-count;
+>>>>>>> 317eb8aadb7b758495f27da2e2f8e6f397e1e755
+			if(dDuty<-100) dDuty = -100;
+			mDrive(&Motor,CCW,uDuty,0);	//BLUE
+			Motor.write.buf[1] = Motor.write.buf[0];
+			mDrive(&Motor,CW,(int8_t)dDuty,2);	//ORANGE
+			mDrive(&Motor,CW,(int8_t)dDuty,3);	//ORANGE
+		}else{
+<<<<<<< HEAD
+=======
+*/				
+
+		/*ここにプログラムを記述するとよろしいのではないのかと思われます*/
+
+		
+>>>>>>> 317eb8aadb7b758495f27da2e2f8e6f397e1e755
 			if(	controller->detail.AnalogR.Y<0x05	||
 				controller->detail.AnalogL.Y<0x05	)
 				{
@@ -308,9 +344,13 @@ int main(void)
 		/*復活!!!!!!!*/
 		else if(controller->detail.Button.HOME){
 			e_flag=E_OFF;
+<<<<<<< HEAD
 			carveEnable = false;
 			carveEnableCount = 0;
 			timeCount = 0;
+=======
+			count = 0;
+>>>>>>> 317eb8aadb7b758495f27da2e2f8e6f397e1e755
 		}
 		else e_flag=E_KEEP;	
 
