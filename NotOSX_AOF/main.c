@@ -33,7 +33,7 @@ int main(void)
 	int8_t slaveBuf[16]={0},m_size=2;
 	int8_t velocity;
 	bool lAirAction, rAirAction;
-	bool zlPushed, zrPushed, rightPushed, leftPushed;
+	bool zlPushed, zrPushed, rightPushed, leftPushed, lPushed, rPushed;
 	uint8_t lAirTimeCount, rAirTimeCount;
 	bool i2cStatus;
 
@@ -80,6 +80,15 @@ int main(void)
 	TIMSK1 = 1;
 	TCNT1 = 0;
 
+	// velocity = 0
+		velocity = 0;
+	// lAirAction = rAirAction = OFF
+		lAirAction = rAirAction = OFF;
+	// zlPushed = zrPushed = rightPushed = leftPushed = false
+		zlPushed = zrPushed = rightPushed = leftPushed = lPushed = rPushed = false;
+	// lAirTimeCount = rAirTimeCount = 0
+		lAirTimeCount = rAirTimeCount = 0;
+
 	while(1){	
 		controller = Toggle_RC_Rx_Buffer();
 		if(controller->detail.Button.HOME&&controller->detail.Button.X && controller->detail.Button.UP&&
@@ -95,8 +104,7 @@ int main(void)
 				uart_init(0,UART_RE|UART_RXCIE,BR_4800);
 			}
 /*-------------------------------------------------------------------------*/
-		// velocity = 0
-		velocity = 0;
+		
 		// もし，aボタンが押下なら
 			// velocity = 100;
 		if( controller->detail.Button.A )
@@ -107,13 +115,13 @@ int main(void)
 			// velocity = 70;
 		else if( controller->detail.Button.X )
 			{
-				velocity = 70;
+				velocity = 55;
 			}
 		// そうでなく，もし，yボタンが押下なら
 			// velocity = 30;
 		else if( controller->detail.Button.Y )
 			{
-				velocity = 30;
+				velocity = -55;
 			}
 		// そうでなく，もし，bボタンが押下なら
 			// velocity = -100;
@@ -132,28 +140,27 @@ int main(void)
 		// MotorDrive( , CW, velocity, 1);
 		mDrive(&Motor, CW, velocity, 1);
 
-		// lAirAction = rAirAction = OFF
-		lAirAction = rAirAction = OFF;
-		// zlPushed = zrPushed = rightPushed = leftPushed = false
-		zlPushed = zrPushed = rightPushed = leftPushed = false;
-		// lAirTimeCount = rAirTimeCount = 0
-		lAirTimeCount = rAirTimeCount = 0;
-
 		// もし，Lボタンが押下なら
 			// lAirAction = ON
-		if( controller->detail.Button.L )
+		if( controller->detail.Button.L && ! lPushed )
 			{
 				lAirAction = ON;
+				lPushed = true;
+				lAirTimeCount = 23;
 			}
-		// そうでなく，ZLボタンが押下．かつzlPushedga偽なら
+		else if( ! controller->detail.Button.L && lPushed )
+			{
+				lPushed = false;
+			}
+		// そうでなく，ZLボタンが押下．かつzlPushedが偽なら
 			// lAirAction = ON
 			// zlPushed = 真
 			// lAirTimeCount = □
-		else if( controller->detail.Button.ZL && ! zlPushed )
+		else if( controller->detail.Button.ZL && ! zlPushed && ! lPushed)
 			{
 				lAirAction = ON;
 				zlPushed = true;
-				lAirTimeCount = 10;
+				lAirTimeCount = 2;
 			}
 		// そうでなく，ZLボタンが押下でなく．かつzlPushedが真なら
 			// zlPushed = 偽
@@ -169,7 +176,7 @@ int main(void)
 			{
 				lAirAction = ON;
 				leftPushed = true;
-				lAirTimeCount = 20;
+				lAirTimeCount = 10;
 			}
 		// そうでなく，←ボタンが押下でなく．かつleftPushedが真なら
 			// leftPushed = 偽
@@ -185,7 +192,7 @@ int main(void)
 			}
 		// もし，lAirTimeCountが0でなければ
 			// lAirTimeCountをデクリメント
-		if( lAirTimeCount )
+		if( lAirTimeCount != 0 )
 			{
 				lAirTimeCount--;
 			}
@@ -193,19 +200,25 @@ int main(void)
 
 		// もしRボタンが押下なら
 			// rAirAction = ON
-		if( controller->detail.Button.R )
+		if( controller->detail.Button.R && ! rPushed )
 			{
 				rAirAction = ON;
+				rPushed = true;
+				rAirTimeCount = 23;
+			}
+		else if( ! controller->detail.Button.R && rPushed )
+			{
+				rPushed = false;
 			}
 		// そうでなく，ZRボタンが押下．かつzrPushedが偽なら
 			// rAirAction = ON
 			// zrPushed = 真
 			// rAirTimeCount = □
-		else if( controller->detail.Button.ZR && ! zrPushed )
+		else if( controller->detail.Button.ZR && ! zrPushed  && ! rPushed )
 			{
 				rAirAction = ON;
 				zrPushed = true;
-				rAirTimeCount = 10;
+				rAirTimeCount = 2;
 			}
 		// そうでなく，ZRボタンが押下でなく，かつzrPushedが真なら
 			// zrPushed = 偽
@@ -221,7 +234,7 @@ int main(void)
 			{
 				rAirAction = ON;
 				rightPushed = true;
-				rAirTimeCount = 20;
+				rAirTimeCount = 10;
 			}
 		// そうでなく，→ボタンが押下でなく．かつrightPushedが真なら
 			// rightPushed = 偽
@@ -232,6 +245,12 @@ int main(void)
 		// そうでなく，rAirTimeCountが0なら
 			// rAirTimeCountをデクリメント
 		else if( rAirTimeCount == 0 )
+			{
+				rAirAction = OFF;
+			}
+		// もし，rAirTimeCountが0でなければ
+			// rAirTimeCountをデクリメント
+		if( rAirTimeCount != 0 )
 			{
 				rAirTimeCount--;
 			}
@@ -286,7 +305,7 @@ int main(void)
 		i2cCheck(i2cStatus);
 
 /********これ以降を書き換えることは推奨されないよ!!!********/
-		wait_ms(25);
+		wait_ms(15);
 	}
 	return 0;
 }

@@ -9,7 +9,7 @@ void mDrive(Slave *motor,unsigned char in, signed char duty,unsigned char no)
 	if(duty>100) duty=100;
 	if(duty<-100) duty=-100;
 	if(in==CCW) w_data = -duty;
-	else if(in==FREE) w_data = 0; 
+	else if(in==FREE) w_data = 0;
 	else if(in==BRAKE) w_data = 0x7f;
 	else w_data = duty;
 	motor->write.buf[no] = w_data;
