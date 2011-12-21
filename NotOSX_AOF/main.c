@@ -28,14 +28,25 @@ int main(void)
 {
 	union controller_data *controller;
 
+<<<<<<< HEAD
+	int8_t slaveBuf[16]={0},m_size=2;
+	int8_t velocity;
+	bool lAirAction, rAirAction;
+	bool zlPushed, zrPushed, rightPushed, leftPushed, lPushed, rPushed;
+	uint8_t lAirTimeCount, rAirTimeCount;
+	bool i2cStatus;
+
+	uint8_t port;
+=======
 	uint8_t port,_group=0,_channel=0,action,i; 
 	int8_t slaveBuf[16]={0},m_size=2,duty=0;
 	bool a_flag=true,act=false,i2cStatus;
 
+>>>>>>> 317eb8aadb7b758495f27da2e2f8e6f397e1e755
 	Slave Motor = {MOTOR,{(int8_t*)&slaveBuf[0],m_size},{(int8_t*)&slaveBuf[m_size],m_size}};
 	Slave Throw = {THROW,{(int8_t*)&slaveBuf[10],1},{(int8_t*)&slaveBuf[11],1}};
 #if SUPPLY_WATCHING
-	Slave EStop = {ESTOP,{(int8_t*)&slaveBuf[12],1},{(int8_t*)&slaveBuf[13],1}};		
+	Slave EStop = {ESTOP,{(int8_t*)&slaveBuf[12],1},{(int8_t*)&slaveBuf[13],1}};	
 	uint8_t e_flag=0;
 #endif
 
@@ -74,6 +85,15 @@ int main(void)
 	TIMSK1 = 1;
 	TCNT1 = 0;
 
+	// velocity = 0
+		velocity = 0;
+	// lAirAction = rAirAction = OFF
+		lAirAction = rAirAction = OFF;
+	// zlPushed = zrPushed = rightPushed = leftPushed = false
+		zlPushed = zrPushed = rightPushed = leftPushed = lPushed = rPushed = false;
+	// lAirTimeCount = rAirTimeCount = 0
+		lAirTimeCount = rAirTimeCount = 0;
+
 	while(1){	
 		controller = Toggle_RC_Rx_Buffer();
 		if(controller->detail.Button.HOME&&controller->detail.Button.X && controller->detail.Button.UP&&
@@ -89,7 +109,184 @@ int main(void)
 				uart_init(0,UART_RE|UART_RXCIE,BR_4800);
 			}
 /*-------------------------------------------------------------------------*/
+		
+		// もし，aボタンが押下なら
+			// velocity = 100;
+		if( controller->detail.Button.A )
+			{
+				velocity = 100;
+			}
+		// そうでなく，もし，xボタンが押下なら
+			// velocity = 70;
+		else if( controller->detail.Button.X )
+			{
+				velocity = 55;
+			}
+		// そうでなく，もし，yボタンが押下なら
+			// velocity = 30;
+		else if( controller->detail.Button.Y )
+			{
+				velocity = -55;
+			}
+		// そうでなく，もし，bボタンが押下なら
+			// velocity = -100;
+		else if( controller->detail.Button.B )
+			{
+				velocity = -100;
+			}
+		// そうでなければ
+			// velocity = 0;
+		else
+			{
+				velocity = 0;
+			}
+		// MotorDrive( , CW, velocity, 0);
+		mDrive(&Motor, CW, velocity, 0);
+		// MotorDrive( , CW, velocity, 1);
+		mDrive(&Motor, CW, velocity, 1);
 
+		// もし，Lボタンが押下なら
+			// lAirAction = ON
+		if( controller->detail.Button.L && ! lPushed )
+			{
+				lAirAction = ON;
+				lPushed = true;
+				lAirTimeCount = 23;
+			}
+		else if( ! controller->detail.Button.L && lPushed )
+			{
+				lPushed = false;
+			}
+		// そうでなく，ZLボタンが押下．かつzlPushedが偽なら
+			// lAirAction = ON
+			// zlPushed = 真
+			// lAirTimeCount = □
+		else if( controller->detail.Button.ZL && ! zlPushed && ! lPushed)
+			{
+				lAirAction = ON;
+				zlPushed = true;
+				lAirTimeCount = 2;
+			}
+		// そうでなく，ZLボタンが押下でなく．かつzlPushedが真なら
+			// zlPushed = 偽
+		else if( ! controller->detail.Button.ZL && zlPushed )
+			{
+				zlPushed = false;
+			}
+		// そうでなく，←ボタンが押下で，かつleftPushedが偽なら
+			// lAirAction = ON
+			// leftPushed = 真
+			// lAirTimeCount = ○
+		else if( controller->detail.Button.LEFT && ! leftPushed )
+			{
+				lAirAction = ON;
+				leftPushed = true;
+				lAirTimeCount = 10;
+			}
+		// そうでなく，←ボタンが押下でなく．かつleftPushedが真なら
+			// leftPushed = 偽
+		else if( ! controller->detail.Button.LEFT && leftPushed )
+			{
+				leftPushed = false;
+			}
+		// そうでなく，lAirTimeCountが0なら
+			// lAirAction = OFF
+		else if( lAirTimeCount == 0 )
+			{
+				lAirAction = OFF;
+			}
+		// もし，lAirTimeCountが0でなければ
+			// lAirTimeCountをデクリメント
+		if( lAirTimeCount != 0 )
+			{
+				lAirTimeCount--;
+			}
+		// AirDrive()
+
+<<<<<<< HEAD
+		// もしRボタンが押下なら
+			// rAirAction = ON
+		if( controller->detail.Button.R && ! rPushed )
+			{
+				rAirAction = ON;
+				rPushed = true;
+				rAirTimeCount = 23;
+			}
+		else if( ! controller->detail.Button.R && rPushed )
+			{
+				rPushed = false;
+			}
+		// そうでなく，ZRボタンが押下．かつzrPushedが偽なら
+			// rAirAction = ON
+			// zrPushed = 真
+			// rAirTimeCount = □
+		else if( controller->detail.Button.ZR && ! zrPushed  && ! rPushed )
+			{
+				rAirAction = ON;
+				zrPushed = true;
+				rAirTimeCount = 2;
+			}
+		// そうでなく，ZRボタンが押下でなく，かつzrPushedが真なら
+			// zrPushed = 偽
+		else if( ! controller->detail.Button.ZR && zrPushed )
+			{
+				zrPushed = false;
+			}
+		// そうでなく，→ボタンが押下で，かつrightPushedが偽なら
+			// rAirAction = ON
+			// rightPushed = 真
+			// rAirTimeCount = ○
+		else if( controller->detail.Button.RIGHT && ! rightPushed )
+			{
+				rAirAction = ON;
+				rightPushed = true;
+				rAirTimeCount = 10;
+			}
+		// そうでなく，→ボタンが押下でなく．かつrightPushedが真なら
+			// rightPushed = 偽
+		else if( ! controller->detail.Button.RIGHT && rightPushed )
+			{
+				rightPushed = false;
+			}
+		// そうでなく，rAirTimeCountが0なら
+			// rAirTimeCountをデクリメント
+		else if( rAirTimeCount == 0 )
+			{
+				rAirAction = OFF;
+			}
+		// もし，rAirTimeCountが0でなければ
+			// rAirTimeCountをデクリメント
+		if( rAirTimeCount != 0 )
+			{
+				rAirTimeCount--;
+			}
+		// AirDrive()
+		port = ( ( rAirAction << 3 ) | ( lAirAction << 2 ) | ( rAirAction << 1 ) | lAirAction );
+		aDrive(&Throw,port, ( rAirAction | lAirAction ) );
+
+//
+///*AIR*/
+//		if(a_flag){
+//	/*AIR ON*/
+//			port=0x00;
+//			if(controller->detail.Button.L) port|=0x01;
+//			else port&=~0x01;
+//			if(controller->detail.Button.R) port|=0x02;
+//			else port&=~0x02;
+//	/*一瞬エアON(6ms)*/
+//			if(controller->detail.Button.ZL) port|=0x10;
+//			else port&=~0x10;
+//			if(controller->detail.Button.ZR) port|=0x20;
+//			else port&=~0x20;
+//			}
+//	/*最初に片方だけあげたままにする&戻す*/
+//		if(controller->detail.Button.UP)  {port=0x02;a_flag=0;}
+//		if(controller->detail.Button.DOWN){port=0x00;a_flag=1;}
+//		if(port) act=1;
+//		else act=0;
+//		LED(2,act);
+//		aDrive(&Throw,port,act);
+=======
 /*AIR*/
 		if(a_flag){
 	/*AIR ON*/
@@ -110,6 +307,7 @@ int main(void)
 		if(port) act=1;
 		else act=0;
 		LED(2,act);
+>>>>>>> 317eb8aadb7b758495f27da2e2f8e6f397e1e755
 		
 #if SUPPLY_WATCHING
 /*バルスモード*/
@@ -121,6 +319,10 @@ int main(void)
 		/*復活!!!!!!!*/
 		else if(controller->detail.Button.HOME) e_flag=E_OFF;
 		else e_flag=E_KEEP;	
+<<<<<<< HEAD
+		i2cStatus = true;
+#endif
+=======
 #endif	
 		aDrive(&Throw,port,act);
 /*歩行*/		
@@ -133,6 +335,7 @@ int main(void)
 		else if(controller->detail.Button.Y){duty=35;action=CW;}
 	/*I2Cデータの生成*/
 		for(i=0;i<2;i++) mDrive(&Motor,action,duty,i);			
+>>>>>>> 317eb8aadb7b758495f27da2e2f8e6f397e1e755
 
 /*I2C Writeing And Check*/
 		i2cStatus = true;
@@ -145,7 +348,7 @@ int main(void)
 		i2cCheck(i2cStatus);
 
 /********これ以降を書き換えることは推奨されないよ!!!********/
-		wait_ms(25);
+		wait_ms(15);
 	}
 	return 0;
 }

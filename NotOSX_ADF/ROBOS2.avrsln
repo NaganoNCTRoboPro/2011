@@ -1,0 +1,17 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# AvrStudio Solution File, Format Version 11.00
+Project("{D1100916-62DA-4D80-A9B4-55A1E7CCEEB3}") = "ROBOS2", "ROBOS2\ROBOS2.avrgccproj", "{C572AF5A-0A35-40D7-8159-5CDD338278D0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		default|AVR = default|AVR
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C572AF5A-0A35-40D7-8159-5CDD338278D0}.default|AVR.ActiveCfg = default|AVR
+		{C572AF5A-0A35-40D7-8159-5CDD338278D0}.default|AVR.Build.0 = default|AVR
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
