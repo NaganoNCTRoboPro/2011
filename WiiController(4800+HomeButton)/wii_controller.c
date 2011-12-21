@@ -25,7 +25,6 @@ void error()									//Processing Some Errors
 		PORTC &=~_BV(PC1);
 		PORTC &=~_BV(PC2); 
 		wait(750);
-		wdt_enable(WDTO_15MS);
 	}
 }
 
@@ -72,7 +71,6 @@ void set_controller()							//Setting Wii Controller
 void get_value(unsigned char *Re_Data)
 {
 	int i;
-	wdt_enable(WDTO_500MS);
 	wait(2);									//wait(2ms)
 	I2C_START;									//開始条件を送る
 	while(!(TWCR & _BV(TWINT)));				//TWINTフラグが立つまで待機
@@ -102,7 +100,6 @@ void get_value(unsigned char *Re_Data)
 		Re_Data[i] = (TWDR^0x17)+0x17;			//wii対応データに変換してRe_Dataに格納
 		}
 	I2C_END;									//終了条件を送る	
-	wdt_disable();
 }
 
 //select MU2 or Serial
@@ -121,6 +118,9 @@ void make_key()									//暗号化鍵の送信/作成
 	unsigned char data1[7]={0x40,0xA4,0xDD,0x6D,0x0C,0x2F,0x7E};
 	unsigned char data2[7]={0x46,0xF2,0x83,0xD4,0xE0,0xFD,0x26};
 	unsigned char data3[5]={0x4C,0xE3,0xB3,0x98,0x67};
+/*	unsigned char data1[7]={0x40,0x00,0x00,0x00,0x00,0x00,0x00};
+	unsigned char data2[7]={0x46,0x00,0x00,0x00,0x00,0x00,0x00};
+	unsigned char data3[5]={0x4C,0x00,0x00,0x00,0x00};*/
 	
 	wait(2);									//wait(2ms)	
 	I2C_START;									//開始条件を送る

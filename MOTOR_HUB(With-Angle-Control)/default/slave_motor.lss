@@ -13,19 +13,19 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
   4 .debug_pubnames 00000240  00000000  00000000  00001028  2**0
                   CONTENTS, READONLY, DEBUGGING
-  5 .debug_info   000018d1  00000000  00000000  00001268  2**0
+  5 .debug_info   000018d5  00000000  00000000  00001268  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_abbrev 00000d1a  00000000  00000000  00002b39  2**0
+  6 .debug_abbrev 00000d1a  00000000  00000000  00002b3d  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_line   00000e5b  00000000  00000000  00003853  2**0
+  7 .debug_line   00000e5b  00000000  00000000  00003857  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_frame  00000210  00000000  00000000  000046b0  2**2
+  8 .debug_frame  00000210  00000000  00000000  000046b4  2**2
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_str    0000038b  00000000  00000000  000048c0  2**0
+  9 .debug_str    0000038a  00000000  00000000  000048c4  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_loc    000007b6  00000000  00000000  00004c4b  2**0
+ 10 .debug_loc    000007b6  00000000  00000000  00004c4e  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_ranges 00000050  00000000  00000000  00005401  2**0
+ 11 .debug_ranges 00000050  00000000  00000000  00005404  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -105,7 +105,7 @@ Disassembly of section .text:
 0000006c <main>:
 
 volatile int8_t buf[10]={0};
-volatile Slave data = {ADDR,{(int8_t*)&buf[0],3},{(int8_t*)&buf[5],5}};
+Slave data = {ADDR,{(int8_t*)&buf[0],3},{(int8_t*)&buf[5],5}};
 
 int main(void)
 {
@@ -170,6 +170,10 @@ int main(void)
   d4:	71 2c       	mov	r7, r1
   d6:	88 24       	eor	r8, r8
   d8:	99 24       	eor	r9, r9
+	int a = 0;
+	if(a){
+		ERROR();
+	}
 	while(1){
 		for(i=0;i<3;i++) duty[i] = buf[i];
   da:	80 91 1a 02 	lds	r24, 0x021A
@@ -230,8 +234,8 @@ int main(void)
  13e:	f0 91 0e 01 	lds	r31, 0x010E
  142:	69 85       	ldd	r22, Y+9	; 0x09
  144:	09 95       	icall
-	initI2CSlave(&data);
-	sei();
+		ERROR();
+	}
 	while(1){
 		for(i=0;i<3;i++) duty[i] = buf[i];
 		for(i=0;i<2;i++){

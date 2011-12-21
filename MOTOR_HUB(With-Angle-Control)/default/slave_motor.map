@@ -486,19 +486,19 @@ LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a
  .debug_pubnames
                 0x00000220       0x20 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_clz.o)
 
-.debug_info     0x00000000     0x18d1
+.debug_info     0x00000000     0x18d5
  *(.debug_info)
- .debug_info    0x00000000      0x280 main.o
- .debug_info    0x00000280      0x195 i2c.o
- .debug_info    0x00000415      0x364 motor.o
- .debug_info    0x00000779      0x485 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_mul_sf.o)
- .debug_info    0x00000bfe      0x207 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_si_to_sf.o)
- .debug_info    0x00000e05      0x2b0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_sf_to_si.o)
- .debug_info    0x000010b5      0x12c c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_thenan_sf.o)
- .debug_info    0x000011e1      0x117 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_clzsi2.o)
- .debug_info    0x000012f8      0x2df c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_pack_sf.o)
- .debug_info    0x000015d7      0x251 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_unpack_sf.o)
- .debug_info    0x00001828       0xa9 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_clz.o)
+ .debug_info    0x00000000      0x284 main.o
+ .debug_info    0x00000284      0x195 i2c.o
+ .debug_info    0x00000419      0x364 motor.o
+ .debug_info    0x0000077d      0x485 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_mul_sf.o)
+ .debug_info    0x00000c02      0x207 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_si_to_sf.o)
+ .debug_info    0x00000e09      0x2b0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_sf_to_si.o)
+ .debug_info    0x000010b9      0x12c c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_thenan_sf.o)
+ .debug_info    0x000011e5      0x117 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_clzsi2.o)
+ .debug_info    0x000012fc      0x2df c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_pack_sf.o)
+ .debug_info    0x000015db      0x251 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_unpack_sf.o)
+ .debug_info    0x0000182c       0xa9 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_clz.o)
  *(.gnu.linkonce.wi.*)
 
 .debug_abbrev   0x00000000      0xd1a
@@ -541,26 +541,26 @@ LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a
  .debug_frame   0x000001d0       0x20 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_pack_sf.o)
  .debug_frame   0x000001f0       0x20 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_unpack_sf.o)
 
-.debug_str      0x00000000      0x38b
+.debug_str      0x00000000      0x38a
  *(.debug_str)
- .debug_str     0x00000000       0xf6 main.o
-                                0x144 (size before relaxing)
- .debug_str     0x000000f6       0x48 i2c.o
-                                0x135 (size before relaxing)
- .debug_str     0x0000013e       0x56 motor.o
-                                0x13b (size before relaxing)
- .debug_str     0x00000194      0x158 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_mul_sf.o)
+ .debug_str     0x00000000       0xf5 main.o
+                                0x143 (size before relaxing)
+ .debug_str     0x000000f5       0x48 i2c.o
+                                0x134 (size before relaxing)
+ .debug_str     0x0000013d       0x56 motor.o
+                                0x13a (size before relaxing)
+ .debug_str     0x00000193      0x158 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_mul_sf.o)
                                 0x1bf (size before relaxing)
- .debug_str     0x000002ec       0x1e c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_si_to_sf.o)
+ .debug_str     0x000002eb       0x1e c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_si_to_sf.o)
                                 0x17b (size before relaxing)
- .debug_str     0x0000030a        0xa c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_sf_to_si.o)
+ .debug_str     0x00000309        0xa c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_sf_to_si.o)
                                 0x19e (size before relaxing)
  .debug_str     0x00000000      0x103 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_thenan_sf.o)
- .debug_str     0x00000314       0x5c c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_clzsi2.o)
+ .debug_str     0x00000313       0x5c c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_clzsi2.o)
                                 0x111 (size before relaxing)
- .debug_str     0x00000370       0x10 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_pack_sf.o)
+ .debug_str     0x0000036f       0x10 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_pack_sf.o)
                                 0x19d (size before relaxing)
- .debug_str     0x00000380        0xb c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_unpack_sf.o)
+ .debug_str     0x0000037f        0xb c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_unpack_sf.o)
                                 0x17f (size before relaxing)
  .debug_str     0x00000000       0xf4 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_clz.o)
 

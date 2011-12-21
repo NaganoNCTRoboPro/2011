@@ -25,7 +25,6 @@ int main(void)
 {
 	union controller_data *controller;
 	int8_t slaveBuf[12]={0};
-<<<<<<< HEAD
 	bool carveEnable;
 	int16_t carveEnableCount;
 	int16_t timeCount;
@@ -37,6 +36,8 @@ int main(void)
 	uint8_t airAct;
 	uint8_t airPort;
 	uint8_t e_flag;
+	uint8_t analogX;
+	uint8_t analogY;
 
 /*
 	unsigned char action, blueAction, orangeAction, e_flag, AirPort;
@@ -44,11 +45,6 @@ int main(void)
 	int16_t orangeDuty;
 	int16_t count = 0;
 */
-=======
-	unsigned char action,uAction,dAction,e_flag, AirPort;
-	int8_t uDuty;
-	int16_t dDuty,count=0;
->>>>>>> 317eb8aadb7b758495f27da2e2f8e6f397e1e755
 
 	Slave Motor = {MOTOR,{(int8_t*)&slaveBuf[0],4},{(int8_t*)&slaveBuf[4],4}};
 	Slave Air	= {AIR,{(int8_t*)&slaveBuf[8],1},{(int8_t*)&slaveBuf[9],1}};
@@ -95,7 +91,6 @@ int main(void)
 	TCCR1B = 5;
 	TIMSK1 = 1;
 	TCNT1 = 0;
-<<<<<<< HEAD
 
 // Entry
 // 	carveEnable = false
@@ -104,8 +99,6 @@ int main(void)
 	carveEnableCount = 0;
 //	timeCount = 0
 	timeCount = 0;
-=======
->>>>>>> 317eb8aadb7b758495f27da2e2f8e6f397e1e755
 
 	while(1){	
 		controller = Toggle_RC_Rx_Buffer();
@@ -122,7 +115,6 @@ int main(void)
 				uart_init(0,UART_RE|UART_RXCIE,BR_4800);
 			}
 /*-------------------------------------------------------------------------*/
-<<<<<<< HEAD
 		/*ここにプログラムを記述するとよろしいのではないのかと思われます*/
 /* 新式 */
 
@@ -130,6 +122,10 @@ int main(void)
 // もし上ボタンが押されていないなら
 	if( ! controller->detail.Button.UP )
 		{
+			// アナログスティックのステータスを取得する
+				analogX = controller->detail.AnalogR.X;
+				analogY = controller->detail.AnalogR.Y;
+
 			// もしcarveEnableCountが○未満ならcarveEnableCountをインクリメント
 			// そうでなければcarveEnableを真にする
 				if( carveEnableCount < 40 )
@@ -141,7 +137,7 @@ int main(void)
 						carveEnable = true;
 					}
 			// motorDutyをBボタンが押されていたら30,そうでなければ100
-				motorDuty = ( controller->detail.Button.B ) ? 30:100;
+				motorDuty = ( controller->detail.Button.B ) ? 70:50;
 			
 			// もしLボタンが押されていたら、全駆動体に+motorDutyをセット
 				if( controller->detail.Button.L )
@@ -167,6 +163,50 @@ int main(void)
 						blueDuty = -motorDuty;
 						orangeDuty = +motorDuty;
 					}
+			// アナログスティックが左に傾いていれば，
+				// アナログスティックが上に傾いていれば，青の駆動体は正，橙の駆動体は0にmotorDutyをセット
+				// アナログスティックが下に傾いていれば，青の駆動体は0，青の駆動体は正にmotorDutyをセット
+				// アナログスティックが上下に傾いていなければ，全駆動体に+motorDutyをセット
+				else if( analogX < 0x05 )
+					{
+						if( analogY > 0x09 )
+							{
+								blueDuty = +motorDuty;
+								orangeDuty = 0;
+							}
+						else if( analogY < 0x05 )
+							{
+								blueDuty = 0;
+								orangeDuty = +motorDuty;
+							}
+						else
+							{
+								blueDuty = +motorDuty;
+								orangeDuty = +motorDuty;
+							}
+					}
+			// アナログスティックが右に傾いていれば，
+				// アナログスティックが上に傾いていれば，青の駆動体は負，橙の駆動体は0にmotorDutyをセット
+				// アナログスティックが下に傾いていれば，青の駆動体は0，青の駆動体は負にmotorDutyをセット
+				// アナログスティックが上下に傾いていなければ，全駆動体に-motorDutyをセット
+				else if( analogX > 0x09 )
+					{
+						if( analogY > 0x09 )
+							{
+								blueDuty = -motorDuty;
+								orangeDuty = 0;
+							}
+						else if( analogY < 0x05 )
+							{
+								blueDuty = 0;
+								orangeDuty = -motorDuty;
+							}
+						else
+							{
+								blueDuty = -motorDuty;
+								orangeDuty = -motorDuty;
+							}
+					}
 			// そうでなければ、停止
 				else
 					{
@@ -175,15 +215,16 @@ int main(void)
 					}
 		}
 
+/*
 // そうでなければ (↑ボタンが押下） かつ carveEnable が真なら
 	else if( carveEnable )
 		{
 			// もし timeCount が□未満なら
-				if( timeCount < 105 )
+				if( timeCount < 100 )
 					{
 						// もしtimeCount が△未満なら、全駆動体を-motorDutyにセット
 						// そうでなければ、徐々に曲げる
-							if( timeCount < 20 )
+							if( timeCount < 18 )
 								{
 									blueDuty = -100;
 									orangeDuty = -100;
@@ -205,6 +246,7 @@ int main(void)
 						orangeDuty = 0;
 					}
 		}
+*/
 // そうでなければ (↑ボタンが押下 かつ carveEnable が偽)、停止
 	else 
 		{
@@ -225,116 +267,22 @@ int main(void)
 	mDrive(&Motor, orangeAct, orangeDuty, 3);
 
 //	i2cで転送
-
- // 旧式
-/*
-		if(controller->detail.Button.UP&&count<113){
-			uDuty = 100;
-			dDuty = 100;
-			count++;
-			if(count>27) dDuty =  -65-count;
-=======
-		if(controller->detail.Button.X&&count<110){
-			uDuty = 100;
-			dDuty = 100;
-			count++;
-			if(count>35) dDuty =  -60-count;
-			if(dDuty<-100) dDuty = -100;
-			mDrive(&Motor,CCW,uDuty,0);	//BLUE
-			Motor.write.buf[1] = Motor.write.buf[0];
-			mDrive(&Motor,CW,(int8_t)dDuty,2);	//ORANGE
-			mDrive(&Motor,CW,(int8_t)dDuty,3);	//ORANGE
-		}else{
-/*		if(controller->detail.Button.X&&count<85){
-			uDuty = 100;
-			dDuty = 100;
-			count++;
-			if(count>43) dDuty =  -65-count;
->>>>>>> 317eb8aadb7b758495f27da2e2f8e6f397e1e755
-			if(dDuty<-100) dDuty = -100;
-			mDrive(&Motor,CCW,uDuty,0);	//BLUE
-			Motor.write.buf[1] = Motor.write.buf[0];
-			mDrive(&Motor,CW,(int8_t)dDuty,2);	//ORANGE
-			mDrive(&Motor,CW,(int8_t)dDuty,3);	//ORANGE
-		}else{
-<<<<<<< HEAD
-=======
-*/				
-
-		/*ここにプログラムを記述するとよろしいのではないのかと思われます*/
-
-		
->>>>>>> 317eb8aadb7b758495f27da2e2f8e6f397e1e755
-			if(	controller->detail.AnalogR.Y<0x05	||
-				controller->detail.AnalogL.Y<0x05	)
-				{
-					uDuty = 0;
-					dDuty = 100;
-				}
-			else if(	controller->detail.AnalogR.Y>0x09	||
-						controller->detail.AnalogL.Y>0x09	)
-				{
-					uDuty = 100;
-					dDuty = 0;
-				}
-			else if(controller->detail.Button.B)
-				{
-					uDuty = dDuty = 30;
-				}
-			else
-				{
-					uDuty = dDuty = 100;
-				}
-		
-			if(	controller->detail.Button.L			||
-				controller->detail.AnalogR.X<0x05	||
-				controller->detail.AnalogL.X<0x05	)
-				{
-					uAction=CW;
-					dAction=CCW;
-				}
-			else if( 	controller->detail.Button.R			||
-						controller->detail.AnalogR.X>0x09	||
-						controller->detail.AnalogL.X>0x09	)
-				{
-					uAction=CCW;
-					dAction=CW;
-				}
-			else if(controller->detail.Button.LEFT)
-				{
-					uAction = dAction = CW;
-				}
-			else if(controller->detail.Button.RIGHT)
-				{
-					uAction = dAction = CCW;
-				}
-			else
-				{
-					uAction = dAction = BRAKE;
-				}
-
-			mDrive(&Motor,uAction,uDuty,0);	//BLUE
-			Motor.write.buf[1] = Motor.write.buf[0];
-			mDrive(&Motor,dAction,(int8_t)dDuty,2);	//ORANGE
-			mDrive(&Motor,dAction,(int8_t)dDuty,3);	//ORANGE
-		}
-*/
 /*-------------------------------------------------------------------------------------------------------------------------*/
 		airAct = FREE;
 		if(controller->detail.Button.Y)
 			{
 				airAct = CW;
-				airPort = 0x03;
+				airPort = 0x0C;
 			}
 		else if(controller->detail.Button.ZL)
 			{
 				airAct = CW;
-				airPort = 0x01;
+				airPort = 0x04;
 			}
 		else if(controller->detail.Button.ZR)
 			{
 				airAct = CW;
-				airPort = 0x02;
+				airPort = 0x08;
 			}
 		aDrive(&Air, airPort, airAct);
 /*-------------------------------------------------------------------------------------------------------------------------*/
@@ -344,13 +292,9 @@ int main(void)
 		/*復活!!!!!!!*/
 		else if(controller->detail.Button.HOME){
 			e_flag=E_OFF;
-<<<<<<< HEAD
 			carveEnable = false;
 			carveEnableCount = 0;
 			timeCount = 0;
-=======
-			count = 0;
->>>>>>> 317eb8aadb7b758495f27da2e2f8e6f397e1e755
 		}
 		else e_flag=E_KEEP;	
 
